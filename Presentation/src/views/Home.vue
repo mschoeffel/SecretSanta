@@ -1,11 +1,11 @@
 <template>
     <layout-default>
-        <HelloWorld />
+        <HomeDef />
     </layout-default>
 </template>
 
 <script>
-import HelloWorld from '../components/HelloWorld';
+import HomeDef from '../components/HomeDef';
 import LayoutDefault from '../layouts/LayoutDefault.vue';
 
 
@@ -13,7 +13,7 @@ export default {
   name: 'Home',
 
   components: {
-    HelloWorld,
+    HomeDef,
     LayoutDefault,
   },
 };

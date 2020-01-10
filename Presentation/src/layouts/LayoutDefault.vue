@@ -31,6 +31,10 @@
     >
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
       <v-toolbar-title>Application</v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-btn v-on:click="routeLogin" icon>
+        <v-icon>mdi-account</v-icon>
+      </v-btn>
     </v-app-bar>
 
     <v-content>
@@ -45,14 +49,17 @@
 
 <script>
   export default {
-
-  name: 'LayoutDefault',
-
+    name: 'LayoutDefault',
     props: {
       source: String,
     },
     data: () => ({
-      drawer: null,
-    })
+      drawer: false,
+    }),
+    methods: {
+        routeLogin: function() {
+            this.$router.push({path: '/login'})
+        }
+    }
   }
 </script>
