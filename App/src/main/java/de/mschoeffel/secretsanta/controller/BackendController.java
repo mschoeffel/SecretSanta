@@ -1,9 +1,6 @@
 package de.mschoeffel.secretsanta.controller;
 
 import de.mschoeffel.secretsanta.TestClientService;
-import de.mschoeffel.secretsanta.domain.User;
-import de.mschoeffel.secretsanta.exception.UserNotFoundException;
-import de.mschoeffel.secretsanta.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,9 +19,6 @@ public class BackendController {
     @Autowired
     private TestClientService testClientService;
 
-    @Autowired
-    private UserRepository userRepository;
-
     @RequestMapping(path = "/hello")
     public String sayHello() {
         LOG.info("GET called on /hello resource");
@@ -34,20 +28,13 @@ public class BackendController {
     @RequestMapping(path = "/user/{lastName}/{firstName}", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     public long addNewUser(@PathVariable("lastName") String lastName, @PathVariable("firstName") String firstName) {
-        User savedUser = userRepository.save(new User(firstName, lastName));
-
-        LOG.info(savedUser.toString() + " successfully saved into DB");
-
-        return savedUser.getId();
+       return 1;
     }
 
     @GetMapping(path = "/user/{id}")
-    public User getUserById(@PathVariable("id") long id) {
+    public String getUserById(@PathVariable("id") long id) {
 
-        return userRepository.findById(id).map(user -> {
-            LOG.info("Reading user with id " + id + " from database.");
-            return user;
-        }).orElseThrow(() -> new UserNotFoundException("The user with the id " + id + " couldn't be found in the database."));
+        return "EMPTY";
     }
 
     @RequestMapping(path = "/secured", method = RequestMethod.GET)

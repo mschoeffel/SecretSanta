@@ -6,15 +6,19 @@ import Bootstrap from '@/components/Bootstrap'
 import User from '@/components/User'
 import Login from '@/components/Login'
 import Protected from '@/components/Protected'
+import HelloWorld from '@/components/HelloWorld'
 
 import store from './store'
 
 Vue.use(Router);
 
+const Home = () => import(`./views/Home.vue`);
+
+
 const router = new Router({
     mode: 'history', // uris without hashes #, see https://router.vuejs.org/guide/essentials/history-mode.html#html5-history-mode
     routes: [
-        { path: '/', component: Hello },
+        { path: '/', component: Home },
         { path: '/callservice', component: Service },
         { path: '/bootstrap', component: Bootstrap },
         { path: '/user', component: User },
