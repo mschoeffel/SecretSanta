@@ -3,7 +3,7 @@ package de.mschoeffel.secretsanta.domain;
 import javax.persistence.*;
 
 @Entity
-@Table(name="users")
+@Table(name = "users")
 public class User {
 
     // PrimaryKey
@@ -14,7 +14,8 @@ public class User {
     private String firstName;
     private String lastName;
 
-    protected User() {}
+    protected User() {
+    }
 
     public User(String firstName, String lastName) {
         this.firstName = firstName;

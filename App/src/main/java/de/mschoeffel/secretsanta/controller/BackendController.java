@@ -33,7 +33,7 @@ public class BackendController {
 
     @RequestMapping(path = "/user/{lastName}/{firstName}", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
-    public long addNewUser (@PathVariable("lastName") String lastName, @PathVariable("firstName") String firstName) {
+    public long addNewUser(@PathVariable("lastName") String lastName, @PathVariable("firstName") String firstName) {
         User savedUser = userRepository.save(new User(firstName, lastName));
 
         LOG.info(savedUser.toString() + " successfully saved into DB");
@@ -50,8 +50,9 @@ public class BackendController {
         }).orElseThrow(() -> new UserNotFoundException("The user with the id " + id + " couldn't be found in the database."));
     }
 
-    @RequestMapping(path="/secured", method = RequestMethod.GET)
-    public @ResponseBody String getSecured() {
+    @RequestMapping(path = "/secured", method = RequestMethod.GET)
+    public @ResponseBody
+    String getSecured() {
         LOG.info("GET successfully called on /secured resource");
         return SECURED_TEXT;
     }
