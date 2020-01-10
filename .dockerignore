@@ -1,0 +1,6 @@
+# exclude underlying OS specific node modules
+Presentation/node*
+
+# also leave out pre-build output folders
+Presentation/target
+App/target
