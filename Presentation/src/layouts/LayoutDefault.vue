@@ -10,7 +10,7 @@
             <v-list-item-title>{{ $t('navigation.home')}}</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-        <v-list-item link>
+        <v-list-item link v-on:click="routeNewGroup">
           <v-list-item-action>
             <v-icon>mdi-account-group</v-icon>
           </v-list-item-action>
@@ -59,7 +59,7 @@
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
       <v-toolbar-title>{{ $t('global.title')}}</v-toolbar-title>
       <v-spacer></v-spacer>
-      <div class="language-width" &#x3C;div>
+      <div class="language-width">
         <v-select
           v-model="$i18n.locale"
           :items="langs"
@@ -112,6 +112,9 @@ export default {
     },
     routeRegister: function() {
       this.$router.push({ path: "/register" });
+    },
+    routeNewGroup: function() {
+      this.$router.push({ path: "/newgroup" });
     }
   }
 };

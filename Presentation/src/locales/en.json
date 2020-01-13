@@ -43,5 +43,12 @@
     "passwordsec": "Repeat password",
     "cancel": "Cancel",
     "submit": "Register"
+  },
+  "new-group": {
+    "formtitle": "Create new group",
+    "name": "Groupname",
+    "membercount": "Number of members",
+    "cancel": "Cancel",
+    "next": "Next"
   }
 }

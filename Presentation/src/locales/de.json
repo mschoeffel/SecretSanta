@@ -43,5 +43,12 @@
     "passwordsec": "Passwort wiederholen",
     "cancel": "Abbrechen",
     "submit": "Registrieren"
+  },
+  "new-group": {
+    "formtitle": "Neue Gruppe erstellen",
+    "name": "Gruppenname",
+    "membercount": "Mitgliederzahl",
+    "cancel": "Abbrechen",
+    "next": "Weiter"
   }
 }
