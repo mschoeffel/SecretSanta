@@ -1,13 +1,29 @@
 {
   "global": {
     "title": "Secret Santa",
-    "language": "Language"
+    "language": "Language",
+    "versionnumber": "v0.0.1"
+  },
+  "navigation": {
+    "home": "Home",
+    "create-group": "Create group",
+    "github": "Github",
+    "login": "Log in",
+    "help": "Help"
   },
   "home": {
     "formtitle": "Draw partner",
     "group": "Group",
     "name": "Name",
     "key": "Key",
-    "draw": "Draw"
+    "draw": "Draw",
+    "create-group": "Create group"
+  },
+  "login": {
+    "formtitle": "Log in",
+    "account": "Account",
+    "password": "Password",
+    "submit": "Log in",
+    "back": "Back"
   }
 }

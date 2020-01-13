@@ -4,7 +4,6 @@ import Hello from '@/components/Hello'
 import Service from '@/components/Service'
 import Bootstrap from '@/components/Bootstrap'
 import User from '@/components/User'
-import Login from '@/components/Login'
 import Protected from '@/components/Protected'
 import HelloWorld from '@/components/HelloWorld'
 
@@ -13,6 +12,7 @@ import store from './store'
 Vue.use(Router);
 
 const Home = () => import(`./views/Home.vue`);
+const Login = () => import(`./views/Login.vue`);
 
 
 const router = new Router({

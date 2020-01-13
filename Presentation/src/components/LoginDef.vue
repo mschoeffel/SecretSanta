@@ -18,39 +18,32 @@
                 dark
                 flat
               >
-                <v-toolbar-title>{{ $t('home.formtitle')}}</v-toolbar-title>
+                <v-toolbar-title>{{ $t('login.formtitle')}}</v-toolbar-title>
               </v-toolbar>
               <v-card-text>
                 <v-form>
                   <v-text-field
-                    :label="$t('home.group')"
-                    name="group"
-                    prepend-icon="mdi-account-group"
-                    type="text"
-                  />
-
-                  <v-text-field
-                    :label="$t('home.name')"
+                    :label="$t('login.account')"
                     name="name"
                     prepend-icon="mdi-account"
                     type="text"
                   />
 
                   <v-text-field
-                    :append-icon="showKey ? 'mdi-eye' : 'mdi-eye-off'"
-                    :type="showKey ? 'text' : 'password'"
-                    @click:append="showKey = !showKey"
+                    :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+                    :type="showPassword ? 'text' : 'password'"
+                    @click:append="showPassword = !showPassword"
                     id="key"
-                    :label="$t('home.key')"
-                    name="key"
-                    prepend-icon="mdi-key"
+                    :label="$t('login.password')"
+                    name="password"
+                    prepend-icon="mdi-lock"
                   />
                 </v-form>
               </v-card-text>
               <v-card-actions>
-              <v-btn color="secondary">{{ $t('home.create-group')}}</v-btn>
+              <v-btn color="secondary" v-on:click="routeHome">{{ $t('login.back')}}</v-btn>
                 <v-spacer />
-                <v-btn color="primary">{{ $t('home.draw')}}</v-btn>
+                <v-btn color="primary">{{ $t('login.submit')}}</v-btn>
               </v-card-actions>
             </v-card>
           </v-col>
@@ -64,7 +57,12 @@
       source: String,
     },
     data: () => ({
-        showKey: false
-    })
+        showPassword: false
+      }),
+      methods: {
+              routeHome: function() {
+                  this.$router.push({path: '/'})
+              }
+          }
   }
 </script>

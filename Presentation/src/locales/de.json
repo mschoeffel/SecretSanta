@@ -1,13 +1,29 @@
 {
   "global": {
     "title": "Wichteln",
-    "language": "Sprache"
+    "language": "Sprache",
+    "versionnumber": "v0.0.1"
+  },
+  "navigation": {
+    "home": "Start",
+    "create-group": "Gruppe erstellen",
+    "github": "Github",
+    "login": "Anmelden",
+    "help": "Hilfe"
   },
   "home": {
     "formtitle": "Partner ziehen",
     "group": "Gruppe",
     "name": "Name",
     "key": "Schlüssel",
-    "draw": "Ziehen"
+    "draw": "Ziehen",
+    "create-group": "Gruppe erstellen"
+  },
+  "login": {
+    "formtitle": "Anmelden",
+    "account": "Benutzer",
+    "password": "Passwort",
+    "submit": "Anmelden",
+    "back": "Zurück"
   }
 }

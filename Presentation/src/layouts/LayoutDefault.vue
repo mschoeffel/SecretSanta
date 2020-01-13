@@ -6,22 +6,48 @@
       clipped
     >
       <v-list dense>
-        <v-list-item link>
+        <v-list-item link v-on:click="routeHome">
           <v-list-item-action>
-            <v-icon>mdi-view-dashboard</v-icon>
+            <v-icon>mdi-home</v-icon>
           </v-list-item-action>
           <v-list-item-content>
-            <v-list-item-title>Dashboard</v-list-item-title>
+            <v-list-item-title>{{ $t('navigation.home')}}</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
         <v-list-item link>
           <v-list-item-action>
-            <v-icon>mdi-settings</v-icon>
+            <v-icon>mdi-account-group</v-icon>
           </v-list-item-action>
           <v-list-item-content>
-            <v-list-item-title>Settings</v-list-item-title>
+            <v-list-item-title>{{ $t('navigation.create-group')}}</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
+        <v-divider></v-divider>
+                <v-list-item link v-on:click="routeLogin">
+                          <v-list-item-action>
+                            <v-icon>mdi-login</v-icon>
+                          </v-list-item-action>
+                          <v-list-item-content>
+                            <v-list-item-title>{{ $t('navigation.login')}}</v-list-item-title>
+                          </v-list-item-content>
+                        </v-list-item>
+        <v-divider></v-divider>
+        <v-list-item link>
+                          <v-list-item-action>
+                            <v-icon>mdi-help</v-icon>
+                          </v-list-item-action>
+                          <v-list-item-content>
+                            <v-list-item-title>{{ $t('navigation.help')}}</v-list-item-title>
+                          </v-list-item-content>
+                        </v-list-item>
+        <v-list-item link>
+                  <v-list-item-action>
+                    <v-icon>mdi-github-circle</v-icon>
+                  </v-list-item-action>
+                  <v-list-item-content>
+                    <v-list-item-title>{{ $t('navigation.github')}}</v-list-item-title>
+                  </v-list-item-content>
+                </v-list-item>
       </v-list>
     </v-navigation-drawer>
 
@@ -54,7 +80,7 @@
     </v-content>
 
     <v-footer app>
-      <span>&copy; 2019</span>
+      <span>&copy; 2019 {{ $t('global.versionnumber')}}</span>
     </v-footer>
   </v-app>
 </template>
@@ -78,6 +104,9 @@
     methods: {
         routeLogin: function() {
             this.$router.push({path: '/login'})
+        },
+        routeHome: function() {
+            this.$router.push({path: '/'})
         }
     }
   }
