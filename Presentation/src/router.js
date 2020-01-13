@@ -13,6 +13,8 @@ Vue.use(Router);
 
 const Home = () => import(`./views/Home.vue`);
 const Login = () => import(`./views/Login.vue`);
+const Draw = () => import(`./views/Draw.vue`);
+const Register = () => import(`./views/Register.vue`);
 
 
 const router = new Router({
@@ -23,6 +25,8 @@ const router = new Router({
         { path: '/bootstrap', component: Bootstrap },
         { path: '/user', component: User },
         { path: '/login', component: Login },
+        { path: '/register', component: Register },
+        { path: '/draw', component: Draw },
         {
             path: '/protected',
             component: Protected,

@@ -9,6 +9,7 @@
     "create-group": "Gruppe erstellen",
     "github": "Github",
     "login": "Anmelden",
+    "register": "Registrieren",
     "help": "Hilfe"
   },
   "home": {
@@ -24,6 +25,23 @@
     "account": "Benutzer",
     "password": "Passwort",
     "submit": "Anmelden",
-    "back": "Zurück"
+    "back": "Zurück",
+    "register": "Registrieren"
+  },
+  "draw": {
+    "title": "Ergebnis",
+    "message": "Dein Partner ist:",
+    "accept": "Akzeptieren",
+    "autoaccept": "Nach {n} Minuten wird der Partner automatisch akzeptiert.",
+    "reroll": "Erneut ziehen",
+    "reroll-tooltip": "Du kannst noch {n} mal neu ziehen. Achtung du kannst den selben Partner erneut ziehen."
+  },
+  "register": {
+    "formtitle": "Registrieren",
+    "email": "E-Mail",
+    "password": "Passwort",
+    "passwordsec": "Passwort wiederholen",
+    "cancel": "Abbrechen",
+    "submit": "Registrieren"
   }
 }

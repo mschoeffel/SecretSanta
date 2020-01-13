@@ -1,20 +1,19 @@
 <template>
-    <layout-default>
-        <LoginDef />
-    </layout-default>
+  <layout-default>
+    <LoginDef />
+  </layout-default>
 </template>
 
 <script>
-import LoginDef from '../components/LoginDef';
-import LayoutDefault from '../layouts/LayoutDefault.vue';
-
+import LoginDef from "../components/LoginDef";
+import LayoutDefault from "../layouts/LayoutDefault.vue";
 
 export default {
-  name: 'Login',
+  name: "Login",
 
   components: {
     LoginDef,
-    LayoutDefault,
-  },
+    LayoutDefault
+  }
 };
 </script>

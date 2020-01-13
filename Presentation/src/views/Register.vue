@@ -1,18 +1,18 @@
 <template>
   <layout-default>
-    <HomeDef />
+    <RegisterDef />
   </layout-default>
 </template>
 
 <script>
-import HomeDef from "../components/HomeDef";
+import RegisterDef from "../components/RegisterDef";
 import LayoutDefault from "../layouts/LayoutDefault.vue";
 
 export default {
-  name: "Home",
+  name: "Register",
 
   components: {
-    HomeDef,
+    RegisterDef,
     LayoutDefault
   }
 };

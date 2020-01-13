@@ -1,18 +1,18 @@
 <template>
   <layout-default>
-    <HomeDef />
+    <DrawDef />
   </layout-default>
 </template>
 
 <script>
-import HomeDef from "../components/HomeDef";
+import DrawDef from "../components/DrawDef";
 import LayoutDefault from "../layouts/LayoutDefault.vue";
 
 export default {
-  name: "Home",
+  name: "Draw",
 
   components: {
-    HomeDef,
+    DrawDef,
     LayoutDefault
   }
 };

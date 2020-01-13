@@ -9,6 +9,7 @@
     "create-group": "Create group",
     "github": "Github",
     "login": "Log in",
+    "register": "Register",
     "help": "Help"
   },
   "home": {
@@ -24,6 +25,23 @@
     "account": "Account",
     "password": "Password",
     "submit": "Log in",
-    "back": "Back"
+    "back": "Back",
+    "register": "Register"
+  },
+  "draw": {
+    "title": "Result",
+    "message": "Your partner is:",
+    "accept": "Accept",
+    "autoaccept": "After {n} minutes the partner will be automatically accepted.",
+    "reroll": "Reroll",
+    "reroll-tooltip": "You are abe to reroll {n} times. Care you can roll the same partner again."
+  },
+  "register": {
+    "formtitle": "Register",
+    "email": "E-Mail",
+    "password": "Password",
+    "passwordsec": "Repeat password",
+    "cancel": "Cancel",
+    "submit": "Register"
   }
 }
