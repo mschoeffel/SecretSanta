@@ -6,6 +6,7 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import store from './store'
 import vuetify from './plugins/vuetify';
+import i18n from './i18n'
 
 Vue.config.productionTip = false;
 
@@ -13,6 +14,7 @@ Vue.config.productionTip = false;
 Vue.use(vuetify);
 
 new Vue({
+    i18n,
     router,
     store,
     vuetify,

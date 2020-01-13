@@ -30,11 +30,23 @@
       clipped-left
     >
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
-      <v-toolbar-title>Application</v-toolbar-title>
+      <v-toolbar-title>{{ $t('global.title')}}</v-toolbar-title>
       <v-spacer></v-spacer>
+      <div class
+      <div class="language-width">
+      <v-select
+                v-model="$i18n.locale"
+                :items="langs"
+                :label="$t('global.language')"
+                outlined
+                dense
+                hide-details
+      ></v-select>
+      </div>
       <v-btn v-on:click="routeLogin" icon>
-        <v-icon>mdi-account</v-icon>
+        <v-icon>mdi-login</v-icon>
       </v-btn>
+
     </v-app-bar>
 
     <v-content>
@@ -47,6 +59,12 @@
   </v-app>
 </template>
 
+<style scoped>
+.language-width {
+    width: 100px;
+}
+</style>
+
 <script>
   export default {
     name: 'LayoutDefault',
@@ -55,6 +73,7 @@
     },
     data: () => ({
       drawer: false,
+      langs:['en', 'de'],
     }),
     methods: {
         routeLogin: function() {

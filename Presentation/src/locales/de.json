@@ -1,0 +1,13 @@
+{
+  "global": {
+    "title": "Wichteln",
+    "language": "Sprache"
+  },
+  "home": {
+    "formtitle": "Partner ziehen",
+    "group": "Gruppe",
+    "name": "Name",
+    "key": "Schlüssel",
+    "draw": "Ziehen"
+  }
+}

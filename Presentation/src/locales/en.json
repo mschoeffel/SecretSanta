@@ -1,0 +1,13 @@
+{
+  "global": {
+    "title": "Secret Santa",
+    "language": "Language"
+  },
+  "home": {
+    "formtitle": "Draw partner",
+    "group": "Group",
+    "name": "Name",
+    "key": "Key",
+    "draw": "Draw"
+  }
+}
