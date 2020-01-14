@@ -16,6 +16,7 @@ const Login = () => import(`./views/Login.vue`);
 const Draw = () => import(`./views/Draw.vue`);
 const Register = () => import(`./views/Register.vue`);
 const NewGroup = () => import(`./views/NewGroup.vue`);
+const Group = () => import(`./views/Group.vue`);
 
 
 const router = new Router({
@@ -28,6 +29,7 @@ const router = new Router({
         { path: '/login', component: Login },
         { path: '/register', component: Register },
         { path: '/newgroup', component: NewGroup },
+        { path: '/group', component: Group },
         { path: '/draw', component: Draw },
         {
             path: '/protected',

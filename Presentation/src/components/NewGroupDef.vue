@@ -31,6 +31,7 @@
                     />
                     <v-divider></v-divider>
                     <v-checkbox
+                      :disabled="!allowEmail"
                       v-model="checkbox"
                       name="email"
                       color="primary"
@@ -104,6 +105,7 @@ export default {
   },
   data: () => ({
     showPassword: false,
+    allowEmail: false,
     min: 0,
     max: 50,
     slider: 10,
@@ -127,7 +129,7 @@ export default {
     },
     stepForward: function() {
       if (this.step === 2) {
-        alert("Absenden");
+        this.$router.push({ path: "/group" });
       } else {
         if (this.membercountsave >= this.membercount) {
           this.members.splice(this.membercount);

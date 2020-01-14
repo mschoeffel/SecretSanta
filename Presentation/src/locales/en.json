@@ -57,5 +57,13 @@
     "member-email": "E-Mail",
     "group": "Group",
     "member": "Member"
+  },
+  "group": {
+    "formtitle": "Group: {name}",
+    "number": "Number",
+    "name": "Name",
+    "email": "E-Mail",
+    "key": "Key",
+    "finished": "Finished"
   }
 }
