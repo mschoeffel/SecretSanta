@@ -55,30 +55,30 @@
                 </v-stepper-content>
                 <v-stepper-content key="member" step="2">
                   <v-list>
-                    <div v-for="n in membercount">
-                      <v-subheader>{{n}}</v-subheader>
-                      <v-list-item-group color="primary">
-                        <v-list-item dense>
-                          <v-list-item-content>
-                            <v-text-field
-                              :label="$t('new-group.member-name')"
-                              name="name"
-                              prepend-icon="mdi-account"
-                              type="text"
-                            />
-                          </v-list-item-content>
-                        </v-list-item>
-                        <v-list-item dense v-if="checkbox">
-                          <v-list-item-content>
-                            <v-text-field
-                              :label="$t('new-group.member-email')"
-                              name="name"
-                              prepend-icon="mdi-email"
-                              type="text"
-                            />
-                          </v-list-item-content>
-                        </v-list-item>
-                      </v-list-item-group>
+                    <div v-for="member, index in members">
+                      <v-subheader>{{index + 1}}</v-subheader>
+                      <v-list-item inactive="true" selectable="false">
+                        <v-list-item-content>
+                          <v-text-field
+                            v-model="member.name"
+                            :label="$t('new-group.member-name')"
+                            name="name"
+                            prepend-icon="mdi-account"
+                            type="text"
+                          />
+                        </v-list-item-content>
+                      </v-list-item>
+                      <v-list-item v-if="checkbox" inactive="true" selectable="false">
+                        <v-list-item-content>
+                          <v-text-field
+                            v-model="member.email"
+                            :label="$t('new-group.member-email')"
+                            name="name"
+                            prepend-icon="mdi-email"
+                            type="text"
+                          />
+                        </v-list-item-content>
+                      </v-list-item>
                       <v-divider v-if="n < membercount"></v-divider>
                     </div>
                   </v-list>
@@ -113,7 +113,9 @@ export default {
     minRerolls: 0,
     maxRerolls: 5,
     step: 1,
-    membercount: 0
+    membercount: 0,
+    membercountsave: 0,
+    members: []
   }),
   methods: {
     stepBack: function() {
@@ -127,6 +129,17 @@ export default {
       if (this.step === 2) {
         alert("Absenden");
       } else {
+        if (this.membercountsave >= this.membercount) {
+          this.members.splice(this.membercount);
+          this.membercountsave = this.membercount;
+        } else if (this.membercountsave <= this.membercount) {
+          let memberstemp = Array.from(
+            { length: this.membercount - this.membercountsave },
+            () => ({ name: "", email: "" })
+          );
+          this.members = this.members.concat(memberstemp);
+          this.membercountsave = this.membercount;
+        }
         this.step += 1;
       }
     }
