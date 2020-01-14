@@ -48,7 +48,14 @@
     "formtitle": "Neue Gruppe erstellen",
     "name": "Gruppenname",
     "membercount": "Mitgliederzahl",
-    "cancel": "Abbrechen",
-    "next": "Weiter"
+    "email": "Zugangsdaten per E-Mail versenden",
+    "rerolls": "Neuwahl zulassen",
+    "rerolls-slider": "Anzahl an Neuwahlen",
+    "back": "Abbrechen | Zurück",
+    "next": "Weiter | Erstellen",
+    "member-name": "Name",
+    "member-email": "E-Mail",
+    "group": "Gruppe",
+    "member": "Mitglieder"
   }
 }

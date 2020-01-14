@@ -48,7 +48,14 @@
     "formtitle": "Create new group",
     "name": "Groupname",
     "membercount": "Number of members",
-    "cancel": "Cancel",
-    "next": "Next"
+    "email": "Send credentials via E-Mail",
+    "rerolls": "Allow rerolls",
+    "rerolls-slider": "Number of possible rerolls",
+    "back": "Home | Back",
+    "next": "Next | Create",
+    "member-name": "Name",
+    "member-email": "E-Mail",
+    "group": "Group",
+    "member": "Member"
   }
 }

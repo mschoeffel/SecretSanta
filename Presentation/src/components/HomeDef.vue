@@ -34,7 +34,7 @@
             </v-form>
           </v-card-text>
           <v-card-actions>
-            <v-btn color="secondary">{{ $t('home.create-group')}}</v-btn>
+            <v-btn color="secondary" v-on:click="routeNewGroup">{{ $t('home.create-group')}}</v-btn>
             <v-spacer />
             <v-btn color="primary">{{ $t('home.draw')}}</v-btn>
           </v-card-actions>
@@ -51,6 +51,11 @@ export default {
   },
   data: () => ({
     showKey: false
-  })
+  }),
+  methods: {
+    routeNewGroup: function() {
+      this.$router.push({ path: "/newgroup" });
+    },
+  }
 };
 </script>

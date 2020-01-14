@@ -7,39 +7,89 @@
             <v-toolbar-title>{{ $t('new-group.formtitle')}}</v-toolbar-title>
           </v-toolbar>
           <v-card-text>
-            <v-form>
-              <v-text-field
-                :label="$t('new-group.name')"
-                name="name"
-                prepend-icon="mdi-account-group"
-                type="text"
-              />
-              <v-subheader>{{ $t('new-group.membercount')}}</v-subheader>
-              <v-slider
-                v-model="slider"
-                class="align-center"
-                :max="max"
-                :min="min"
-                hide-details
-                prepend-icon="mdi-numeric"
-              >
-                <template v-slot:append>
-                  <v-text-field
-                    v-model="slider"
-                    class="mt-0 pt-0"
-                    hide-details
-                    single-line
-                    type="number"
-                    style="width: 60px"
-                  ></v-text-field>
-                </template>
-              </v-slider>
-            </v-form>
+            <v-stepper v-model="step" non-linear>
+              <v-stepper-header>
+                <v-stepper-step key="group" step="1">{{ $t('new-group.group')}}</v-stepper-step>
+                <v-divider></v-divider>
+                <v-stepper-step key="member" step="2">{{ $t('new-group.member')}}</v-stepper-step>
+              </v-stepper-header>
+              <v-stepper-items>
+                <v-stepper-content key="group" step="1">
+                  <v-form>
+                    <v-text-field
+                      :label="$t('new-group.name')"
+                      name="name"
+                      prepend-icon="mdi-account-group"
+                      type="text"
+                    />
+                    <v-text-field
+                      :label="$t('new-group.membercount')"
+                      v-model.number="membercount"
+                      name="name"
+                      prepend-icon="mdi-numeric"
+                      type="number"
+                    />
+                    <v-divider></v-divider>
+                    <v-checkbox
+                      v-model="checkbox"
+                      name="email"
+                      color="primary"
+                      :label="$t('new-group.email')"
+                      prepend-icon="mdi-email-lock"
+                    ></v-checkbox>
+                    <v-divider></v-divider>
+                    <v-checkbox
+                      v-model="checkboxRerolls"
+                      color="primary"
+                      :label="$t('new-group.rerolls')"
+                      prepend-icon="mdi-sync"
+                    ></v-checkbox>
+                    <v-text-field
+                      :label="$t('new-group.rerolls-slider')"
+                      name="name"
+                      prepend-icon="mdi-sync"
+                      :disabled="!checkboxRerolls"
+                      type="number"
+                    />
+                  </v-form>
+                </v-stepper-content>
+                <v-stepper-content key="member" step="2">
+                  <v-list>
+                    <div v-for="n in membercount">
+                      <v-subheader>{{n}}</v-subheader>
+                      <v-list-item-group color="primary">
+                        <v-list-item dense>
+                          <v-list-item-content>
+                            <v-text-field
+                              :label="$t('new-group.member-name')"
+                              name="name"
+                              prepend-icon="mdi-account"
+                              type="text"
+                            />
+                          </v-list-item-content>
+                        </v-list-item>
+                        <v-list-item dense v-if="checkbox">
+                          <v-list-item-content>
+                            <v-text-field
+                              :label="$t('new-group.member-email')"
+                              name="name"
+                              prepend-icon="mdi-email"
+                              type="text"
+                            />
+                          </v-list-item-content>
+                        </v-list-item>
+                      </v-list-item-group>
+                      <v-divider v-if="n < membercount"></v-divider>
+                    </div>
+                  </v-list>
+                </v-stepper-content>
+              </v-stepper-items>
+            </v-stepper>
           </v-card-text>
           <v-card-actions>
-            <v-btn color="secondary" v-on:click="routeHome">{{ $t('new-group.cancel')}}</v-btn>
+            <v-btn color="secondary" v-on:click="stepBack">{{ $tc('new-group.back', step)}}</v-btn>
             <v-spacer />
-            <v-btn color="primary">{{ $t('new-group.next')}}</v-btn>
+            <v-btn color="primary" v-on:click="stepForward">{{ $tc('new-group.next', step)}}</v-btn>
           </v-card-actions>
         </v-card>
       </v-col>
@@ -56,11 +106,29 @@ export default {
     showPassword: false,
     min: 0,
     max: 50,
-    slider: 10
+    slider: 10,
+    checkbox: false,
+    checkboxRerolls: false,
+    sliderRerolls: 0,
+    minRerolls: 0,
+    maxRerolls: 5,
+    step: 1,
+    membercount: 0
   }),
   methods: {
-    routeHome: function() {
-      this.$router.push({ path: "/" });
+    stepBack: function() {
+      if (this.step === 1) {
+        this.$router.push({ path: "/" });
+      } else {
+        this.step -= 1;
+      }
+    },
+    stepForward: function() {
+      if (this.step === 2) {
+        alert("Absenden");
+      } else {
+        this.step += 1;
+      }
     }
   }
 };

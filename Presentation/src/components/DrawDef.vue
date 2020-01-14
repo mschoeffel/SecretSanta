@@ -17,7 +17,8 @@
           </v-card-text>
           <v-card-actions>
             <v-tooltip bottom>
-              <template v-slot:activator="{ on }">
+              <template v-slot:activator="{ on }">     
+                <v-badge color="green" content="6" bordered overlap>
                 <v-btn color="secondary" dark v-on="on">{{ $t('draw.reroll')}}</v-btn>
               </template>
               <span>{{ $tc('draw.reroll-tooltip', 1)}}</span>
