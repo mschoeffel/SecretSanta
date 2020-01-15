@@ -1,18 +1,19 @@
 package de.mschoeffel.secretsanta.service;
 
 import de.mschoeffel.secretsanta.dto.GroupDto;
+import de.mschoeffel.secretsanta.interaction.CopyRerollsToMember;
+import de.mschoeffel.secretsanta.interaction.CreateGroup;
+import de.mschoeffel.secretsanta.interaction.CreatePlainGroup;
+import de.mschoeffel.secretsanta.interaction.GenerateKeysToGroup;
 import de.mschoeffel.secretsanta.mapper.GroupMapper;
-import de.mschoeffel.secretsanta.mapper.GroupMemberMapper;
 import de.mschoeffel.secretsanta.model.Group;
-import de.mschoeffel.secretsanta.model.GroupMember;
 import de.mschoeffel.secretsanta.repository.GroupMemberRepository;
 import de.mschoeffel.secretsanta.repository.GroupRepository;
+import de.mschoeffel.secretsanta.service.v1.GroupClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
-import java.util.Optional;
 
 @Service
 public class GroupServiceImpl implements GroupService{
@@ -23,21 +24,15 @@ public class GroupServiceImpl implements GroupService{
     @Autowired
     private GroupMemberRepository groupMemberRepository;
 
+    @Autowired
+    private GroupClientService groupClientService;
+
     @Override
     public GroupDto createGroup(GroupDto groupDto) {
-        if(checkGroupName(groupDto.getName())){
-            throw new EntityExistsException();
-        }
         GroupMapper mapper = new GroupMapper();
-        GroupMemberMapper groupMemberMapper = new GroupMemberMapper();
 
-        Group group = groupRepository.save(mapper.dtoToEntity(groupDto));
-
-        groupDto.getMembers().forEach(member -> {
-            GroupMember groupMember = groupMemberMapper.dtoToEntity(member);
-            groupMember.setGroup(group);
-            groupMemberRepository.save(groupMember);
-        });
+        CreateGroup createGroup = new CreateGroup(mapper.dtoToEntity(groupDto), groupRepository, groupMemberRepository, groupClientService);
+        Group group = createGroup.execute();
 
         return mapper.entityToDto(group);
     }
@@ -48,6 +43,11 @@ public class GroupServiceImpl implements GroupService{
         return mapper.entityToDto(groupRepository.findByName(name).orElseThrow(EntityNotFoundException::new));
     }
 
+    /**
+     * Checks if a group with the given name already exists.
+     * @param name Name to check for.
+     * @return true if the already is a group with the given name, false if there isn't.
+     */
     public boolean checkGroupName(String name){
         return groupRepository.existsByName(name);
     }

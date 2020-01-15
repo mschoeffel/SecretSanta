@@ -14,9 +14,6 @@ public class GroupServiceEmb implements GroupClientService{
 
     @Override
     public GroupClientDto createGroup(GroupClientDto group) {
-
-        group.getMembers().forEach(member -> member.setRerolls(group.getRerolls()));
-
         GroupClientMapper mapper = new GroupClientMapper();
         return mapper.dtoToClientDto(groupService.createGroup(mapper.clientDtoToDto(group)));
     }
@@ -27,6 +24,11 @@ public class GroupServiceEmb implements GroupClientService{
         return mapper.dtoToClientDto(groupService.findGroupByName(name));
     }
 
+    /**
+     * Checks if a group with the given name already exists.
+     * @param name Name to check for.
+     * @return true if the already is a group with the given name, false if there isn't.
+     */
     @Override
     public boolean checkGroupName(String name) {
         return groupService.checkGroupName(name);
