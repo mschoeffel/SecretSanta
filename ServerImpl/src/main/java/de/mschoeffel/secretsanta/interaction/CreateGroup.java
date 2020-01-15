@@ -4,6 +4,9 @@ import de.mschoeffel.secretsanta.model.Group;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+/**
+ * Interaction to create a new group wit all the necessary information like key generation and member - group connection.
+ */
 @Component
 public class CreateGroup {
 

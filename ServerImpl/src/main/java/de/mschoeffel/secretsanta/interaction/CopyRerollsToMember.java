@@ -8,6 +8,9 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+/**
+ * Interaction to copy the number of rerolls from the group to all the members of the group.
+ */
 @Component
 public class CopyRerollsToMember {
 

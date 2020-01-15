@@ -12,6 +12,11 @@ public class GroupServiceEmb implements GroupClientService{
     @Autowired
     private GroupService groupService;
 
+    /**
+     * Creates a new group with all necessary information like key generation and member-group connection.
+     * @param group Group to create.
+     * @return Created group.
+     */
     @Override
     public GroupClientDto createGroup(GroupClientDto group) {
         GroupClientMapper mapper = new GroupClientMapper();

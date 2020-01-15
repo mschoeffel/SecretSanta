@@ -9,6 +9,9 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+/**
+ * Interaction to generate the key for every member of a given group.
+ */
 @Component
 public class GenerateKeysToGroup {
 

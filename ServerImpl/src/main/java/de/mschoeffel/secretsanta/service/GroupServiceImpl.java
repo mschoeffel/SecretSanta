@@ -24,6 +24,11 @@ public class GroupServiceImpl implements GroupService{
     @Autowired
     private CreateGroup createGroup;
 
+    /**
+     * Creates a new group with all necessary information like key generation and member-group connection.
+     * @param groupDto Group to create.
+     * @return Created group.
+     */
     @Override
     public GroupDto createGroup(GroupDto groupDto) {
         GroupMapper mapper = new GroupMapper();

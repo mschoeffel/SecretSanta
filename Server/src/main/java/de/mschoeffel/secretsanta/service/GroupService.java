@@ -6,6 +6,11 @@ import java.util.Optional;
 
 public interface GroupService {
 
+    /**
+     * Creates a new group with all necessary information like key generation and member-group connection.
+     * @param groupDto Group to create.
+     * @return Created group.
+     */
     GroupDto createGroup(GroupDto groupDto);
     GroupDto findGroupByName(String name);
 

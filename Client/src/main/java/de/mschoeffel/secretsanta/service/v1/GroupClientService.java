@@ -4,6 +4,11 @@ import de.mschoeffel.secretsanta.model.v1.GroupClientDto;
 
 public interface GroupClientService {
 
+    /**
+     * Creates a new group with all necessary information like key generation and member-group connection.
+     * @param group Group to create.
+     * @return Created group.
+     */
     GroupClientDto createGroup(GroupClientDto group);
     GroupClientDto findGroupByName(String name);
 

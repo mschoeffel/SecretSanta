@@ -10,6 +10,9 @@ import org.springframework.stereotype.Component;
 
 import javax.persistence.EntityExistsException;
 
+/**
+ * Interaction to create a plain group and members without any further information.
+ */
 @Component
 public class CreatePlainGroup {
 
