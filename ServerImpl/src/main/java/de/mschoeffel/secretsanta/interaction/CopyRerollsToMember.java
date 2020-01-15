@@ -3,19 +3,27 @@ package de.mschoeffel.secretsanta.interaction;
 import de.mschoeffel.secretsanta.model.Group;
 import de.mschoeffel.secretsanta.model.GroupMember;
 import de.mschoeffel.secretsanta.repository.GroupMemberRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
 public class CopyRerollsToMember {
 
     private Group group;
     private List<GroupMember> groupMember;
+
     private GroupMemberRepository groupMemberRepository;
 
-    public CopyRerollsToMember(Group group, GroupMemberRepository groupMemberRepository){
+    @Autowired
+    public CopyRerollsToMember(GroupMemberRepository groupMemberRepository){
+        this.groupMemberRepository = groupMemberRepository;
+    }
+
+    public void initialize(Group group){
         this.group = group;
         this.groupMember = group.getGroupMember();
-        this.groupMemberRepository = groupMemberRepository;
     }
 
     public Group execute(){

@@ -22,16 +22,13 @@ public class GroupServiceImpl implements GroupService{
     private GroupRepository groupRepository;
 
     @Autowired
-    private GroupMemberRepository groupMemberRepository;
-
-    @Autowired
-    private GroupClientService groupClientService;
+    private CreateGroup createGroup;
 
     @Override
     public GroupDto createGroup(GroupDto groupDto) {
         GroupMapper mapper = new GroupMapper();
 
-        CreateGroup createGroup = new CreateGroup(mapper.dtoToEntity(groupDto), groupRepository, groupMemberRepository, groupClientService);
+        createGroup.initialize(mapper.dtoToEntity(groupDto));
         Group group = createGroup.execute();
 
         return mapper.entityToDto(group);

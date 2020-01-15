@@ -5,9 +5,12 @@ import de.mschoeffel.secretsanta.model.GroupMember;
 import de.mschoeffel.secretsanta.repository.GroupMemberRepository;
 import de.mschoeffel.secretsanta.repository.GroupRepository;
 import de.mschoeffel.secretsanta.service.v1.GroupClientService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.EntityExistsException;
 
+@Component
 public class CreatePlainGroup {
 
     private Group group;
@@ -15,11 +18,15 @@ public class CreatePlainGroup {
     private GroupMemberRepository groupMemberRepository;
     private GroupClientService groupClientService;
 
-    public CreatePlainGroup(Group group, GroupRepository groupRepository, GroupMemberRepository groupMemberRepository, GroupClientService groupClientService){
-        this.group = group;
+    @Autowired
+    public CreatePlainGroup(GroupRepository groupRepository, GroupMemberRepository groupMemberRepository, GroupClientService groupClientService){
         this.groupRepository= groupRepository;
         this.groupMemberRepository = groupMemberRepository;
         this.groupClientService = groupClientService;
+    }
+
+    public void initialize(Group group){
+        this.group = group;
     }
 
     public Group execute(){

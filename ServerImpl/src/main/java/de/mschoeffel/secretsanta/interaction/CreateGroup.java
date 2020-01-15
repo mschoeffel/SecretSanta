@@ -1,33 +1,37 @@
 package de.mschoeffel.secretsanta.interaction;
 
-import de.mschoeffel.secretsanta.mapper.GroupMapper;
 import de.mschoeffel.secretsanta.model.Group;
-import de.mschoeffel.secretsanta.repository.GroupMemberRepository;
-import de.mschoeffel.secretsanta.repository.GroupRepository;
-import de.mschoeffel.secretsanta.service.v1.GroupClientService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class CreateGroup {
 
     private Group group;
-    private GroupRepository groupRepository;
-    private GroupMemberRepository groupMemberRepository;
-    private  GroupClientService groupClientService;
 
-    public CreateGroup(Group group, GroupRepository groupRepository, GroupMemberRepository groupMemberRepository, GroupClientService groupClientService){
+    private CreatePlainGroup createPlainGroup;
+    private CopyRerollsToMember copyRerollsToMember;
+    private GenerateKeysToGroup generateKeysToGroup;
+
+    @Autowired
+    public CreateGroup(CreatePlainGroup createPlainGroup, CopyRerollsToMember copyRerollsToMember, GenerateKeysToGroup generateKeysToGroup){
+        this.createPlainGroup = createPlainGroup;
+        this.copyRerollsToMember = copyRerollsToMember;
+        this.generateKeysToGroup = generateKeysToGroup;
+    }
+
+    public void initialize(Group group){
         this.group = group;
-        this.groupRepository = groupRepository;
-        this.groupMemberRepository = groupMemberRepository;
-        this.groupClientService = groupClientService;
     }
 
     public Group execute(){
-        CreatePlainGroup createPlainGroup = new CreatePlainGroup(group, groupRepository, groupMemberRepository, groupClientService);
+        createPlainGroup.initialize(group);
         Group group = createPlainGroup.execute();
 
-        CopyRerollsToMember copyRerollsToMember = new CopyRerollsToMember(group, groupMemberRepository);
+        copyRerollsToMember.initialize(group);
         group = copyRerollsToMember.execute();
 
-        GenerateKeysToGroup generateKeysToGroup = new GenerateKeysToGroup(group, groupMemberRepository);
+        generateKeysToGroup.initialize(group);
         group = generateKeysToGroup.execute();
 
         return group;

@@ -3,12 +3,13 @@ package de.mschoeffel.secretsanta.interaction;
 import de.mschoeffel.secretsanta.model.Group;
 import de.mschoeffel.secretsanta.model.GroupMember;
 import de.mschoeffel.secretsanta.repository.GroupMemberRepository;
-import de.mschoeffel.secretsanta.service.GroupMemberService;
 import net.bytebuddy.utility.RandomString;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
 public class GenerateKeysToGroup {
 
     private Group group;
@@ -16,10 +17,14 @@ public class GenerateKeysToGroup {
 
     private GroupMemberRepository groupMemberRepository;
 
-    public GenerateKeysToGroup(Group group, GroupMemberRepository groupMemberRepository){
+    @Autowired
+    public GenerateKeysToGroup(GroupMemberRepository groupMemberRepository){
+        this.groupMemberRepository = groupMemberRepository;
+    }
+
+    public void initialize(Group group){
         this.group = group;
         this.groupMember = group.getGroupMember();
-        this.groupMemberRepository = groupMemberRepository;
     }
 
     public Group execute(){
