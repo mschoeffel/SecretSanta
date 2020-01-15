@@ -16,13 +16,15 @@
               <v-stepper-items>
                 <v-stepper-content key="group" step="1">
                   <v-form>
-                    <v-text-field
-                      :label="$t('new-group.name')"
-                      name="name"
-                      v-model="groupname"
-                      prepend-icon="mdi-account-group"
-                      type="text"
-                    />
+                      <v-text-field
+                        :label="$t('new-group.name')"
+                        :error-messages="$t(groupnameerror)"
+                        name="name"
+                        v-model="groupname"
+                        v-on:change="checkGroupName"
+                        prepend-icon="mdi-account-group"
+                        type="text"
+                      />
                     <v-text-field
                       :label="$t('new-group.membercount')"
                       v-model.number="membercount"
@@ -109,6 +111,7 @@ export default {
   },
   data: () => ({
     groupname: "",
+    groupnameerror: "",
     rerolls: 0,
     showPassword: false,
     allowEmail: false,
@@ -133,10 +136,34 @@ export default {
         this.step -= 1;
       }
     },
+    checkGroupName: function(){
+        api.checkGroupName(this.groupname)
+        .then(response => {
+            console.log(response);
+            if(response.data == true){
+                this.groupnameerror = "new-group.error-groupname-exists";
+            } else{
+                this.groupnameerror = "";
+            }
+        })
+    },
     stepForward: function() {
       if (this.step === 2) {
-        api.createGroup(this.groupname, this.rerolls, this.members);
-        this.$router.push({ path: "/group" });
+
+        api.createGroup(this.groupname, this.rerolls, this.members)
+        .then(response => {
+             console.log(response);
+             this.$router.push({ path: "/group" });
+        })
+        .catch(
+            error => {
+            console.log(error.response);
+            if(error.response.status == 409){
+                this.groupnameerror = "new-group.error-groupname-exists";
+                this.step = 1;
+            }
+        });
+
       } else {
         if (this.membercountsave >= this.membercount) {
           this.members.splice(this.membercount);

@@ -30,6 +30,9 @@ export default {
             rerolls: rerolls,
             members: members
         });
+    },
+    checkGroupName(name){
+    return AXIOS.get('/v1/group/check/'+ name);
     }
 }
 

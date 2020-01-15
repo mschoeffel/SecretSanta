@@ -10,7 +10,9 @@ import de.mschoeffel.secretsanta.repository.GroupRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
+import java.util.Optional;
 
 @Service
 public class GroupServiceImpl implements GroupService{
@@ -23,6 +25,9 @@ public class GroupServiceImpl implements GroupService{
 
     @Override
     public GroupDto createGroup(GroupDto groupDto) {
+        if(checkGroupName(groupDto.getName())){
+            throw new EntityExistsException();
+        }
         GroupMapper mapper = new GroupMapper();
         GroupMemberMapper groupMemberMapper = new GroupMemberMapper();
 
@@ -41,5 +46,9 @@ public class GroupServiceImpl implements GroupService{
     public GroupDto findGroupByName(String name) {
         GroupMapper mapper = new GroupMapper();
         return mapper.entityToDto(groupRepository.findByName(name).orElseThrow(EntityNotFoundException::new));
+    }
+
+    public boolean checkGroupName(String name){
+        return groupRepository.existsByName(name);
     }
 }

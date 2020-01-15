@@ -26,4 +26,9 @@ public class GroupServiceEmb implements GroupClientService{
         GroupClientMapper mapper = new GroupClientMapper();
         return mapper.dtoToClientDto(groupService.findGroupByName(name));
     }
+
+    @Override
+    public boolean checkGroupName(String name) {
+        return groupService.checkGroupName(name);
+    }
 }

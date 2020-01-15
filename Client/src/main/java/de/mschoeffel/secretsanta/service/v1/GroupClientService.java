@@ -6,4 +6,5 @@ public interface GroupClientService {
 
     GroupClientDto createGroup(GroupClientDto group);
     GroupClientDto findGroupByName(String name);
+    boolean checkGroupName(String name);
 }

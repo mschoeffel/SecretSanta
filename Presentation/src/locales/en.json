@@ -56,7 +56,8 @@
     "member-name": "Name",
     "member-email": "E-Mail",
     "group": "Group",
-    "member": "Member"
+    "member": "Member",
+    "error-groupname-exists": "Groupname already exists"
   },
   "group": {
     "formtitle": "Group: {name}",
