@@ -18,6 +18,9 @@ public class GroupMember extends HasId{
     @JoinColumn(name = "partner_id")
     private GroupMember partner;
 
+    public GroupMember() {
+    }
+
     public String getName() {
         return name;
     }

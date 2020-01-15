@@ -1,14 +1,18 @@
 package de.mschoeffel.secretsanta.controller;
 
 import de.mschoeffel.secretsanta.TestClientService;
+import de.mschoeffel.secretsanta.model.v1.GroupClientDto;
+import de.mschoeffel.secretsanta.model.v1.GroupMemberClientDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.stream.Collectors;
+
 @RestController()
-@RequestMapping("/api")
+@RequestMapping("/api/v0")
 public class BackendController {
 
     private static final Logger LOG = LoggerFactory.getLogger(BackendController.class);
@@ -50,6 +54,15 @@ public class BackendController {
     public String redirectApi() {
         LOG.info("URL entered directly into the Browser, so we need to redirect...");
         return "forward:/";
+    }
+
+    @RequestMapping(value = "/group", method = RequestMethod.POST)
+    public long addNewGroup(@RequestBody GroupClientDto data){
+        LOG.info("Data received: " + data.getName());
+        LOG.info("Data received: " + data.getRerolls());
+        LOG.info("Data received: " + data.getMembers().size());
+        LOG.info("Data received: " + data.getMembers().stream().map(GroupMemberClientDto::getName).collect(Collectors.joining(",")));
+        return 1L;
     }
 
 }

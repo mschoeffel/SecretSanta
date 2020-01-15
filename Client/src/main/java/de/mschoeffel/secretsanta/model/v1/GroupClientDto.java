@@ -1,14 +1,23 @@
-package de.mschoeffel.secretsanta.dto;
+package de.mschoeffel.secretsanta.model.v1;
 
 import java.util.List;
 
-public class GroupDto extends HasIdDto{
+public class GroupClientDto {
 
+    private Long id;
     private String name;
     private Integer rerolls;
-    private List<GroupMemberDto> members;
+    private List<GroupMemberClientDto> members;
 
-    public GroupDto() {
+    public GroupClientDto() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -27,11 +36,11 @@ public class GroupDto extends HasIdDto{
         this.rerolls = rerolls;
     }
 
-    public List<GroupMemberDto> getMembers() {
+    public List<GroupMemberClientDto> getMembers() {
         return members;
     }
 
-    public void setMembers(List<GroupMemberDto> members) {
+    public void setMembers(List<GroupMemberClientDto> members) {
         this.members = members;
     }
 
@@ -40,8 +49,8 @@ public class GroupDto extends HasIdDto{
         return "GroupClientDto{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", rerolls=" + rerolls +
                 ", members=" + members +
                 '}';
     }
-
 }

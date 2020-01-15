@@ -19,6 +19,7 @@
                     <v-text-field
                       :label="$t('new-group.name')"
                       name="name"
+                      v-model="groupname"
                       prepend-icon="mdi-account-group"
                       type="text"
                     />
@@ -47,7 +48,8 @@
                     ></v-checkbox>
                     <v-text-field
                       :label="$t('new-group.rerolls-slider')"
-                      name="name"
+                      name="rerolls"
+                      v-model="rerolls"
                       prepend-icon="mdi-sync"
                       :disabled="!checkboxRerolls"
                       type="number"
@@ -99,11 +101,15 @@
 </template>
 
 <script>
+import api from "./backend-api";
+
 export default {
   props: {
     source: String
   },
   data: () => ({
+    groupname: "",
+    rerolls: 0,
     showPassword: false,
     allowEmail: false,
     min: 0,
@@ -129,6 +135,7 @@ export default {
     },
     stepForward: function() {
       if (this.step === 2) {
+        api.createGroup(this.groupname, this.rerolls, this.members);
         this.$router.push({ path: "/group" });
       } else {
         if (this.membercountsave >= this.membercount) {

@@ -1,13 +1,14 @@
-package de.mschoeffel.secretsanta.dto;
+package de.mschoeffel.secretsanta.model.v1;
 
-public class GroupMemberDto extends HasIdDto {
+public class GroupMemberClientDto {
 
+    private Long id;
     private String name;
     private String key;
     private Integer rerolls;
-    private GroupMemberDto partner;
+    private GroupMemberClientDto partner;
 
-    public GroupMemberDto() {
+    public GroupMemberClientDto() {
     }
 
     public Long getId() {
@@ -42,22 +43,22 @@ public class GroupMemberDto extends HasIdDto {
         this.rerolls = rerolls;
     }
 
-    public GroupMemberDto getPartner() {
+    public GroupMemberClientDto getPartner() {
         return partner;
     }
 
-    public void setPartner(GroupMemberDto partner) {
+    public void setPartner(GroupMemberClientDto partner) {
         this.partner = partner;
     }
 
     @Override
     public String toString() {
-        return "GroupMemberDto{" +
-                "name='" + name + '\'' +
+        return "MemberClientDto{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
                 ", key='" + key + '\'' +
                 ", rerolls=" + rerolls +
                 ", partner=" + partner +
-                ", id=" + id +
                 '}';
     }
 }

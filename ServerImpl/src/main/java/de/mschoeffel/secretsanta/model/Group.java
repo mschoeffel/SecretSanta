@@ -1,18 +1,22 @@
 package de.mschoeffel.secretsanta.model;
 
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.List;
 
 @Entity(name = "Group")
-@Table(name = "Group")
+@Table(name = "DrawGroup", uniqueConstraints = {
+        @UniqueConstraint(columnNames = "name")
+})
 public class Group extends HasId {
 
     private String name;
+    private Integer rerolls;
 
-    @OneToMany(mappedBy = "group")
+    @OneToMany(mappedBy = "group", cascade = CascadeType.ALL)
     private List<GroupMember> groupMember;
+
+    public Group() {
+    }
 
     public String getName() {
         return name;
@@ -20,6 +24,14 @@ public class Group extends HasId {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Integer getRerolls() {
+        return rerolls;
+    }
+
+    public void setRerolls(Integer rerolls) {
+        this.rerolls = rerolls;
     }
 
     public List<GroupMember> getGroupMember() {

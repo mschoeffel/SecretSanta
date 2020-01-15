@@ -34,7 +34,7 @@ public class BackendControllerTest {
     @Test
     public void saysHello() {
         when()
-                .get("/api/hello")
+                .get("/api/v0/hello")
                 .then()
                 .statusCode(HttpStatus.SC_OK)
                 .assertThat()
@@ -59,7 +59,7 @@ public class BackendControllerTest {
 
         given()
                 .when()
-                .get("/api/secured")
+                .get("/api/v0/secured")
                 .then()
                 .statusCode(HttpStatus.SC_UNAUTHORIZED);
     }
@@ -70,7 +70,7 @@ public class BackendControllerTest {
         given()
                 .auth().basic("sina", "miller")
                 .when()
-                .get("/api/secured")
+                .get("/api/v0/secured")
                 .then()
                 .statusCode(HttpStatus.SC_OK)
                 .assertThat()

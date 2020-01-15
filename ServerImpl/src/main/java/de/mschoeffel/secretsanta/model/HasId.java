@@ -13,13 +13,13 @@ public abstract class HasId {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    protected Long id;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
-    private LocalDateTime insdate;
+    protected LocalDateTime insdate;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
-    private LocalDateTime upddate;
+    protected LocalDateTime upddate;
 
     public Long getId() {
         return id;

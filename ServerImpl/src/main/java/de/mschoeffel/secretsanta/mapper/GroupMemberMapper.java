@@ -8,16 +8,38 @@ import java.util.stream.Collectors;
 
 public class GroupMemberMapper {
 
-    GroupMemberDto entityToDto(GroupMember groupMember){
-        GroupMemberDto groupMemberDto = new GroupMemberDto();
+    public GroupMemberDto entityToDto(GroupMember groupMember){
+        if(groupMember != null) {
+            GroupMemberDto groupMemberDto = new GroupMemberDto();
 
-        return groupMemberDto;
+            groupMemberDto.setId(groupMember.getId());
+            groupMemberDto.setName(groupMember.getName());
+            groupMemberDto.setRerolls(groupMember.getRerolls());
+            groupMemberDto.setKey(groupMember.getKey());
+
+            //TODO: This will break: Infinite loop of evaluating partner
+            groupMemberDto.setPartner(entityToDto(groupMember.getPartner()));
+
+            return groupMemberDto;
+        }
+        return null;
     }
 
-    GroupMember dtoToEntity(GroupMemberDto groupMemberDto){
-        GroupMember groupMember = new GroupMember();
+    public GroupMember dtoToEntity(GroupMemberDto groupMemberDto){
+        if(groupMemberDto != null) {
+            GroupMember groupMember = new GroupMember();
 
-        return groupMember;
+            groupMember.setId(groupMemberDto.getId());
+            groupMember.setName(groupMemberDto.getName());
+            groupMember.setRerolls(groupMemberDto.getRerolls());
+            groupMember.setKey(groupMemberDto.getKey());
+
+            //TODO: This will break: Infinite loop of evaluating partner
+            groupMember.setPartner(dtoToEntity(groupMemberDto.getPartner()));
+
+            return groupMember;
+        }
+        return null;
     }
 
     List<GroupMemberDto> entityToDto(List<GroupMember> groupMember){
