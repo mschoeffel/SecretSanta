@@ -8,8 +8,8 @@ import java.util.stream.Collectors;
 
 public class GroupMemberClientMapper {
 
-    public GroupMemberDto clientDtoToDto(GroupMemberClientDto groupMemberClientDto){
-        if(groupMemberClientDto != null) {
+    public GroupMemberDto clientDtoToDto(GroupMemberClientDto groupMemberClientDto, int layer){
+        if(groupMemberClientDto != null && layer < 2) {
             GroupMemberDto groupMemberDto = new GroupMemberDto();
 
             groupMemberDto.setId(groupMemberClientDto.getId());
@@ -17,16 +17,16 @@ public class GroupMemberClientMapper {
             groupMemberDto.setRerolls(groupMemberClientDto.getRerolls());
             groupMemberDto.setKey(groupMemberClientDto.getKey());
 
-            //TODO: This will break: Infinite loop of evaluating partner
-            groupMemberDto.setPartner(clientDtoToDto(groupMemberClientDto.getPartner()));
+            //FIX: This will break: Infinite loop of evaluating partner -> Should be fixed using layer
+            groupMemberDto.setPartner(clientDtoToDto(groupMemberClientDto.getPartner(), layer + 1));
 
             return groupMemberDto;
         }
         return null;
     }
 
-    public GroupMemberClientDto dtoToClientDto(GroupMemberDto groupMemberDto){
-        if(groupMemberDto != null) {
+    public GroupMemberClientDto dtoToClientDto(GroupMemberDto groupMemberDto, int layer){
+        if(groupMemberDto != null && layer < 2) {
             GroupMemberClientDto groupMemberClientDto = new GroupMemberClientDto();
 
             groupMemberClientDto.setId(groupMemberDto.getId());
@@ -34,8 +34,8 @@ public class GroupMemberClientMapper {
             groupMemberClientDto.setRerolls(groupMemberDto.getRerolls());
             groupMemberClientDto.setKey(groupMemberDto.getKey());
 
-            //TODO: This will break: Infinite loop of evaluating partner
-            groupMemberClientDto.setPartner(dtoToClientDto(groupMemberDto.getPartner()));
+            //FIX: This will break: Infinite loop of evaluating partner -> Should be fixed using layer
+            groupMemberClientDto.setPartner(dtoToClientDto(groupMemberDto.getPartner(), layer + 1));
 
             return groupMemberClientDto;
         }
@@ -43,11 +43,11 @@ public class GroupMemberClientMapper {
     }
 
     public List<GroupMemberDto> clientDtoToDto(List<GroupMemberClientDto> groupMemberClientDtos){
-        return groupMemberClientDtos.stream().map(this::clientDtoToDto).collect(Collectors.toList());
+        return groupMemberClientDtos.stream().map(member -> clientDtoToDto(member, 0)).collect(Collectors.toList());
     }
 
     public List<GroupMemberClientDto> dtoToClientDto(List<GroupMemberDto> groupMemberDtos){
-        return groupMemberDtos.stream().map(this::dtoToClientDto).collect(Collectors.toList());
+        return groupMemberDtos.stream().map(member -> dtoToClientDto(member, 0)).collect(Collectors.toList());
     }
 
 }

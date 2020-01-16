@@ -46,6 +46,7 @@ selenium-debug.log
 /App/.classpath
 /App/.project
 /App/target/
+/App/db/
 /ClientEmb/target/
 /ServerImpl/target/
 /Server/target/
