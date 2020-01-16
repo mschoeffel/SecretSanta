@@ -1,5 +1,8 @@
 package de.mschoeffel.secretsanta.controller.v1;
 
+import de.mschoeffel.secretsanta.error.AlreadyAllDrawnException;
+import de.mschoeffel.secretsanta.error.AlreadyPartnerAcceptedException;
+import de.mschoeffel.secretsanta.error.NoMoreRerollsException;
 import de.mschoeffel.secretsanta.model.v1.DrawRequestClientDto;
 import de.mschoeffel.secretsanta.model.v1.GroupMemberClientDto;
 import de.mschoeffel.secretsanta.service.v1.GroupMemberClientService;
@@ -24,6 +27,21 @@ public class GroupMemberRestController {
     public String drawPartner(@RequestBody DrawRequestClientDto drawRequestClientDto){
         try {
             return groupMemberClientService.drawPartner(drawRequestClientDto);
+        } catch(EntityNotFoundException e){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Invalid credentials");
+        } catch(NoMoreRerollsException e){
+            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "No more rerolls");
+        } catch(AlreadyAllDrawnException e){
+            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "Already all drawn");
+        } catch(AlreadyPartnerAcceptedException e){
+            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "Already Partner accepted");
+        }
+    }
+
+    @RequestMapping("/groupmember/accept")
+    public GroupMemberClientDto acceptPartner(@RequestBody DrawRequestClientDto drawRequestClientDto){
+        try {
+            return groupMemberClientService.acceptPartner(drawRequestClientDto);
         } catch(EntityNotFoundException e){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Invalid credentials");
         }
