@@ -15,25 +15,25 @@ import java.util.List;
 public class AcceptOverduePartner {
 
     private GroupMemberRepository groupMemberRepository;
+    private AcceptPartnerToMember acceptPartnerToMember;
 
     private static final Logger LOG = LoggerFactory.getLogger(ScheduledTasks.class);
 
     @Autowired
-    public AcceptOverduePartner(GroupMemberRepository groupMemberRepository){
+    public AcceptOverduePartner(GroupMemberRepository groupMemberRepository, AcceptPartnerToMember acceptPartnerToMember) {
         this.groupMemberRepository = groupMemberRepository;
+        this.acceptPartnerToMember = acceptPartnerToMember;
     }
 
-    public void execute(){
-        List<GroupMember> groupMember = groupMemberRepository.findAll();
+    public void execute() {
+        List<GroupMember> groupMember = groupMemberRepository.findAllByDrawAcceptedFalse();
         LocalDateTime time = LocalDateTime.now().minusMinutes(5);
-        for(GroupMember member : groupMember){
-            if(!(member.getDrawAccepted() != null && member.getDrawAccepted())) {
-                if (member.getLastDrawTime() != null) {
-                    if (member.getLastDrawTime().isBefore(time)) {
-                        LOG.info("Auto accepted: " + member.getGroup().getName() + " " + member.getName() + " Time: " + member.getLastDrawTime());
-                        member.setDrawAccepted(true);
-                        groupMemberRepository.save(member);
-                    }
+        for (GroupMember member : groupMember) {
+            if (member.getLastDrawTime() != null) {
+                if (member.getLastDrawTime().isBefore(time)) {
+                    LOG.info("Auto accepted: " + member.getGroup().getName() + " " + member.getName() + " Time: " + member.getLastDrawTime());
+                    acceptPartnerToMember.initialize(member);
+                    acceptPartnerToMember.execute();
                 }
             }
         }

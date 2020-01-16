@@ -15,12 +15,17 @@ public class CreateGroup {
     private CreatePlainGroup createPlainGroup;
     private CopyRerollsToMember copyRerollsToMember;
     private GenerateKeysToGroup generateKeysToGroup;
+    private SetDrawAcceptedFalseToMember setDrawAcceptedFalseToMember;
 
     @Autowired
-    public CreateGroup(CreatePlainGroup createPlainGroup, CopyRerollsToMember copyRerollsToMember, GenerateKeysToGroup generateKeysToGroup){
+    public CreateGroup(CreatePlainGroup createPlainGroup,
+                       CopyRerollsToMember copyRerollsToMember,
+                       GenerateKeysToGroup generateKeysToGroup,
+                       SetDrawAcceptedFalseToMember setDrawAcceptedFalseToMember){
         this.createPlainGroup = createPlainGroup;
         this.copyRerollsToMember = copyRerollsToMember;
         this.generateKeysToGroup = generateKeysToGroup;
+        this.setDrawAcceptedFalseToMember = setDrawAcceptedFalseToMember;
     }
 
     public void initialize(Group group){
@@ -30,6 +35,9 @@ public class CreateGroup {
     public Group execute(){
         createPlainGroup.initialize(group);
         Group group = createPlainGroup.execute();
+
+        setDrawAcceptedFalseToMember.initialize(group);
+        group = setDrawAcceptedFalseToMember.execute();
 
         copyRerollsToMember.initialize(group);
         group = copyRerollsToMember.execute();

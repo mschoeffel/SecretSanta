@@ -89,10 +89,17 @@ public class DrawPartnerToMember {
             }
         }
 
-        SecureRandom random = new SecureRandom();
-        int randomIndex = random.nextInt(possibleCandidates.size());
+        if(possibleCandidates.size() == 2){
+            if(possibleCandidates.contains(groupMember)){
+                int index = (possibleCandidates.indexOf(groupMember) - 1) * -1;
+                groupMember.setPartner(possibleCandidates.get(index));
+            }
+        } else {
+            SecureRandom random = new SecureRandom();
+            int randomIndex = random.nextInt(possibleCandidates.size());
 
-        groupMember.setPartner(possibleCandidates.get(randomIndex));
+            groupMember.setPartner(possibleCandidates.get(randomIndex));
+        }
         groupMember.setRerolls(groupMember.getRerolls() - 1);
         groupMember.setLastDrawTime(LocalDateTime.now());
 
