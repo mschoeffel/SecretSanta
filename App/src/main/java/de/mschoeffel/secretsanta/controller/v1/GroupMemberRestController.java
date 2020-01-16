@@ -24,7 +24,7 @@ public class GroupMemberRestController {
     private GroupMemberClientService groupMemberClientService;
 
     @RequestMapping("/groupmember/draw")
-    public String drawPartner(@RequestBody DrawRequestClientDto drawRequestClientDto){
+    public GroupMemberClientDto drawPartner(@RequestBody DrawRequestClientDto drawRequestClientDto){
         try {
             return groupMemberClientService.drawPartner(drawRequestClientDto);
         } catch(EntityNotFoundException e){

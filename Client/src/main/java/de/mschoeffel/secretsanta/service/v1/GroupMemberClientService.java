@@ -5,7 +5,7 @@ import de.mschoeffel.secretsanta.model.v1.GroupMemberClientDto;
 
 public interface GroupMemberClientService {
 
-    String drawPartner(DrawRequestClientDto groupMember);
+    GroupMemberClientDto drawPartner(DrawRequestClientDto groupMember);
     GroupMemberClientDto acceptPartner(DrawRequestClientDto groupMember);
 
 }

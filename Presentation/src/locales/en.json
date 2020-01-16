@@ -18,7 +18,8 @@
     "name": "Name",
     "key": "Key",
     "draw": "Draw",
-    "create-group": "Create group"
+    "create-group": "Create group",
+    "invalid-credentials": "Invalid credentials"
   },
   "login": {
     "formtitle": "Log in",

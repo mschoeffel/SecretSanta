@@ -32,7 +32,14 @@ export default {
         });
     },
     checkGroupName(name){
-    return AXIOS.get('/v1/group/check/'+ name);
+        return AXIOS.get('/v1/group/check/'+ name);
+    },
+    drawPartner(groupname, name, key){
+        return AXIOS.post('/v1/groupmember/draw', {
+            groupname: groupname,
+            name: name,
+            key: key
+        });
     }
 }
 

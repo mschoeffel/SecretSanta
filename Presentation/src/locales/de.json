@@ -18,7 +18,8 @@
     "name": "Name",
     "key": "Schlüssel",
     "draw": "Ziehen",
-    "create-group": "Gruppe erstellen"
+    "create-group": "Gruppe erstellen",
+    "invalid-credentials": "Ungültige Eingabe"
   },
   "login": {
     "formtitle": "Anmelden",
