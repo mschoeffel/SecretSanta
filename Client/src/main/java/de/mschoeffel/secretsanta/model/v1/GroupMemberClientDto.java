@@ -1,11 +1,15 @@
 package de.mschoeffel.secretsanta.model.v1;
 
+import java.time.LocalDateTime;
+
 public class GroupMemberClientDto {
 
     private Long id;
     private String name;
     private String key;
     private Integer rerolls;
+    private Boolean drawAccepted;
+    private LocalDateTime lastDrawTime;
     private GroupMemberClientDto partner;
 
     public GroupMemberClientDto() {
@@ -43,6 +47,22 @@ public class GroupMemberClientDto {
         this.rerolls = rerolls;
     }
 
+    public Boolean getDrawAccepted() {
+        return drawAccepted;
+    }
+
+    public void setDrawAccepted(Boolean drawAccepted) {
+        this.drawAccepted = drawAccepted;
+    }
+
+    public LocalDateTime getLastDrawTime() {
+        return lastDrawTime;
+    }
+
+    public void setLastDrawTime(LocalDateTime lastDrawTime) {
+        this.lastDrawTime = lastDrawTime;
+    }
+
     public GroupMemberClientDto getPartner() {
         return partner;
     }
@@ -53,11 +73,13 @@ public class GroupMemberClientDto {
 
     @Override
     public String toString() {
-        return "MemberClientDto{" +
+        return "GroupMemberClientDto{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", key='" + key + '\'' +
                 ", rerolls=" + rerolls +
+                ", drawAccepted=" + drawAccepted +
+                ", lastDrawTime=" + lastDrawTime +
                 ", partner=" + partner +
                 '}';
     }

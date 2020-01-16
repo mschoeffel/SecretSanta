@@ -1,10 +1,14 @@
 package de.mschoeffel.secretsanta.dto;
 
+import java.time.LocalDateTime;
+
 public class GroupMemberDto extends HasIdDto {
 
     private String name;
     private String key;
     private Integer rerolls;
+    private Boolean drawAccepted;
+    private LocalDateTime lastDrawTime;
     private GroupMemberDto partner;
 
     public GroupMemberDto() {
@@ -42,6 +46,22 @@ public class GroupMemberDto extends HasIdDto {
         this.rerolls = rerolls;
     }
 
+    public Boolean getDrawAccepted() {
+        return drawAccepted;
+    }
+
+    public void setDrawAccepted(Boolean drawAccepted) {
+        this.drawAccepted = drawAccepted;
+    }
+
+    public LocalDateTime getLastDrawTime() {
+        return lastDrawTime;
+    }
+
+    public void setLastDrawTime(LocalDateTime lastDrawTime) {
+        this.lastDrawTime = lastDrawTime;
+    }
+
     public GroupMemberDto getPartner() {
         return partner;
     }
@@ -56,6 +76,8 @@ public class GroupMemberDto extends HasIdDto {
                 "name='" + name + '\'' +
                 ", key='" + key + '\'' +
                 ", rerolls=" + rerolls +
+                ", drawAccepted=" + drawAccepted +
+                ", lastDrawTime=" + lastDrawTime +
                 ", partner=" + partner +
                 ", id=" + id +
                 '}';

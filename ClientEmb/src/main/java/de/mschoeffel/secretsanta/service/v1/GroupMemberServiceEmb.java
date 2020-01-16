@@ -15,6 +15,12 @@ public class GroupMemberServiceEmb implements GroupMemberClientService {
 
     @Override
     public String drawPartner(DrawRequestClientDto groupMember) {
-        return groupMemberService.drawPartner(groupMember.getGroupname(), groupMember.getName(), groupMember.getKey());
+        return groupMemberService.drawPartner(groupMember.getGroupname(), groupMember.getName(), groupMember.getKey()).getName();
+    }
+
+    @Override
+    public GroupMemberClientDto acceptPartner(DrawRequestClientDto groupMember) {
+        GroupMemberClientMapper mapper = new GroupMemberClientMapper();
+        return mapper.dtoToClientDto(groupMemberService.acceptPartner(groupMember.getGroupname(), groupMember.getName(), groupMember.getKey()), 0);
     }
 }

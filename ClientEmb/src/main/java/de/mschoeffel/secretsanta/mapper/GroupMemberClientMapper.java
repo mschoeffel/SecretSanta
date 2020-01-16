@@ -16,6 +16,8 @@ public class GroupMemberClientMapper {
             groupMemberDto.setName(groupMemberClientDto.getName());
             groupMemberDto.setRerolls(groupMemberClientDto.getRerolls());
             groupMemberDto.setKey(groupMemberClientDto.getKey());
+            groupMemberDto.setDrawAccepted(groupMemberClientDto.getDrawAccepted());
+            groupMemberDto.setLastDrawTime(groupMemberClientDto.getLastDrawTime());
 
             //FIX: This will break: Infinite loop of evaluating partner -> Should be fixed using layer
             groupMemberDto.setPartner(clientDtoToDto(groupMemberClientDto.getPartner(), layer + 1));
@@ -33,6 +35,8 @@ public class GroupMemberClientMapper {
             groupMemberClientDto.setName(groupMemberDto.getName());
             groupMemberClientDto.setRerolls(groupMemberDto.getRerolls());
             groupMemberClientDto.setKey(groupMemberDto.getKey());
+            groupMemberClientDto.setDrawAccepted(groupMemberDto.getDrawAccepted());
+            groupMemberClientDto.setLastDrawTime(groupMemberDto.getLastDrawTime());
 
             //FIX: This will break: Infinite loop of evaluating partner -> Should be fixed using layer
             groupMemberClientDto.setPartner(dtoToClientDto(groupMemberDto.getPartner(), layer + 1));

@@ -48,6 +48,22 @@ public class GroupMember extends HasId{
         this.rerolls = rerolls;
     }
 
+    public Boolean getDrawAccepted() {
+        return drawAccepted;
+    }
+
+    public void setDrawAccepted(Boolean drawAccepted) {
+        this.drawAccepted = drawAccepted;
+    }
+
+    public LocalDateTime getLastDrawTime() {
+        return lastDrawTime;
+    }
+
+    public void setLastDrawTime(LocalDateTime lastDrawTime) {
+        this.lastDrawTime = lastDrawTime;
+    }
+
     public Group getGroup() {
         return group;
     }
