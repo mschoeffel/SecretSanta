@@ -149,8 +149,7 @@ export default {
     },
     stepForward: function() {
       if (this.step === 2) {
-
-        api.createPlainGroup(this.groupname, this.rerolls, this.members)
+        api.createGroup(this.groupname, this.rerolls, this.members)
         .then(response => {
              console.log(response);
              this.$router.push({ path: "/group" });
