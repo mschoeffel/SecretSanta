@@ -1,6 +1,8 @@
 package de.mschoeffel.secretsanta.controller.v1;
 
 import de.mschoeffel.secretsanta.controller.BackendController;
+import de.mschoeffel.secretsanta.error.GroupNameExistsException;
+import de.mschoeffel.secretsanta.error.MemberNameExistsException;
 import de.mschoeffel.secretsanta.model.v1.GroupClientDto;
 import de.mschoeffel.secretsanta.service.v1.GroupClientService;
 import org.slf4j.Logger;
@@ -30,8 +32,10 @@ public class GroupRestController {
             GroupClientDto temp = groupClientService.createGroup(group);
             LOG.info("v1: Data created: " + temp.toString());
             return temp;
-        } catch(EntityExistsException e){
-            throw new ResponseStatusException(HttpStatus.CONFLICT, "Group already exists", e);
+        } catch(GroupNameExistsException e){
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Group already exists");
+        } catch(MemberNameExistsException e){
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Double Name inside Group");
         }
     }
 

@@ -1,6 +1,7 @@
 package de.mschoeffel.secretsanta.model;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity(name = "GroupMember")
 @Table(name = "GroupMember")
@@ -9,6 +10,8 @@ public class GroupMember extends HasId{
     private String name;
     private String key;
     private Integer rerolls;
+    private Boolean drawAccepted;
+    private LocalDateTime lastDrawTime;
 
     @ManyToOne
     @JoinColumn(name = "group_id")

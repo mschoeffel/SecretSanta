@@ -1,5 +1,7 @@
 package de.mschoeffel.secretsanta.interaction;
 
+import de.mschoeffel.secretsanta.error.GroupNameExistsException;
+import de.mschoeffel.secretsanta.error.MemberNameExistsException;
 import de.mschoeffel.secretsanta.model.Group;
 import de.mschoeffel.secretsanta.model.GroupMember;
 import de.mschoeffel.secretsanta.repository.GroupMemberRepository;
@@ -9,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.EntityExistsException;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Interaction to create a plain group and members without any further information.
@@ -34,7 +38,15 @@ public class CreatePlainGroup {
 
     public Group execute(){
         if(groupClientService.checkGroupName(group.getName())){
-            throw new EntityExistsException();
+            throw new GroupNameExistsException();
+        }
+
+        Set<String> memberNames = new HashSet<>();
+        for(GroupMember member : group.getGroupMember()){
+            if(memberNames.contains(member.getName())) {
+                throw new MemberNameExistsException();
+            }
+            memberNames.add(member.getName());
         }
 
         groupRepository.save(group);
