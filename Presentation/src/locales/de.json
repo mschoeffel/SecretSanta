@@ -60,13 +60,17 @@
     "email": "Zugangsdaten per E-Mail versenden",
     "rerolls": "Neuwahl zulassen",
     "rerolls-slider": "Anzahl an Neuwahlen",
-    "back": "Abbrechen | Zurück",
-    "next": "Weiter | Erstellen",
+    "back": "Abbrechen | Zurück | Home",
+    "next": "Weiter | Erstellen | Fertig",
     "member-name": "Name",
     "member-email": "E-Mail",
+    "member-key": "Schlüssel",
+    "member-number": "Nummer",
     "group": "Gruppe",
     "member": "Mitglieder",
-    "error-groupname-exists": "Gruppenname existiert bereits"
+    "result": "Ergebnis",
+    "error-groupname-exists": "Gruppenname existiert bereits",
+    "final-title": "Gruppe: {name}"
   },
   "group": {
     "formtitle": "Gruppe: {name}",

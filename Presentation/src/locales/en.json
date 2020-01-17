@@ -60,13 +60,17 @@
     "email": "Send credentials via E-Mail",
     "rerolls": "Allow rerolls",
     "rerolls-slider": "Number of possible rerolls",
-    "back": "Home | Back",
-    "next": "Next | Create",
+    "back": "Home | Back | Home",
+    "next": "Next | Create | Finish",
     "member-name": "Name",
     "member-email": "E-Mail",
+    "member-key": "Key",
+    "member-number": "Number",
     "group": "Group",
     "member": "Member",
-    "error-groupname-exists": "Groupname already exists"
+    "result": "Result",
+    "error-groupname-exists": "Groupname already exists",
+    "final-title": "Group: {name}"
   },
   "group": {
     "formtitle": "Group: {name}",

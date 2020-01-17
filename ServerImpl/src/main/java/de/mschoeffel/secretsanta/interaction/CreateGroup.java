@@ -29,6 +29,7 @@ public class CreateGroup {
         this.copyRerollsToMember = copyRerollsToMember;
         this.generateKeysToGroup = generateKeysToGroup;
         this.setDrawAcceptedFalseToMember = setDrawAcceptedFalseToMember;
+        this.groupRepository = groupRepository;
     }
 
     public void initialize(Group group){
@@ -48,7 +49,7 @@ public class CreateGroup {
         generateKeysToGroup.initialize(group);
         group = generateKeysToGroup.execute();
 
-        groupRepository.save(group);
+        group = groupRepository.save(group);
 
         return group;
     }

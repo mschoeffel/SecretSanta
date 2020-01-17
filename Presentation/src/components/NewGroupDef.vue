@@ -4,7 +4,8 @@
       <v-col cols="12" sm="8" md="4">
         <v-card class="elevation-12">
           <v-toolbar color="primary" dark flat>
-            <v-toolbar-title>{{ $t('new-group.formtitle')}}</v-toolbar-title>
+            <v-toolbar-title v-if="step < 3">{{ $t('new-group.formtitle')}}</v-toolbar-title>
+            <v-toolbar-title v-if="step == 3">{{ $t('new-group.final-title', groupname)}}</v-toolbar-title>
           </v-toolbar>
           <v-card-text>
             <v-stepper v-model="step" alt-labels>
@@ -12,19 +13,21 @@
                 <v-stepper-step key="group" step="1">{{ $t('new-group.group')}}</v-stepper-step>
                 <v-divider></v-divider>
                 <v-stepper-step key="member" step="2">{{ $t('new-group.member')}}</v-stepper-step>
+                <v-divider></v-divider>
+                <v-stepper-step key="result" step="3">{{ $t('new-group.result')}}</v-stepper-step>
               </v-stepper-header>
               <v-stepper-items>
                 <v-stepper-content key="group" step="1">
                   <v-form>
-                      <v-text-field
-                        :label="$t('new-group.name')"
-                        :error-messages="$t(groupnameerror)"
-                        name="name"
-                        v-model="groupname"
-                        v-on:change="checkGroupName"
-                        prepend-icon="mdi-account-group"
-                        type="text"
-                      />
+                    <v-text-field
+                      :label="$t('new-group.name')"
+                      :error-messages="$t(groupnameerror)"
+                      name="name"
+                      v-model="groupname"
+                      v-on:change="checkGroupName"
+                      prepend-icon="mdi-account-group"
+                      type="text"
+                    />
                     <v-text-field
                       :label="$t('new-group.membercount')"
                       v-model.number="membercount"
@@ -59,34 +62,53 @@
                   </v-form>
                 </v-stepper-content>
                 <v-stepper-content key="member" step="2">
-                  <v-list>
-                    <div v-for="member, index in members">
-                      <v-subheader>{{index + 1}}</v-subheader>
-                      <v-list-item inactive="true" selectable="false">
-                        <v-list-item-content>
-                          <v-text-field
+                  <v-simple-table fixed-header v-if="members != null">
+                    <thead>
+                      <tr>
+                        <th class="text-left">{{ $t('new-group.member-number')}}</th>
+                        <th class="text-left">{{ $t('new-group.member-name')}}</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr v-for="member, index in members">
+                        <td>{{ index + 1 }}</td>
+                        <td><v-text-field
                             v-model="member.name"
                             :label="$t('new-group.member-name')"
                             name="name"
                             prepend-icon="mdi-account"
                             type="text"
-                          />
-                        </v-list-item-content>
-                      </v-list-item>
-                      <v-list-item v-if="checkbox" inactive="true" selectable="false">
-                        <v-list-item-content>
+                          /></td>
+                      </tr>
+                    </tbody>
+                  </v-simple-table>
+                </v-stepper-content>
+                <v-stepper-content key="result" step="3">
+                  <v-simple-table fixed-header v-if="group != null">
+                    <thead>
+                      <tr>
+                        <th class="text-left">{{ $t('new-group.member-number')}}</th>
+                        <th class="text-left">{{ $t('new-group.member-name')}}</th>
+                        <th class="text-left" v-if="showEmail">{{ $t('new-group.member-email')}}</th>
+                        <th class="text-left">{{ $t('new-group.member-key')}}</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr v-for="member, index in group.members" :key="index">
+                        <td>{{ index + 1 }}</td>
+                        <td>{{ member.name }}</td>
+                        <td v-if="showEmail">{{ member.email }}</td>
+                        <td>
                           <v-text-field
-                            v-model="member.email"
-                            :label="$t('new-group.member-email')"
-                            name="name"
-                            prepend-icon="mdi-email"
-                            type="text"
-                          />
-                        </v-list-item-content>
-                      </v-list-item>
-                      <v-divider v-if="n < membercount"></v-divider>
-                    </div>
-                  </v-list>
+                            :value="member.key"
+                            :append-icon="member.showKey ? 'mdi-eye' : 'mdi-eye-off'"
+                            :type="member.showKey ? 'text' : 'password'"
+                            @click:append="member.showKey = !member.showKey"
+                          ></v-text-field>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </v-simple-table>
                 </v-stepper-content>
               </v-stepper-items>
             </v-stepper>
@@ -117,53 +139,36 @@ export default {
     allowEmail: false,
     min: 0,
     max: 50,
-    slider: 10,
     checkbox: false,
     checkboxRerolls: false,
-    sliderRerolls: 0,
-    minRerolls: 0,
-    maxRerolls: 5,
     step: 1,
     membercount: 0,
     membercountsave: 0,
-    members: []
+    members: [],
+    group: null
   }),
   methods: {
     stepBack: function() {
       if (this.step === 1) {
         this.$router.push({ path: "/" });
-      } else {
-        this.step -= 1;
+      } else if(this.step === 2) {
+        this.step = 1;
+      } else if(step === 3){
+        this.$router.push({ path: "/" });
       }
     },
-    checkGroupName: function(){
-        api.checkGroupName(this.groupname)
-        .then(response => {
-            console.log(response);
-            if(response.data == true){
-                this.groupnameerror = "new-group.error-groupname-exists";
-            } else{
-                this.groupnameerror = "";
-            }
-        })
+    checkGroupName: function() {
+      api.checkGroupName(this.groupname).then(response => {
+        console.log(response);
+        if (response.data == true) {
+          this.groupnameerror = "new-group.error-groupname-exists";
+        } else {
+          this.groupnameerror = "";
+        }
+      });
     },
     stepForward: function() {
-      if (this.step === 2) {
-        api.createGroup(this.groupname, this.rerolls, this.members)
-        .then(response => {
-             console.log(response);
-             this.$router.push({ path: "/group" });
-        })
-        .catch(
-            error => {
-            console.log(error.response);
-            if(error.response.status == 409){
-                this.groupnameerror = "new-group.error-groupname-exists";
-                this.step = 1;
-            }
-        });
-
-      } else {
+      if (this.step === 1) {
         if (this.membercountsave >= this.membercount) {
           this.members.splice(this.membercount);
           this.membercountsave = this.membercount;
@@ -175,7 +180,27 @@ export default {
           this.members = this.members.concat(memberstemp);
           this.membercountsave = this.membercount;
         }
-        this.step += 1;
+        this.step = 2;
+      } else if (this.step === 2) {
+        api
+          .createGroup(this.groupname, this.rerolls, this.members)
+          .then(response => {
+            this.group = response.data;
+            let s = this.group.members.length;
+            for(let i = 0; i < s; i++){
+                this.$set(this.group.members[i], 'showKey', false);
+            }
+            console.log(this.group);
+            this.step = 3;
+          })
+          .catch(error => {
+            if (error.response.status == 409) {
+              this.groupnameerror = "new-group.error-groupname-exists";
+              this.step = 1;
+            }
+          });
+      } else {
+        this.$router.push({ path: "/" });
       }
     }
   }
