@@ -9,8 +9,8 @@ import de.mschoeffel.secretsanta.repository.GroupMemberRepository;
 import de.mschoeffel.secretsanta.repository.GroupRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.annotation.RequestScope;
 
-import javax.persistence.EntityNotFoundException;
 import java.security.SecureRandom;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -19,13 +19,12 @@ import java.util.List;
 import java.util.Set;
 
 @Component
+@RequestScope
 public class DrawPartnerToMember {
 
     private String groupname;
     private String name;
     private String key;
-
-    private GroupMember groupMember;
 
     private GroupMemberRepository groupMemberRepository;
     private GroupRepository groupRepository;
@@ -59,7 +58,7 @@ public class DrawPartnerToMember {
         findGroupMemberWithCredentials.initialize(groupname, name, key, group);
         GroupMember groupMember = findGroupMemberWithCredentials.execute();
 
-        if(groupMember.getDrawAccepted() != null && groupMember.getDrawAccepted()){
+        if (groupMember.getDrawAccepted() != null && groupMember.getDrawAccepted()) {
             throw new AlreadyPartnerAcceptedException();
         }
 
@@ -67,7 +66,7 @@ public class DrawPartnerToMember {
             throw new NoMoreRerollsException();
         }
 
-        if(groupMember.getPartner() != null) {
+        if (groupMember.getPartner() != null) {
             groupMember.setPartner(null);
         }
 
@@ -79,7 +78,7 @@ public class DrawPartnerToMember {
             }
         }
 
-        if(alreadyDrawn.size() >= group.getGroupMember().size()){
+        if (alreadyDrawn.size() >= group.getGroupMember().size()) {
             throw new AlreadyAllDrawnException();
         }
 
@@ -90,28 +89,27 @@ public class DrawPartnerToMember {
         for (GroupMember member : group.getGroupMember()) {
             if (!alreadyDrawn.contains(member.getName())) {
                 candidates.add(member);
-                if(!member.equals(groupMember)) {
+                if (!member.equals(groupMember)) {
                     possibleCandidates.add(member);
                 }
             }
-            if(member.getPartner() == null){
+            if (member.getPartner() == null) {
                 memberWithoutPartner.add(member);
             }
         }
 
-        if(candidates.size() == 2 && (candidates.contains(memberWithoutPartner.get(0)) || candidates.contains(memberWithoutPartner.get(1))) && !candidates.contains(groupMember)){
-            if(memberWithoutPartner.contains(candidates.get(0))){
+        if (candidates.size() == 2 && (candidates.contains(memberWithoutPartner.get(0)) || candidates.contains(memberWithoutPartner.get(1))) && !candidates.contains(groupMember)) {
+            if (memberWithoutPartner.contains(candidates.get(0))) {
                 groupMember.setPartner(candidates.get(0));
-            } else{
+            } else {
                 groupMember.setPartner(candidates.get(1));
             }
-        } else{
+        } else {
             SecureRandom random = new SecureRandom();
             int randomIndex = random.nextInt(possibleCandidates.size());
 
             groupMember.setPartner(possibleCandidates.get(randomIndex));
         }
-
 
 
         //TODO: If only 2 Members of the group dont have a partner check possible candidates

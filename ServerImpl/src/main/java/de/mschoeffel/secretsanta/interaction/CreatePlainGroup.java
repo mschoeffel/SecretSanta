@@ -9,8 +9,8 @@ import de.mschoeffel.secretsanta.repository.GroupRepository;
 import de.mschoeffel.secretsanta.service.v1.GroupClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.annotation.RequestScope;
 
-import javax.persistence.EntityExistsException;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -18,6 +18,7 @@ import java.util.Set;
  * Interaction to create a plain group and members without any further information.
  */
 @Component
+@RequestScope
 public class CreatePlainGroup {
 
     private Group group;
@@ -26,24 +27,24 @@ public class CreatePlainGroup {
     private GroupClientService groupClientService;
 
     @Autowired
-    public CreatePlainGroup(GroupRepository groupRepository, GroupMemberRepository groupMemberRepository, GroupClientService groupClientService){
-        this.groupRepository= groupRepository;
+    public CreatePlainGroup(GroupRepository groupRepository, GroupMemberRepository groupMemberRepository, GroupClientService groupClientService) {
+        this.groupRepository = groupRepository;
         this.groupMemberRepository = groupMemberRepository;
         this.groupClientService = groupClientService;
     }
 
-    public void initialize(Group group){
+    public void initialize(Group group) {
         this.group = group;
     }
 
-    public Group execute(){
-        if(groupClientService.checkGroupName(group.getName())){
+    public Group execute() {
+        if (groupClientService.checkGroupName(group.getName())) {
             throw new GroupNameExistsException();
         }
 
         Set<String> memberNames = new HashSet<>();
-        for(GroupMember member : group.getGroupMember()){
-            if(memberNames.contains(member.getName())) {
+        for (GroupMember member : group.getGroupMember()) {
+            if (memberNames.contains(member.getName())) {
                 throw new MemberNameExistsException();
             }
             memberNames.add(member.getName());
@@ -51,10 +52,12 @@ public class CreatePlainGroup {
 
         groupRepository.save(group);
 
-        for(GroupMember member : group.getGroupMember()){
+        for (GroupMember member : group.getGroupMember()) {
             member.setGroup(group);
             groupMemberRepository.save(member);
         }
+
+        groupRepository.save(group);
 
         return group;
     }

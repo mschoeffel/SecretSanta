@@ -5,34 +5,32 @@ import de.mschoeffel.secretsanta.model.GroupMember;
 import de.mschoeffel.secretsanta.repository.GroupMemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import java.util.List;
+import org.springframework.web.context.annotation.RequestScope;
 
 /**
  * Interaction to copy the number of rerolls from the group to all the members of the group.
  */
 @Component
+@RequestScope
 public class CopyRerollsToMember {
 
     private Group group;
-    private List<GroupMember> groupMember;
 
     private GroupMemberRepository groupMemberRepository;
 
     @Autowired
-    public CopyRerollsToMember(GroupMemberRepository groupMemberRepository){
+    public CopyRerollsToMember(GroupMemberRepository groupMemberRepository) {
         this.groupMemberRepository = groupMemberRepository;
     }
 
-    public void initialize(Group group){
+    public void initialize(Group group) {
         this.group = group;
-        this.groupMember = group.getGroupMember();
     }
 
-    public Group execute(){
+    public Group execute() {
         Integer groupRerolls = group.getRerolls();
 
-        for(GroupMember member : groupMember){
+        for (GroupMember member : group.getGroupMember()) {
             member.setRerolls(groupRerolls);
             groupMemberRepository.save(member);
         }

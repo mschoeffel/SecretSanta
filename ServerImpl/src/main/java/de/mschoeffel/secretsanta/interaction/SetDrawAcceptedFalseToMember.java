@@ -5,24 +5,26 @@ import de.mschoeffel.secretsanta.model.GroupMember;
 import de.mschoeffel.secretsanta.repository.GroupMemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.annotation.RequestScope;
 
 @Component
+@RequestScope
 public class SetDrawAcceptedFalseToMember {
 
     private Group group;
     private GroupMemberRepository groupMemberRepository;
 
     @Autowired
-    public SetDrawAcceptedFalseToMember(GroupMemberRepository groupMemberRepository){
+    public SetDrawAcceptedFalseToMember(GroupMemberRepository groupMemberRepository) {
         this.groupMemberRepository = groupMemberRepository;
     }
 
-    public void initialize(Group group){
+    public void initialize(Group group) {
         this.group = group;
     }
 
-    public Group execute(){
-        for(GroupMember member : group.getGroupMember()){
+    public Group execute() {
+        for (GroupMember member : group.getGroupMember()) {
             member.setDrawAccepted(false);
             groupMemberRepository.save(member);
         }

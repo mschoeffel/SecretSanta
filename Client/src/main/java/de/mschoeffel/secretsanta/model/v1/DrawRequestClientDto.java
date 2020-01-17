@@ -32,4 +32,13 @@ public class DrawRequestClientDto {
     public void setKey(String key) {
         this.key = key;
     }
+
+    @Override
+    public String toString() {
+        return "DrawRequestClientDto{" +
+                "groupname='" + groupname + '\'' +
+                ", name='" + name + '\'' +
+                ", key='" + key + '\'' +
+                '}';
+    }
 }

@@ -4,8 +4,10 @@ import de.mschoeffel.secretsanta.model.Group;
 import de.mschoeffel.secretsanta.model.GroupMember;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.annotation.RequestScope;
 
 @Component
+@RequestScope
 public class GetPartnerToMember {
 
     private String groupname;
@@ -16,18 +18,18 @@ public class GetPartnerToMember {
     private FindGroupMemberWithCredentials findGroupMemberWithCredentials;
 
     @Autowired
-    public GetPartnerToMember(FindGroupByName findGroupByName, FindGroupMemberWithCredentials findGroupMemberWithCredentials){
+    public GetPartnerToMember(FindGroupByName findGroupByName, FindGroupMemberWithCredentials findGroupMemberWithCredentials) {
         this.findGroupByName = findGroupByName;
         this.findGroupMemberWithCredentials = findGroupMemberWithCredentials;
     }
 
-    public void initialize(String groupname, String name, String key){
+    public void initialize(String groupname, String name, String key) {
         this.groupname = groupname;
         this.name = name;
         this.key = key;
     }
 
-    public GroupMember execute(){
+    public GroupMember execute() {
         findGroupByName.initialize(groupname);
         Group group = findGroupByName.execute();
 
@@ -35,6 +37,7 @@ public class GetPartnerToMember {
         GroupMember member = findGroupMemberWithCredentials.execute();
 
         return member.getPartner();
+
     }
 
 }

@@ -5,10 +5,12 @@ import de.mschoeffel.secretsanta.model.GroupMember;
 import de.mschoeffel.secretsanta.repository.GroupMemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.annotation.RequestScope;
 
 import javax.persistence.EntityNotFoundException;
 
 @Component
+@RequestScope
 public class FindGroupMemberWithCredentials {
 
     private String groupname;
@@ -20,24 +22,24 @@ public class FindGroupMemberWithCredentials {
     private FindGroupByName findGroupByName;
 
     @Autowired
-    public FindGroupMemberWithCredentials(GroupMemberRepository groupMemberRepository, FindGroupByName findGroupByName){
+    public FindGroupMemberWithCredentials(GroupMemberRepository groupMemberRepository, FindGroupByName findGroupByName) {
         this.groupMemberRepository = groupMemberRepository;
         this.findGroupByName = findGroupByName;
     }
 
-    public void initialize(String groupname, String name, String key, Group group){
+    public void initialize(String groupname, String name, String key, Group group) {
         initialize(groupname, name, key);
         this.group = group;
     }
 
-    public void initialize(String groupname, String name, String key){
+    public void initialize(String groupname, String name, String key) {
         this.groupname = groupname;
-        this.name= name;
+        this.name = name;
         this.key = key;
     }
 
-    public GroupMember execute(){
-        if(group == null){
+    public GroupMember execute() {
+        if (group == null) {
             findGroupByName.initialize(groupname);
             group = findGroupByName.execute();
         }

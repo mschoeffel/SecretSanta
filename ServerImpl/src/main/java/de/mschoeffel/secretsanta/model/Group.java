@@ -41,4 +41,14 @@ public class Group extends HasId {
     public void setGroupMember(List<GroupMember> groupMember) {
         this.groupMember = groupMember;
     }
+
+    @Override
+    public String toString() {
+        return "Group{" +
+                "name='" + name + '\'' +
+                ", rerolls=" + rerolls +
+                ", groupMember=" + groupMember +
+                ", id=" + id +
+                '}';
+    }
 }

@@ -4,11 +4,13 @@ import de.mschoeffel.secretsanta.model.Group;
 import de.mschoeffel.secretsanta.repository.GroupRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.annotation.RequestScope;
 
 /**
  * Interaction to create a new group wit all the necessary information like key generation and member - group connection.
  */
 @Component
+@RequestScope
 public class CreateGroup {
 
     private Group group;
@@ -24,7 +26,7 @@ public class CreateGroup {
                        CopyRerollsToMember copyRerollsToMember,
                        GenerateKeysToGroup generateKeysToGroup,
                        SetDrawAcceptedFalseToMember setDrawAcceptedFalseToMember,
-                       GroupRepository groupRepository){
+                       GroupRepository groupRepository) {
         this.createPlainGroup = createPlainGroup;
         this.copyRerollsToMember = copyRerollsToMember;
         this.generateKeysToGroup = generateKeysToGroup;
@@ -32,11 +34,11 @@ public class CreateGroup {
         this.groupRepository = groupRepository;
     }
 
-    public void initialize(Group group){
+    public void initialize(Group group) {
         this.group = group;
     }
 
-    public Group execute(){
+    public Group execute() {
         createPlainGroup.initialize(group);
         Group group = createPlainGroup.execute();
 

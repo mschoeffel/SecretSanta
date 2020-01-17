@@ -79,4 +79,16 @@ public class GroupMember extends HasId{
     public void setPartner(GroupMember partner) {
         this.partner = partner;
     }
+
+    @Override
+    public String toString() {
+        return "GroupMember{" +
+                "name='" + name + '\'' +
+                ", key='" + key + '\'' +
+                ", rerolls=" + rerolls +
+                ", drawAccepted=" + drawAccepted +
+                ", lastDrawTime=" + lastDrawTime +
+                ", id=" + id +
+                '}';
+    }
 }
