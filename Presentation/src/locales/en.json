@@ -14,12 +14,20 @@
   },
   "home": {
     "formtitle": "Draw partner",
+    "input": "Input",
+    "result": "Result",
     "group": "Group",
     "name": "Name",
     "key": "Key",
-    "draw": "Draw",
+    "draw": "Next",
+    "back": "Back",
     "create-group": "Create group",
-    "invalid-credentials": "Invalid credentials"
+    "invalid-credentials": "Invalid credentials",
+    "message": "Your partner is:",
+    "accept": "Accept",
+    "autoaccept": "After {n} minutes the partner will be automatically accepted.",
+    "reroll": "Reroll",
+    "reroll-tooltip": "You are abe to reroll {n} times. Care you can roll the same partner again."
   },
   "login": {
     "formtitle": "Log in",

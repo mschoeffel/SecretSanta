@@ -7,5 +7,7 @@ public interface GroupMemberClientService {
 
     GroupMemberClientDto drawPartner(DrawRequestClientDto groupMember);
     GroupMemberClientDto acceptPartner(DrawRequestClientDto groupMember);
+    GroupMemberClientDto getPartner(DrawRequestClientDto groupMember);
+    GroupMemberClientDto getMember(DrawRequestClientDto groupMember);
 
 }

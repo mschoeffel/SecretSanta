@@ -40,6 +40,27 @@ export default {
             name: name,
             key: key
         });
+    },
+    getPartner(groupname, name, key){
+        return AXIOS.post('/v1/groupmember/partner', {
+            groupname: groupname,
+            name: name,
+            key: key
+        });
+    },
+    getMember(groupname, name, key){
+        return AXIOS.post('/v1/groupmember/member', {
+            groupname: groupname,
+            name: name,
+            key: key
+        });
+    },
+    acceptPartner(groupname, name, key){
+    return AXIOS.post('/v1/groupmember/accept', {
+                groupname: groupname,
+                name: name,
+                key: key
+            });
     }
 }
 

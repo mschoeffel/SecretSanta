@@ -14,12 +14,20 @@
   },
   "home": {
     "formtitle": "Partner ziehen",
+    "input": "Eingabe",
+    "result": "Ergebnis",
     "group": "Gruppe",
     "name": "Name",
     "key": "Schlüssel",
-    "draw": "Ziehen",
+    "draw": "Weiter",
+    "back": "Zurück",
     "create-group": "Gruppe erstellen",
-    "invalid-credentials": "Ungültige Eingabe"
+    "invalid-credentials": "Ungültige Eingabe",
+    "message": "Dein Partner ist:",
+    "accept": "Akzeptieren",
+    "autoaccept": "Nach {n} Minuten wird der Partner automatisch akzeptiert.",
+    "reroll": "Erneut ziehen",
+    "reroll-tooltip": "Du kannst noch {n} mal neu ziehen. Achtung du kannst den selben Partner erneut ziehen."
   },
   "login": {
     "formtitle": "Anmelden",

@@ -6,5 +6,7 @@ public interface GroupMemberService {
 
     GroupMemberDto drawPartner(String groupname, String name, String key);
     GroupMemberDto acceptPartner(String groupname, String name, String key);
+    GroupMemberDto getPartner(String groupname, String name, String key);
+    GroupMemberDto getMember(String groupname, String name, String key);
 
 }

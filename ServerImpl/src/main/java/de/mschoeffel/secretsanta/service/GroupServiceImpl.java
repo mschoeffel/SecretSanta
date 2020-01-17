@@ -1,10 +1,7 @@
 package de.mschoeffel.secretsanta.service;
 
 import de.mschoeffel.secretsanta.dto.GroupDto;
-import de.mschoeffel.secretsanta.interaction.CopyRerollsToMember;
-import de.mschoeffel.secretsanta.interaction.CreateGroup;
-import de.mschoeffel.secretsanta.interaction.CreatePlainGroup;
-import de.mschoeffel.secretsanta.interaction.GenerateKeysToGroup;
+import de.mschoeffel.secretsanta.interaction.*;
 import de.mschoeffel.secretsanta.mapper.GroupMapper;
 import de.mschoeffel.secretsanta.model.Group;
 import de.mschoeffel.secretsanta.repository.GroupMemberRepository;
@@ -20,6 +17,9 @@ public class GroupServiceImpl implements GroupService{
 
     @Autowired
     private GroupRepository groupRepository;
+
+    @Autowired
+    private FindGroupByName findGroupByName;
 
     @Autowired
     private CreateGroup createGroup;
@@ -42,7 +42,8 @@ public class GroupServiceImpl implements GroupService{
     @Override
     public GroupDto findGroupByName(String name) {
         GroupMapper mapper = new GroupMapper();
-        return mapper.entityToDto(groupRepository.findByName(name).orElseThrow(EntityNotFoundException::new));
+        findGroupByName.initialize(name);
+        return mapper.entityToDto(findGroupByName.execute());
     }
 
     /**

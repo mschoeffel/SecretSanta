@@ -1,6 +1,7 @@
 package de.mschoeffel.secretsanta.interaction;
 
 import de.mschoeffel.secretsanta.model.Group;
+import de.mschoeffel.secretsanta.repository.GroupRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -16,12 +17,14 @@ public class CreateGroup {
     private CopyRerollsToMember copyRerollsToMember;
     private GenerateKeysToGroup generateKeysToGroup;
     private SetDrawAcceptedFalseToMember setDrawAcceptedFalseToMember;
+    private GroupRepository groupRepository;
 
     @Autowired
     public CreateGroup(CreatePlainGroup createPlainGroup,
                        CopyRerollsToMember copyRerollsToMember,
                        GenerateKeysToGroup generateKeysToGroup,
-                       SetDrawAcceptedFalseToMember setDrawAcceptedFalseToMember){
+                       SetDrawAcceptedFalseToMember setDrawAcceptedFalseToMember,
+                       GroupRepository groupRepository){
         this.createPlainGroup = createPlainGroup;
         this.copyRerollsToMember = copyRerollsToMember;
         this.generateKeysToGroup = generateKeysToGroup;
@@ -44,6 +47,8 @@ public class CreateGroup {
 
         generateKeysToGroup.initialize(group);
         group = generateKeysToGroup.execute();
+
+        groupRepository.save(group);
 
         return group;
     }

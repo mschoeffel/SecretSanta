@@ -10,6 +10,8 @@ public interface GroupClientService {
      * @return Created group.
      */
     GroupClientDto createGroup(GroupClientDto group);
+
+
     GroupClientDto findGroupByName(String name);
 
     /**

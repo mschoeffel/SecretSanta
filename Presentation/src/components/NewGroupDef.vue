@@ -7,7 +7,7 @@
             <v-toolbar-title>{{ $t('new-group.formtitle')}}</v-toolbar-title>
           </v-toolbar>
           <v-card-text>
-            <v-stepper v-model="step" non-linear>
+            <v-stepper v-model="step" alt-labels>
               <v-stepper-header>
                 <v-stepper-step key="group" step="1">{{ $t('new-group.group')}}</v-stepper-step>
                 <v-divider></v-divider>

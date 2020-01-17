@@ -48,21 +48,4 @@ public class BackendController {
         return SECURED_TEXT;
     }
 
-    // Forwards all routes to FrontEnd except: '/', '/index.html', '/api', '/api/**'
-    // Required because of 'mode: history' usage in frontend routing, see README for further details
-    @RequestMapping(value = "{_:^(?!index\\.html|api).$}")
-    public String redirectApi() {
-        LOG.info("URL entered directly into the Browser, so we need to redirect...");
-        return "forward:/";
-    }
-
-    @RequestMapping(value = "/group", method = RequestMethod.POST)
-    public long addNewGroup(@RequestBody GroupClientDto data){
-        LOG.info("Data received: " + data.getName());
-        LOG.info("Data received: " + data.getRerolls());
-        LOG.info("Data received: " + data.getMembers().size());
-        LOG.info("Data received: " + data.getMembers().stream().map(GroupMemberClientDto::getName).collect(Collectors.joining(",")));
-        return 1L;
-    }
-
 }

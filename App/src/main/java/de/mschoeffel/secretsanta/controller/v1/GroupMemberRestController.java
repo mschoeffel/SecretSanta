@@ -47,4 +47,22 @@ public class GroupMemberRestController {
         }
     }
 
+    @RequestMapping("/groupmember/partner")
+    public GroupMemberClientDto getPartner(@RequestBody DrawRequestClientDto drawRequestClientDto){
+        try{
+            return groupMemberClientService.getPartner(drawRequestClientDto);
+        } catch(EntityNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Invalid credentials");
+        }
+    }
+
+    @RequestMapping("/groupmember/member")
+    public GroupMemberClientDto getMember(@RequestBody DrawRequestClientDto drawRequestClientDto){
+        try{
+            return groupMemberClientService.getMember(drawRequestClientDto);
+        } catch(EntityNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Invalid credentials");
+        }
+    }
+
 }

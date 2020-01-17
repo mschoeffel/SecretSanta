@@ -71,6 +71,7 @@ public class DrawPartnerToMember {
             groupMember.setPartner(null);
         }
 
+        //List of all names that are already drawn by members
         Set<String> alreadyDrawn = new HashSet<>();
         for (GroupMember member : group.getGroupMember()) {
             if (member.getPartner() != null) {
@@ -82,24 +83,40 @@ public class DrawPartnerToMember {
             throw new AlreadyAllDrawnException();
         }
 
+        //All members that werent drawn already except groupMember
         List<GroupMember> possibleCandidates = new ArrayList<>();
+        List<GroupMember> candidates = new ArrayList<>();
+        List<GroupMember> memberWithoutPartner = new ArrayList<>();
         for (GroupMember member : group.getGroupMember()) {
             if (!alreadyDrawn.contains(member.getName())) {
-                possibleCandidates.add(member);
+                candidates.add(member);
+                if(!member.equals(groupMember)) {
+                    possibleCandidates.add(member);
+                }
+            }
+            if(member.getPartner() == null){
+                memberWithoutPartner.add(member);
             }
         }
 
-        if(possibleCandidates.size() == 2){
-            if(possibleCandidates.contains(groupMember)){
-                int index = (possibleCandidates.indexOf(groupMember) - 1) * -1;
-                groupMember.setPartner(possibleCandidates.get(index));
+        if(candidates.size() == 2 && (candidates.contains(memberWithoutPartner.get(0)) || candidates.contains(memberWithoutPartner.get(1))) && !candidates.contains(groupMember)){
+            if(memberWithoutPartner.contains(candidates.get(0))){
+                groupMember.setPartner(candidates.get(0));
+            } else{
+                groupMember.setPartner(candidates.get(1));
             }
-        } else {
+        } else{
             SecureRandom random = new SecureRandom();
             int randomIndex = random.nextInt(possibleCandidates.size());
 
             groupMember.setPartner(possibleCandidates.get(randomIndex));
         }
+
+
+
+        //TODO: If only 2 Members of the group dont have a partner check possible candidates
+
+
         groupMember.setRerolls(groupMember.getRerolls() - 1);
         groupMember.setLastDrawTime(LocalDateTime.now());
 
