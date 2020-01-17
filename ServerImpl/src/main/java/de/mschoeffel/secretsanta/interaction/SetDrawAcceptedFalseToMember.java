@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.RequestScope;
 
 @Component
-@RequestScope
 public class SetDrawAcceptedFalseToMember {
 
     private Group group;

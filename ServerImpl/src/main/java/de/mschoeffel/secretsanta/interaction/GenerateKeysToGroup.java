@@ -12,7 +12,6 @@ import org.springframework.web.context.annotation.RequestScope;
  * Interaction to generate the key for every member of a given group.
  */
 @Component
-@RequestScope
 public class GenerateKeysToGroup {
 
     private Group group;

@@ -3,11 +3,13 @@ package de.mschoeffel.secretsanta.interaction;
 import de.mschoeffel.secretsanta.model.GroupMember;
 import de.mschoeffel.secretsanta.repository.GroupMemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.annotation.RequestScope;
 
 @Component
-@RequestScope
 public class AcceptPartnerToMember {
 
     private String groupname;
@@ -25,10 +27,12 @@ public class AcceptPartnerToMember {
     }
 
     public void initialize(GroupMember member) {
+        reset();
         this.member = member;
     }
 
     public void initialize(String groupname, String name, String key) {
+        reset();
         this.groupname = groupname;
         this.name = name;
         this.key = key;
@@ -46,6 +50,13 @@ public class AcceptPartnerToMember {
         }
 
         return member;
+    }
+
+    private void reset(){
+        this.groupname = null;
+        this.name = null;
+        this.key = null;
+        this.member = null;
     }
 
 }

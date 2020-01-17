@@ -9,7 +9,6 @@ import org.springframework.web.context.annotation.RequestScope;
 import javax.persistence.EntityNotFoundException;
 
 @Component
-@RequestScope
 public class FindGroupByName {
 
     private String name;

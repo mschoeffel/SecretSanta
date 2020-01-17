@@ -11,7 +11,6 @@ import org.springframework.web.context.annotation.RequestScope;
  * Interaction to copy the number of rerolls from the group to all the members of the group.
  */
 @Component
-@RequestScope
 public class CopyRerollsToMember {
 
     private Group group;
@@ -28,7 +27,10 @@ public class CopyRerollsToMember {
     }
 
     public Group execute() {
-        Integer groupRerolls = group.getRerolls();
+        int groupRerolls = group.getRerolls();
+        if(groupRerolls <= 0){
+            groupRerolls = 1;
+        }
 
         for (GroupMember member : group.getGroupMember()) {
             member.setRerolls(groupRerolls);

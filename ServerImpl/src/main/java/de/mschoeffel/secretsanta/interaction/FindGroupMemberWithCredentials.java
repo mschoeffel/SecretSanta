@@ -10,7 +10,6 @@ import org.springframework.web.context.annotation.RequestScope;
 import javax.persistence.EntityNotFoundException;
 
 @Component
-@RequestScope
 public class FindGroupMemberWithCredentials {
 
     private String groupname;
@@ -28,11 +27,15 @@ public class FindGroupMemberWithCredentials {
     }
 
     public void initialize(String groupname, String name, String key, Group group) {
-        initialize(groupname, name, key);
+        reset();
+        this.groupname = groupname;
+        this.name = name;
+        this.key = key;
         this.group = group;
     }
 
     public void initialize(String groupname, String name, String key) {
+        reset();
         this.groupname = groupname;
         this.name = name;
         this.key = key;
@@ -44,6 +47,13 @@ public class FindGroupMemberWithCredentials {
             group = findGroupByName.execute();
         }
         return groupMemberRepository.findByNameAndKeyAndGroup(name, key, group).orElseThrow(EntityNotFoundException::new);
+    }
+
+    private void reset(){
+        this.groupname = null;
+        this.name = null;
+        this.key = null;
+        this.group = null;
     }
 
 }

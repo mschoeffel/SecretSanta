@@ -19,7 +19,6 @@ import java.util.List;
 import java.util.Set;
 
 @Component
-@RequestScope
 public class DrawPartnerToMember {
 
     private String groupname;
@@ -27,22 +26,16 @@ public class DrawPartnerToMember {
     private String key;
 
     private GroupMemberRepository groupMemberRepository;
-    private GroupRepository groupRepository;
     private FindGroupMemberWithCredentials findGroupMemberWithCredentials;
     private FindGroupByName findGroupByName;
-    private AcceptPartnerToMember acceptPartnerToMember;
 
     @Autowired
     public DrawPartnerToMember(GroupMemberRepository groupMemberRepository,
-                               GroupRepository groupRepository,
                                FindGroupMemberWithCredentials findGroupMemberWithCredentials,
-                               FindGroupByName findGroupByName,
-                               AcceptPartnerToMember acceptPartnerToMember) {
+                               FindGroupByName findGroupByName) {
         this.groupMemberRepository = groupMemberRepository;
-        this.groupRepository = groupRepository;
         this.findGroupMemberWithCredentials = findGroupMemberWithCredentials;
         this.findGroupByName = findGroupByName;
-        this.acceptPartnerToMember = acceptPartnerToMember;
     }
 
     public void initialize(String groupname, String name, String key) {
@@ -111,10 +104,6 @@ public class DrawPartnerToMember {
             groupMember.setPartner(possibleCandidates.get(randomIndex));
         }
 
-
-        //TODO: If only 2 Members of the group dont have a partner check possible candidates
-
-
         groupMember.setRerolls(groupMember.getRerolls() - 1);
         groupMember.setLastDrawTime(LocalDateTime.now());
 
@@ -122,6 +111,4 @@ public class DrawPartnerToMember {
 
         return groupMember;
     }
-
-
 }

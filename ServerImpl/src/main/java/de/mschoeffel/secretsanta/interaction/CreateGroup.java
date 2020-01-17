@@ -10,7 +10,6 @@ import org.springframework.web.context.annotation.RequestScope;
  * Interaction to create a new group wit all the necessary information like key generation and member - group connection.
  */
 @Component
-@RequestScope
 public class CreateGroup {
 
     private Group group;

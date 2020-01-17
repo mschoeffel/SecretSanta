@@ -18,7 +18,6 @@ import java.util.Set;
  * Interaction to create a plain group and members without any further information.
  */
 @Component
-@RequestScope
 public class CreatePlainGroup {
 
     private Group group;
