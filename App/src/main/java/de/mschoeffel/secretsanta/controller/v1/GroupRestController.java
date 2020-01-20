@@ -41,22 +41,20 @@ public class GroupRestController {
 
     @RequestMapping(value = "/group/{name}", method = RequestMethod.GET)
     public GroupClientDto getGroup(@PathVariable(name = "name") String name){
-
-        LOG.info("v1: Data requested: " + name);
-
-        GroupClientDto temp = groupClientService.findGroupByName(name);
-        LOG.info("v1: Data received: " + temp.toString());
-        return temp;
+        if(name != null && !name.isEmpty()) {
+            return groupClientService.findGroupByName(name);
+        } else {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Empty groupname");
+        }
     }
 
     @RequestMapping(value = "/group/check/{name}", method = RequestMethod.GET)
     public boolean checkGroupName(@PathVariable(name = "name") String name){
-
-        LOG.info("v1: Data requested: " + name);
-
-        boolean temp = groupClientService.checkGroupName(name);
-        LOG.info("v1: Data received: " + temp);
-        return temp;
+        if(name != null && !name.isEmpty()) {
+            return groupClientService.checkGroupName(name);
+        } else {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Empty groupname");
+        }
     }
 
 }

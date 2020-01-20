@@ -5,7 +5,7 @@
         <v-card class="elevation-12">
           <v-toolbar color="primary" dark flat>
             <v-toolbar-title v-if="step < 3">{{ $t('new-group.formtitle')}}</v-toolbar-title>
-            <v-toolbar-title v-if="step == 3">{{ $t('new-group.final-title', groupname)}}</v-toolbar-title>
+            <v-toolbar-title v-if="step == 3">{{ $t('new-group.final-title', {name: groupname})}}</v-toolbar-title>
           </v-toolbar>
           <v-card-text>
             <v-stepper v-model="step" alt-labels>
@@ -19,21 +19,32 @@
               <v-stepper-items>
                 <v-stepper-content key="group" step="1">
                   <v-form>
+                    <v-alert
+                       v-if="validationerror.length > 0"
+                       type="error"
+                    >{{ $t(validationerror) }}</v-alert>
                     <v-text-field
                       :label="$t('new-group.name')"
-                      :error-messages="$t(groupnameerror)"
+                      :error-messages="$t(groupnameerror, {max: maxchargroupname})"
                       name="name"
+                      :counter="maxchargroupname"
                       v-model="groupname"
                       v-on:change="checkGroupName"
                       prepend-icon="mdi-account-group"
                       type="text"
+                      required
                     />
                     <v-text-field
                       :label="$t('new-group.membercount')"
+                      :error-messages="$t(membercounterror, {min: minNumberMember, max: maxNumberMember})"
                       v-model.number="membercount"
                       name="name"
                       prepend-icon="mdi-numeric"
                       type="number"
+                      :min="minNumberMember"
+                      :max="maxNumberMember"
+                      v-on:change="checkMemberNumber"
+                      required
                     />
                     <v-divider></v-divider>
                     <v-checkbox
@@ -53,6 +64,10 @@
                     ></v-checkbox>
                     <v-text-field
                       :label="$t('new-group.rerolls-slider')"
+                      :error-messages="$t(rerollserror, {max: maxrerolls, min: minrerolls})"
+                      v-on:change="checkRerollsNumber"
+                      :min="minrerolls"
+                      :max="maxrerolls"
                       name="rerolls"
                       v-model="rerolls"
                       prepend-icon="mdi-sync"
@@ -62,6 +77,10 @@
                   </v-form>
                 </v-stepper-content>
                 <v-stepper-content key="member" step="2">
+                    <v-alert
+                       v-if="validationerror.length > 0"
+                       type="error"
+                    >{{ $t(validationerror) }}</v-alert>
                   <v-simple-table fixed-header v-if="members != null">
                     <thead>
                       <tr>
@@ -75,6 +94,9 @@
                         <td><v-text-field
                             v-model="member.name"
                             :label="$t('new-group.member-name')"
+                            :error-messages="$t(member.error, {max: maxcharmember})"
+                            v-on:change="checkmember(member)"
+                            :counter="maxcharmember"
                             name="name"
                             prepend-icon="mdi-account"
                             type="text"
@@ -114,7 +136,7 @@
             </v-stepper>
           </v-card-text>
           <v-card-actions>
-            <v-btn color="secondary" v-on:click="stepBack">{{ $tc('new-group.back', step)}}</v-btn>
+            <v-btn color="secondary" v-on:click="stepBack" v-if="step < 3">{{ $tc('new-group.back', step)}}</v-btn>
             <v-spacer />
             <v-btn color="primary" v-on:click="stepForward">{{ $tc('new-group.next', step)}}</v-btn>
           </v-card-actions>
@@ -137,15 +159,22 @@ export default {
     rerolls: 0,
     showPassword: false,
     allowEmail: false,
-    min: 0,
-    max: 50,
     checkbox: false,
     checkboxRerolls: false,
     step: 1,
     membercount: 0,
     membercountsave: 0,
     members: [],
-    group: null
+    group: null,
+    minNumberMember: 2,
+    maxNumberMember: 50,
+    maxchargroupname: 15,
+    membercounterror: "",
+    minrerolls: 0,
+    maxrerolls: 100,
+    rerollserror: "",
+    validationerror: "",
+    maxcharmember: 15
   }),
   methods: {
     stepBack: function() {
@@ -158,30 +187,70 @@ export default {
       }
     },
     checkGroupName: function() {
-      api.checkGroupName(this.groupname).then(response => {
-        console.log(response);
-        if (response.data == true) {
-          this.groupnameerror = "new-group.error-groupname-exists";
-        } else {
-          this.groupnameerror = "";
-        }
-      });
+      this.groupnameerror = "";
+      if(this.groupname.length <= 0){
+        this.groupnameerror = "new-group.validation-groupnamerequired";
+      } else if(this.groupname.length > this.maxchargroupname){
+        this.groupnameerror = "new-group.validation-groupnamelength";
+      } else{
+        api.checkGroupName(this.groupname).then(response => {
+          if (response.data == true) {
+            this.groupnameerror = "new-group.error-groupname-exists";
+          }
+        });
+      }
+
+    },
+    checkMemberNumber: function(){
+      this.membercounterror = "";
+      if(this.membercount > this.maxNumberMember || this.membercount < this.minNumberMember){
+        this.membercounterror = "new-group.validation-membercountbounds";
+      }
+    },
+    checkRerollsNumber: function() {
+      this.rerollserror = "";
+      if(this.rerolls > this.maxrerolls || this.rerolls < this.minrerolls){
+        this.rerollserror = "new-group.validation-rerollsbounds";
+      }
+    },
+    checkmember: function(member){
+      member.error = "";
+      if(member.name.length <= 0){
+        member.error = "new-group.validation-memberrequired";
+      } else if(member.name.length > this.maxcharmember){
+        member.error = "new-group.validation-memberlength";
+      }
     },
     stepForward: function() {
       if (this.step === 1) {
-        if (this.membercountsave >= this.membercount) {
-          this.members.splice(this.membercount);
-          this.membercountsave = this.membercount;
-        } else if (this.membercountsave <= this.membercount) {
-          let memberstemp = Array.from(
-            { length: this.membercount - this.membercountsave },
-            () => ({ name: "", email: "" })
-          );
-          this.members = this.members.concat(memberstemp);
-          this.membercountsave = this.membercount;
+        this.validationerror = "";
+        if(!this.membercounterror && !this.groupnameerror && !this.rerollserror){
+          if (this.membercountsave >= this.membercount) {
+            this.members.splice(this.membercount);
+            this.membercountsave = this.membercount;
+          } else if (this.membercountsave <= this.membercount) {
+            let memberstemp = Array.from(
+              { length: this.membercount - this.membercountsave },
+              () => ({ name: "", email: "", error: "" })
+            );
+            this.members = this.members.concat(memberstemp);
+            this.membercountsave = this.membercount;
+          }
+          this.step = 2;
+        } else{
+          this.validationerror = "new-group.validationerror";
         }
-        this.step = 2;
       } else if (this.step === 2) {
+
+        let membersValid = true;
+        for(let i = 0; i < this.members.length; i++){
+            if(this.members[i].error.length > 0){
+                membersValid = false;
+                break;
+            }
+        }
+
+        if(membersValid){
         api
           .createGroup(this.groupname, this.rerolls, this.members)
           .then(response => {
@@ -199,6 +268,9 @@ export default {
               this.step = 1;
             }
           });
+          } else{
+            this.validationerror = "new-group.validationerror";
+          }
       } else {
         this.$router.push({ path: "/" });
       }

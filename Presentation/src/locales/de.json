@@ -70,7 +70,14 @@
     "member": "Mitglieder",
     "result": "Ergebnis",
     "error-groupname-exists": "Gruppenname existiert bereits",
-    "final-title": "Gruppe: {name}"
+    "final-title": "Gruppe: {name}",
+    "validation-groupnamerequired": "Gruppenname muss angegeben werden",
+    "validation-groupnamelength": "Gruppenname darf maximal {max} Zeichen lang sein",
+    "validation-membercountbounds": "Mitgliederanzahl muss zwischen {min} und {max} liegen",
+    "validation-rerollsbounds": "Anzahl an Neuwahlen muss zwischen {min} und {max} liegen",
+    "validation-memberrequired": "Mitgliedername muss angegeben werden",
+    "validation-memberlength": "Mitgliedername darf maximal {max} Zeichen lang sein",
+    "validationerror": "Bitte Angaben richtig befüllen"
   },
   "group": {
     "formtitle": "Gruppe: {name}",

@@ -70,7 +70,14 @@
     "member": "Member",
     "result": "Result",
     "error-groupname-exists": "Groupname already exists",
-    "final-title": "Group: {name}"
+    "final-title": "Group: {name}",
+    "validation-groupnamerequired": "Groupname required",
+    "validation-groupnamelength": "Groupname needs to be below {max} characters",
+    "validation-membercountbounds": "Number of member needs to be between {min} and {max}",
+    "validation-rerollsbounds": "Number of rerolls needs to be between {min} and {max}",
+    "validation-memberrequired": "Membername required",
+    "validation-memberlength": "Membername needs to be below {max} characters",
+    "validationerror": "Please fulfill the form correctly"
   },
   "group": {
     "formtitle": "Group: {name}",
