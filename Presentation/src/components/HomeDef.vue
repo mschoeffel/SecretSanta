@@ -19,11 +19,12 @@
                     <v-alert
                       v-if="displayerror.length > 0"
                       type="error"
-                      dismissible
-                    >{{ displayerror }}</v-alert>
+                    >{{ $t(displayerror) }}</v-alert>
                     <v-text-field
                       :label="$t('home.group')"
-                      :error-messages="$t(credentialserror)"
+                      :error-messages="$t(groupnameerror, {max: maxchargroupname})"
+                      :counter="maxchargroupname"
+                      v-on:change="checkgroupname"
                       name="groupname"
                       v-model="groupname"
                       prepend-icon="mdi-account-group"
@@ -32,7 +33,9 @@
 
                     <v-text-field
                       :label="$t('home.name')"
-                      :error-messages="$t(credentialserror)"
+                      :error-messages="$t(membernameerror, {max: maxcharmember})"
+                      :counter="maxcharmember"
+                      v-on:change="checkmembername"
                       name="name"
                       v-model="name"
                       prepend-icon="mdi-account"
@@ -45,7 +48,8 @@
                       @click:append="showKey = !showKey"
                       id="key"
                       :label="$t('home.key')"
-                      :error-messages="$t(credentialserror)"
+                      :error-messages="$t(keyerror)"
+                      v-on:change="checkkey"
                       name="key"
                       v-model="key"
                       prepend-icon="mdi-key"
@@ -113,9 +117,13 @@ export default {
     key: "",
     displayerror: "",
     displayinfo: "",
-    credentialserror: "",
     rerolls: 0,
     partner: "",
+    maxcharmember: 15,
+    maxchargroupname: 15,
+    groupnameerror: "",
+    membernameerror: "",
+    keyerror: "",
     accepted: false
   }),
   methods: {
@@ -124,6 +132,28 @@ export default {
     },
     stepBack: function() {
       this.step = 1;
+    },
+    checkgroupname: function(){
+        this.groupnameerror = "";
+        if(this.groupname.length <= 0){
+            this.groupnameerror = "home.validation-groupnamerequired"
+        } else if(this.groupname.length > this.maxchargroupname){
+            this.groupnameerror = "home.validation-groupnamelength"
+        }
+    },
+    checkmembername: function(){
+        this.membernameerror = "";
+        if(this.name.length <= 0){
+            this.membernameerror = "home.validation-membernamerequired"
+        } else if(this.name.length > this.maxcharmember){
+            this.membernameerror = "home.validation-membernamelength"
+        }
+    },
+    checkkey: function(){
+        this.keyerror = "";
+        if(this.key.length <= 0){
+            this.keyerror = "home.validation-keyrequired"
+        }
     },
     acceptPartner: function(){
         api
@@ -138,13 +168,16 @@ export default {
         .catch(error => {
           console.log(error);
           if (error.response.status == 404) {
-            this.credentialserror = "home.invalid-credentials";
+            this.groupnameerror = "home.invalid-credentials";
+            this.membernameerror = "home.invalid-credentials";
+            this.keyerror = "home.invalid-credentials";
             step = 1;
           }
-          console.log(error.response);
         });
     },
     getPartner: function() {
+      this.displayerror = "";
+      if(!this.keyerror && !this.membernameerror && !this.groupnameerror){
       api
         .getMember(this.groupname, this.name, this.key)
         .then(response => {
@@ -159,13 +192,16 @@ export default {
           }
         })
         .catch(error => {
-          console.log(error);
           if (error.response.status == 404) {
-            this.credentialserror = "home.invalid-credentials";
+            this.groupnameerror = "home.invalid-credentials";
+            this.membernameerror = "home.invalid-credentials";
+            this.keyerror = "home.invalid-credentials";
             step = 1;
           }
-          console.log(error.response);
         });
+        } else{
+            this.displayerror = "home.validationerror";
+        }
     },
     drawPartner: function() {
       api
@@ -181,14 +217,20 @@ export default {
         .catch(error => {
           console.log(error);
           if (error.response.status == 404) {
-            this.credentialserror = "home.invalid-credentials";
+            this.groupnameerror = "home.invalid-credentials";
+            this.membernameerror = "home.invalid-credentials";
+            this.keyerror = "home.invalid-credentials";
             step = 1;
           } else if (error.response.status == 422) {
             this.displayinfo = error.response.data.message;
-            this.credentialserror = "";
+            this.groupnameerror = "";
+            this.membernameerror = "";
+            this.keyerror = "";
           } else {
             this.displayerror = error.response.data.message;
-            this.credentialserror = "";
+            this.groupnameerror = "";
+            this.membernameerror = "";
+            this.keyerror = "";
           }
         });
     }

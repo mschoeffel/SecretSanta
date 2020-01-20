@@ -27,7 +27,13 @@
     "accept": "Akzeptieren",
     "autoaccept": "Nach {n} Minuten wird der Partner automatisch akzeptiert.",
     "reroll": "Erneut ziehen",
-    "reroll-tooltip": "Du kannst noch {n} mal neu ziehen. Achtung du kannst den selben Partner erneut ziehen."
+    "reroll-tooltip": "Du kannst noch {n} mal neu ziehen. Achtung du kannst den selben Partner erneut ziehen.",
+    "validation-groupnamerequired": "Gruppenname muss befüllt sein",
+    "validation-groupnamelength": "Gruppenname darf maximal {max} Zeichen lang sein",
+    "validation-membernamerequired": "Mitgliedname muss befüllt sein",
+    "validation-membernamelength": "Mitgliedname darf maximal {max} Zeichen lang sein",
+    "validation-keyrequired": "Schlüssel muss befüllt sein",
+    "validationerror": "Bitte Angaben richtig befüllen"
   },
   "login": {
     "formtitle": "Anmelden",

@@ -27,7 +27,13 @@
     "accept": "Accept",
     "autoaccept": "After {n} minutes the partner will be automatically accepted.",
     "reroll": "Reroll",
-    "reroll-tooltip": "You are abe to reroll {n} times. Care you can roll the same partner again."
+    "reroll-tooltip": "You are abe to reroll {n} times. Care you can roll the same partner again.",
+    "validation-groupnamerequired": "Groupname required",
+    "validation-groupnamelength": "Gruppenname needs to be below {max} chars",
+    "validation-membernamerequired": "Membername required",
+    "validation-membernamelength": "Membername needs to be below {max} chars",
+    "validation-keyrequired": "Key required",
+    "validationerror": "Please fulfill the form correctly"
   },
   "login": {
     "formtitle": "Log in",
