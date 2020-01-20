@@ -1,5 +1,7 @@
 package de.mschoeffel.secretsanta.interaction;
 
+import de.mschoeffel.secretsanta.error.GroupNameValidationException;
+import de.mschoeffel.secretsanta.error.NotEnoughMembersException;
 import de.mschoeffel.secretsanta.model.Group;
 import de.mschoeffel.secretsanta.repository.GroupRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +40,14 @@ public class CreateGroup {
     }
 
     public Group execute() {
+        if(group.getName() == null || group.getName().isEmpty()){
+            throw new GroupNameValidationException("Groupname null or empty");
+        }
+
+        if(group.getGroupMember().size() <= 1){
+            throw new NotEnoughMembersException();
+        }
+
         createPlainGroup.initialize(group);
         Group group = createPlainGroup.execute();
 

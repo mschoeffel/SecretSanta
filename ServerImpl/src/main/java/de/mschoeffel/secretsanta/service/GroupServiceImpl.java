@@ -1,16 +1,15 @@
 package de.mschoeffel.secretsanta.service;
 
 import de.mschoeffel.secretsanta.dto.GroupDto;
-import de.mschoeffel.secretsanta.interaction.*;
+import de.mschoeffel.secretsanta.interaction.ClearAllPartnerFromGroup;
+import de.mschoeffel.secretsanta.interaction.CreateGroup;
+import de.mschoeffel.secretsanta.interaction.DeleteGroupByName;
+import de.mschoeffel.secretsanta.interaction.FindGroupByName;
 import de.mschoeffel.secretsanta.mapper.GroupMapper;
 import de.mschoeffel.secretsanta.model.Group;
-import de.mschoeffel.secretsanta.repository.GroupMemberRepository;
 import de.mschoeffel.secretsanta.repository.GroupRepository;
-import de.mschoeffel.secretsanta.service.v1.GroupClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import javax.persistence.EntityNotFoundException;
 
 @Service
 public class GroupServiceImpl implements GroupService{
@@ -23,6 +22,12 @@ public class GroupServiceImpl implements GroupService{
 
     @Autowired
     private CreateGroup createGroup;
+
+    @Autowired
+    private DeleteGroupByName deleteGroupByName;
+
+    @Autowired
+    private ClearAllPartnerFromGroup clearAllPartnerFromGroup;
 
     /**
      * Creates a new group with all necessary information like key generation and member-group connection.
@@ -53,5 +58,18 @@ public class GroupServiceImpl implements GroupService{
      */
     public boolean checkGroupName(String name){
         return groupRepository.existsByName(name);
+    }
+
+    @Override
+    public void deleteGroup(String name){
+        deleteGroupByName.initialize(name);
+        deleteGroupByName.execute();
+    }
+
+    @Override
+    public GroupDto clearAllPartner(String name) {
+        GroupMapper mapper = new GroupMapper();
+        clearAllPartnerFromGroup.initialize(name);
+        return mapper.entityToDto(clearAllPartnerFromGroup.execute());
     }
 }

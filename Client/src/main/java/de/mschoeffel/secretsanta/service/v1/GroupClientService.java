@@ -20,4 +20,8 @@ public interface GroupClientService {
      * @return true if the already is a group with the given name, false if there isn't.
      */
     boolean checkGroupName(String name);
+
+    void deleteGroup(String name);
+
+    GroupClientDto clearAllPartner(String name);
 }

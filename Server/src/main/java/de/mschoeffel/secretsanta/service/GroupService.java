@@ -21,4 +21,8 @@ public interface GroupService {
      */
     boolean checkGroupName(String name);
 
+    void deleteGroup(String name);
+
+    GroupDto clearAllPartner(String name);
+
 }

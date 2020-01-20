@@ -38,4 +38,15 @@ public class GroupServiceEmb implements GroupClientService{
     public boolean checkGroupName(String name) {
         return groupService.checkGroupName(name);
     }
+
+    @Override
+    public void deleteGroup(String name) {
+        groupService.deleteGroup(name);
+    }
+
+    @Override
+    public GroupClientDto clearAllPartner(String name) {
+        GroupClientMapper mapper = new GroupClientMapper();
+        return mapper.dtoToClientDto(groupService.clearAllPartner(name));
+    }
 }

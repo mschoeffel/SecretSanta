@@ -28,12 +28,9 @@ public class CopyRerollsToMember {
 
     public Group execute() {
         int groupRerolls = group.getRerolls();
-        if(groupRerolls <= 0){
-            groupRerolls = 1;
-        }
 
         for (GroupMember member : group.getGroupMember()) {
-            member.setRerolls(groupRerolls);
+            member.setRerolls(groupRerolls + 1);
             groupMemberRepository.save(member);
         }
 
