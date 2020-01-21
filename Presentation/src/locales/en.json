@@ -2,6 +2,7 @@
   "global": {
     "title": "Secret Santa",
     "language": "Language",
+    "themeswitch": "Darkmode",
     "versionnumber": "v0.0.1"
   },
   "navigation": {

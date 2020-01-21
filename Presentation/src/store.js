@@ -9,7 +9,8 @@ export default new Vuex.Store({
         loginSuccess: false,
         loginError: false,
         userName: null,
-        userPass: null
+        userPass: null,
+        darktheme: false
     },
     mutations: {
         login_success(state, payload){
@@ -20,6 +21,9 @@ export default new Vuex.Store({
         login_error(state, payload){
             state.loginError = true;
             state.userName = payload.userName;
+        },
+        changedarktheme(state, newdarktheme){
+            state.darktheme = newdarktheme;
         }
     },
     actions: {
@@ -54,6 +58,7 @@ export default new Vuex.Store({
         isLoggedIn: state => state.loginSuccess,
         hasLoginErrored: state => state.loginError,
         getUserName: state => state.userName,
-        getUserPass: state => state.userPass
+        getUserPass: state => state.userPass,
+        getdarktheme: state => state.darktheme
     }
 })

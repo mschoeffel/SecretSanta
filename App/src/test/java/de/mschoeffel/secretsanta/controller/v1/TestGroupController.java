@@ -29,9 +29,9 @@ import static org.hamcrest.Matchers.is;
         classes = SecretSantaApplication.class,
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT
 )
-public class GroupControllerTest {
+public class TestGroupController {
 
-    static final Logger LOG = LoggerFactory.getLogger(GroupControllerTest.class);
+    static final Logger LOG = LoggerFactory.getLogger(TestGroupController.class);
 
     @LocalServerPort
     private int port;

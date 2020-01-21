@@ -36,6 +36,9 @@
           </v-list-item-content>
         </v-list-item>
         <v-divider></v-divider>
+        <v-list-item>
+          <v-switch v-model="themeSwitch" v-on:change="changeTheme" :label="$t('global.themeswitch')" color="primary" hide-details></v-switch>
+        </v-list-item>
         <v-list-item link v-on:click="routeTest">
           <v-list-item-action>
             <v-icon>mdi-help</v-icon>
@@ -72,6 +75,7 @@
       <v-btn v-on:click="routeLogin" icon>
         <v-icon>mdi-login</v-icon>
       </v-btn>
+      
     </v-app-bar>
 
     <v-content>
@@ -91,6 +95,9 @@
 </style>
 
 <script>
+import store from './../store'
+import { changedarktheme } from './../store'
+
 export default {
   name: "LayoutDefault",
   props: {
@@ -98,7 +105,8 @@ export default {
   },
   data: () => ({
     drawer: false,
-    langs: ["en", "de"]
+    langs: ["en", "de"],
+    themeSwitch: store.getters.getdarktheme
   }),
   methods: {
     routeLogin: function() {
@@ -115,6 +123,10 @@ export default {
     },
     routeNewGroup: function() {
       this.$router.push({ path: "/newgroup" });
+    },
+    changeTheme: function() {
+      this.$vuetify.theme.dark = this.themeSwitch;
+      store.commit('changedarktheme', this.themeSwitch);
     }
   }
 };

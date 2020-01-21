@@ -6,7 +6,6 @@ import de.mschoeffel.secretsanta.model.v1.GroupClientDto;
 import de.mschoeffel.secretsanta.model.v1.GroupMemberClientDto;
 import de.mschoeffel.secretsanta.results.GroupMemberResult;
 import de.mschoeffel.secretsanta.service.v1.GroupClientService;
-import de.mschoeffel.secretsanta.service.v1.GroupMemberClientService;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.apache.http.HttpStatus;
@@ -32,9 +31,9 @@ import static org.hamcrest.Matchers.is;
         classes = SecretSantaApplication.class,
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT
 )
-public class GroupMemberControllerTest {
+public class TestGroupMemberController {
 
-    static final Logger LOG = LoggerFactory.getLogger(GroupMemberControllerTest.class);
+    static final Logger LOG = LoggerFactory.getLogger(TestGroupMemberController.class);
 
     @LocalServerPort
     private int port;
