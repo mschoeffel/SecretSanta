@@ -40,6 +40,12 @@ public class GroupRestController {
         }
     }
 
+    /**
+     * Just for testing later delete!!!
+     * @param name
+     * @return
+     */
+    /*
     @RequestMapping(value = "/group/{name}", method = RequestMethod.GET)
     public GroupResult getGroup(@PathVariable(name = "name") String name){
         GroupResultMapper mapper = new GroupResultMapper();
@@ -50,6 +56,7 @@ public class GroupRestController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Empty groupname");
         }
     }
+    */
 
     @RequestMapping(value = "/group/check/{name}", method = RequestMethod.GET)
     public boolean checkGroupName(@PathVariable(name = "name") String name){

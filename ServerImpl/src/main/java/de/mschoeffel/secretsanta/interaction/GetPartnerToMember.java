@@ -1,10 +1,13 @@
 package de.mschoeffel.secretsanta.interaction;
 
+import de.mschoeffel.secretsanta.error.NoPartnerFoundException;
 import de.mschoeffel.secretsanta.model.Group;
 import de.mschoeffel.secretsanta.model.GroupMember;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.RequestScope;
+
+import javax.persistence.EntityNotFoundException;
 
 @Component
 public class GetPartnerToMember {
@@ -34,6 +37,10 @@ public class GetPartnerToMember {
 
         findGroupMemberWithCredentials.initialize(groupname, name, key, group);
         GroupMember member = findGroupMemberWithCredentials.execute();
+
+        if(member.getPartner() == null){
+            throw new NoPartnerFoundException();
+        }
 
         return member.getPartner();
 

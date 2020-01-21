@@ -1,5 +1,6 @@
 package de.mschoeffel.secretsanta.interaction;
 
+import de.mschoeffel.secretsanta.error.NoPartnerToAcceptException;
 import de.mschoeffel.secretsanta.model.GroupMember;
 import de.mschoeffel.secretsanta.repository.GroupMemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +43,10 @@ public class AcceptPartnerToMember {
         if (member == null) {
             findGroupMemberWithCredentials.initialize(groupname, name, key);
             member = findGroupMemberWithCredentials.execute();
+        }
+
+        if(member.getPartner() == null){
+            throw new NoPartnerToAcceptException();
         }
 
         if (member.getDrawAccepted() == null || !member.getDrawAccepted()) {

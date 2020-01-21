@@ -1,9 +1,7 @@
 package de.mschoeffel.secretsanta.controller.v1;
 
 import de.mschoeffel.secretsanta.controller.BackendController;
-import de.mschoeffel.secretsanta.error.AlreadyAllDrawnException;
-import de.mschoeffel.secretsanta.error.AlreadyPartnerAcceptedException;
-import de.mschoeffel.secretsanta.error.NoMoreRerollsException;
+import de.mschoeffel.secretsanta.error.*;
 import de.mschoeffel.secretsanta.mapper.GroupMemberResultMapper;
 import de.mschoeffel.secretsanta.model.GroupMember;
 import de.mschoeffel.secretsanta.model.v1.DrawRequestClientDto;
@@ -54,6 +52,8 @@ public class GroupMemberRestController {
             return mapper.clientDtoToResult(groupMemberClientService.acceptPartner(drawRequestClientDto));
         } catch(EntityNotFoundException e){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Invalid credentials");
+        } catch(NoPartnerToAcceptException e){
+            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "No Partner to accept");
         }
     }
 
@@ -63,7 +63,9 @@ public class GroupMemberRestController {
 
         try{
             return mapper.clientDtoToResult(groupMemberClientService.getPartner(drawRequestClientDto));
-        } catch(EntityNotFoundException e) {
+        } catch(NoPartnerFoundException e) {
+            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "No Partner found");
+        } catch(EntityNotFoundException e){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Invalid credentials");
         }
     }
