@@ -62,6 +62,8 @@ public class TestGroupMember {
         Set<String> names = new HashSet<>();
         for(GroupMemberClientDto memberClientDto : result.getMembers()){
             names.add(memberClientDto.getName());
+            Assert.assertNotNull(memberClientDto.getKey());
+            Assert.assertEquals(groupClientDto.getRerolls() + 1, (int) memberClientDto.getRerolls());
         }
 
         for(int i = 1; i <= membercount; i++){

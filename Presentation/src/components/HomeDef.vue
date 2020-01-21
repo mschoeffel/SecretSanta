@@ -159,7 +159,7 @@ export default {
         api
         .acceptPartner(this.groupname, this.name, this.key)
         .then(response => {
-            this.partner = response.data.partner.name;
+            this.partner = response.data.partner;
             this.accepted = response.data.drawAccepted;
             this.rerolls = response.data.rerolls;
 
@@ -171,7 +171,7 @@ export default {
             this.groupnameerror = "home.invalid-credentials";
             this.membernameerror = "home.invalid-credentials";
             this.keyerror = "home.invalid-credentials";
-            step = 1;
+            this.step = 1;
           }
         });
     },
@@ -182,7 +182,7 @@ export default {
         .getMember(this.groupname, this.name, this.key)
         .then(response => {
           if (response.data.partner != null) {
-            this.partner = response.data.partner.name;
+            this.partner = response.data.partner;
             this.accepted = response.data.drawAccepted;
             this.rerolls = response.data.rerolls;
 
@@ -196,7 +196,7 @@ export default {
             this.groupnameerror = "home.invalid-credentials";
             this.membernameerror = "home.invalid-credentials";
             this.keyerror = "home.invalid-credentials";
-            step = 1;
+            this.step = 1;
           }
         });
         } else{
@@ -208,7 +208,7 @@ export default {
         .drawPartner(this.groupname, this.name, this.key)
         .then(response => {
           console.log(response.data);
-          this.partner = response.data.partner.name;
+          this.partner = response.data.partner;
           this.accepted = response.data.drawAccepted;
           this.rerolls = response.data.rerolls;
 
@@ -220,7 +220,7 @@ export default {
             this.groupnameerror = "home.invalid-credentials";
             this.membernameerror = "home.invalid-credentials";
             this.keyerror = "home.invalid-credentials";
-            step = 1;
+            this.step = 1;
           } else if (error.response.status == 422) {
             this.displayinfo = error.response.data.message;
             this.groupnameerror = "";

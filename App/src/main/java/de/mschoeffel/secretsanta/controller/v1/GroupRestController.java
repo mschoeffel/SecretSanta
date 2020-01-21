@@ -3,7 +3,11 @@ package de.mschoeffel.secretsanta.controller.v1;
 import de.mschoeffel.secretsanta.controller.BackendController;
 import de.mschoeffel.secretsanta.error.GroupNameExistsException;
 import de.mschoeffel.secretsanta.error.MemberNameExistsException;
+import de.mschoeffel.secretsanta.mapper.GroupMemberResultMapper;
+import de.mschoeffel.secretsanta.mapper.GroupResultMapper;
 import de.mschoeffel.secretsanta.model.v1.GroupClientDto;
+import de.mschoeffel.secretsanta.results.GroupCreationResult;
+import de.mschoeffel.secretsanta.results.GroupResult;
 import de.mschoeffel.secretsanta.service.v1.GroupClientService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,14 +28,11 @@ public class GroupRestController {
     private GroupClientService groupClientService;
 
     @RequestMapping(value = "/group", method = RequestMethod.POST)
-    public GroupClientDto createGroup(@RequestBody GroupClientDto group){
-
-        LOG.info("v1: Data received: " + group.toString());
+    public GroupCreationResult createGroup(@RequestBody GroupClientDto group){
+        GroupResultMapper mapper = new GroupResultMapper();
 
         try {
-            GroupClientDto temp = groupClientService.createGroup(group);
-            LOG.info("v1: Data created: " + temp.toString());
-            return temp;
+            return mapper.clientDtoToCreationResult(groupClientService.createGroup(group));
         } catch(GroupNameExistsException e){
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Group already exists");
         } catch(MemberNameExistsException e){
@@ -40,9 +41,11 @@ public class GroupRestController {
     }
 
     @RequestMapping(value = "/group/{name}", method = RequestMethod.GET)
-    public GroupClientDto getGroup(@PathVariable(name = "name") String name){
+    public GroupResult getGroup(@PathVariable(name = "name") String name){
+        GroupResultMapper mapper = new GroupResultMapper();
+
         if(name != null && !name.isEmpty()) {
-            return groupClientService.findGroupByName(name);
+            return mapper.clientDtoToResult(groupClientService.findGroupByName(name));
         } else {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Empty groupname");
         }

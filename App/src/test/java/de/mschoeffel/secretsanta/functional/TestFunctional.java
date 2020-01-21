@@ -1,6 +1,8 @@
 package de.mschoeffel.secretsanta.functional;
 
 import de.mschoeffel.secretsanta.SecretSantaApplication;
+import de.mschoeffel.secretsanta.error.AlreadyPartnerAcceptedException;
+import de.mschoeffel.secretsanta.error.NoMoreRerollsException;
 import de.mschoeffel.secretsanta.group.TestGroup;
 import de.mschoeffel.secretsanta.model.v1.DrawRequestClientDto;
 import de.mschoeffel.secretsanta.model.v1.GroupClientDto;
@@ -34,9 +36,307 @@ public class TestFunctional {
     @Autowired
     GroupMemberClientService groupMemberClientService;
 
-    //TODO: Test max Rerolls
-    //TODO: Test accepting Partner
-    //TODO: Test removing all partner from group
+    /**
+     * Test to check rerolls are subtracted.
+     */
+    @Test
+    @Transactional
+    public void testMaxRerolls(){
+        int membercount = 3;
+        String groupname = "testGroupCreation";
+        int numberRerolls = 10;
+
+        if (groupClientService.checkGroupName(groupname)) {
+            LOG.info(groupname + " already existed trying to delete...");
+            groupClientService.deleteGroup(groupname);
+            LOG.info("Deletion: " + (groupClientService.checkGroupName(groupname) ? "failed" : "successful"));
+        }
+
+        LOG.info("Data creation");
+
+        GroupClientDto groupClientDto = new GroupClientDto();
+        groupClientDto.setName(groupname);
+        groupClientDto.setRerolls(numberRerolls);
+
+        List<GroupMemberClientDto> groupMemberClientDtos = new ArrayList<>();
+        for (int j = 1; j <= membercount; j++) {
+            GroupMemberClientDto member = new GroupMemberClientDto();
+            member.setName("testGroupCreationM" + j);
+            groupMemberClientDtos.add(member);
+        }
+        groupClientDto.setMembers(groupMemberClientDtos);
+
+        GroupClientDto result = groupClientService.createGroup(groupClientDto);
+
+        LOG.info("Data created");
+
+        LOG.info("Check init setting...");
+        DrawRequestClientDto user = new DrawRequestClientDto();
+        user.setName(result.getMembers().get(0).getName());
+        user.setKey(result.getMembers().get(0).getKey());
+        user.setGroupname(result.getName());
+        GroupMemberClientDto userInit = groupMemberClientService.getMember(user);
+        Assert.assertEquals(numberRerolls + 1, (int) userInit.getRerolls());
+        LOG.info("Init setting checked");
+
+        LOG.info("Start drawing...");
+        for(int i = 0; i <= numberRerolls; i++) {
+            result = groupClientService.clearAllPartner(result.getName());
+            GroupMemberClientDto userResult = groupMemberClientService.drawPartner(user);
+            Assert.assertEquals(numberRerolls - i, (int) userResult.getRerolls());
+        }
+        LOG.info("Finished drawing");
+
+        LOG.info("Group deletion");
+        groupClientService.deleteGroup(result.getName());
+
+        boolean groupStillExists = groupClientService.checkGroupName(result.getName());
+        Assert.assertFalse(groupStillExists);
+        LOG.info("Group deletion finished");
+    }
+
+    /**
+     * Test exception with no more rerolls.
+     */
+    @Test(expected = NoMoreRerollsException.class)
+    @Transactional
+    public void testNoMoreRerollsException(){
+        int membercount = 3;
+        String groupname = "testGroupCreation";
+        int numberRerolls = 10;
+
+        if (groupClientService.checkGroupName(groupname)) {
+            LOG.info(groupname + " already existed trying to delete...");
+            groupClientService.deleteGroup(groupname);
+            LOG.info("Deletion: " + (groupClientService.checkGroupName(groupname) ? "failed" : "successful"));
+        }
+
+        LOG.info("Data creation");
+
+        GroupClientDto groupClientDto = new GroupClientDto();
+        groupClientDto.setName(groupname);
+        groupClientDto.setRerolls(numberRerolls);
+
+        List<GroupMemberClientDto> groupMemberClientDtos = new ArrayList<>();
+        for (int j = 1; j <= membercount; j++) {
+            GroupMemberClientDto member = new GroupMemberClientDto();
+            member.setName("testGroupCreationM" + j);
+            groupMemberClientDtos.add(member);
+        }
+        groupClientDto.setMembers(groupMemberClientDtos);
+
+        GroupClientDto result = groupClientService.createGroup(groupClientDto);
+
+        LOG.info("Data created");
+
+        LOG.info("Check init setting...");
+        DrawRequestClientDto user = new DrawRequestClientDto();
+        user.setName(result.getMembers().get(0).getName());
+        user.setKey(result.getMembers().get(0).getKey());
+        user.setGroupname(result.getName());
+        GroupMemberClientDto userInit = groupMemberClientService.getMember(user);
+        Assert.assertEquals(numberRerolls + 1, (int) userInit.getRerolls());
+        LOG.info("Init setting checked");
+
+        LOG.info("Start drawing...");
+        for(int i = 0; i <= numberRerolls; i++) {
+            result = groupClientService.clearAllPartner(result.getName());
+            GroupMemberClientDto userResult = groupMemberClientService.drawPartner(user);
+            Assert.assertEquals(numberRerolls - i, (int) userResult.getRerolls());
+        }
+        LOG.info("Finished drawing");
+
+        LOG.info("Checking to draw with no more rerolls...");
+        groupMemberClientService.drawPartner(user);
+
+        LOG.info("Group deletion");
+        groupClientService.deleteGroup(result.getName());
+
+        boolean groupStillExists = groupClientService.checkGroupName(result.getName());
+        Assert.assertFalse(groupStillExists);
+        LOG.info("Group deletion finished");
+    }
+
+    /**
+     * Test accepting partner
+     */
+    @Test()
+    @Transactional
+    public void testAcceptingPartner(){
+        int membercount = 3;
+        String groupname = "testGroupCreation";
+        int numberRerolls = 10;
+
+        if (groupClientService.checkGroupName(groupname)) {
+            LOG.info(groupname + " already existed trying to delete...");
+            groupClientService.deleteGroup(groupname);
+            LOG.info("Deletion: " + (groupClientService.checkGroupName(groupname) ? "failed" : "successful"));
+        }
+
+        LOG.info("Data creation");
+
+        GroupClientDto groupClientDto = new GroupClientDto();
+        groupClientDto.setName(groupname);
+        groupClientDto.setRerolls(numberRerolls);
+
+        List<GroupMemberClientDto> groupMemberClientDtos = new ArrayList<>();
+        for (int j = 1; j <= membercount; j++) {
+            GroupMemberClientDto member = new GroupMemberClientDto();
+            member.setName("testGroupCreationM" + j);
+            groupMemberClientDtos.add(member);
+        }
+        groupClientDto.setMembers(groupMemberClientDtos);
+
+        GroupClientDto result = groupClientService.createGroup(groupClientDto);
+
+        LOG.info("Data created");
+
+        LOG.info("Starting drawing...");
+        DrawRequestClientDto user = new DrawRequestClientDto();
+        user.setName(result.getMembers().get(0).getName());
+        user.setKey(result.getMembers().get(0).getKey());
+        user.setGroupname(result.getName());
+        GroupMemberClientDto userInit = groupMemberClientService.drawPartner(user);
+        GroupMemberClientDto userAccepted = groupMemberClientService.acceptPartner(user);
+        GroupMemberClientDto userResult = groupMemberClientService.getMember(user);
+
+        Assert.assertEquals(true, userAccepted.getDrawAccepted());
+        Assert.assertEquals(true, userResult.getDrawAccepted());
+        Assert.assertEquals(userInit.getPartner().getName(), userAccepted.getPartner().getName());
+        Assert.assertEquals(userAccepted.getPartner().getName(), userResult.getPartner().getName());
+        LOG.info("Finished drawing");
+
+        LOG.info("Group deletion");
+        groupClientService.deleteGroup(result.getName());
+
+        boolean groupStillExists = groupClientService.checkGroupName(result.getName());
+        Assert.assertFalse(groupStillExists);
+        LOG.info("Group deletion finished");
+    }
+
+    /**
+     * Test exception when drawing again with accepted partner
+     */
+    @Test(expected = AlreadyPartnerAcceptedException.class)
+    @Transactional
+    public void testDrawWithAcceptedPartnerException(){
+        int membercount = 3;
+        String groupname = "testGroupCreation";
+        int numberRerolls = 10;
+
+        if (groupClientService.checkGroupName(groupname)) {
+            LOG.info(groupname + " already existed trying to delete...");
+            groupClientService.deleteGroup(groupname);
+            LOG.info("Deletion: " + (groupClientService.checkGroupName(groupname) ? "failed" : "successful"));
+        }
+
+        LOG.info("Data creation");
+
+        GroupClientDto groupClientDto = new GroupClientDto();
+        groupClientDto.setName(groupname);
+        groupClientDto.setRerolls(numberRerolls);
+
+        List<GroupMemberClientDto> groupMemberClientDtos = new ArrayList<>();
+        for (int j = 1; j <= membercount; j++) {
+            GroupMemberClientDto member = new GroupMemberClientDto();
+            member.setName("testGroupCreationM" + j);
+            groupMemberClientDtos.add(member);
+        }
+        groupClientDto.setMembers(groupMemberClientDtos);
+
+        GroupClientDto result = groupClientService.createGroup(groupClientDto);
+
+        LOG.info("Data created");
+
+        LOG.info("Starting drawing...");
+        DrawRequestClientDto user = new DrawRequestClientDto();
+        user.setName(result.getMembers().get(0).getName());
+        user.setKey(result.getMembers().get(0).getKey());
+        user.setGroupname(result.getName());
+        GroupMemberClientDto userInit = groupMemberClientService.drawPartner(user);
+        GroupMemberClientDto userAccepted = groupMemberClientService.acceptPartner(user);
+        GroupMemberClientDto userResult = groupMemberClientService.getMember(user);
+
+        Assert.assertEquals(true, userAccepted.getDrawAccepted());
+        Assert.assertEquals(true, userResult.getDrawAccepted());
+        Assert.assertEquals(userInit.getPartner().getName(), userAccepted.getPartner().getName());
+        Assert.assertEquals(userAccepted.getPartner().getName(), userResult.getPartner().getName());
+        LOG.info("Finished drawing");
+
+        LOG.info("Checking to draw again with accepted partner...");
+        groupMemberClientService.drawPartner(user);
+
+        LOG.info("Group deletion");
+        groupClientService.deleteGroup(result.getName());
+
+        boolean groupStillExists = groupClientService.checkGroupName(result.getName());
+        Assert.assertFalse(groupStillExists);
+        LOG.info("Group deletion finished");
+    }
+
+    /**
+     * Test removing all partner from a group
+     */
+    @Test
+    @Transactional
+    public void testRemovingAllPartner(){
+        int[] membercountArr = {2, 3, 5, 10, 50};
+        String groupname = "testGroupCreation";
+
+        for(int i = 1; i <= 5; i++) {
+            LOG.info("Run: " + i);
+
+            int membercount = membercountArr[i-1];
+
+            if (groupClientService.checkGroupName(groupname)) {
+                LOG.info(groupname + " already existed trying to delete...");
+                groupClientService.deleteGroup(groupname);
+                LOG.info("Deletion: " + (groupClientService.checkGroupName(groupname) ? "failed" : "successful"));
+            }
+
+            LOG.info("Data creation");
+
+            GroupClientDto groupClientDto = new GroupClientDto();
+            groupClientDto.setName(groupname);
+            groupClientDto.setRerolls(500);
+
+            List<GroupMemberClientDto> groupMemberClientDtos = new ArrayList<>();
+            for (int j = 1; j <= membercount; j++) {
+                GroupMemberClientDto member = new GroupMemberClientDto();
+                member.setName("testGroupCreationM" + j);
+                groupMemberClientDtos.add(member);
+            }
+            groupClientDto.setMembers(groupMemberClientDtos);
+
+            GroupClientDto result = groupClientService.createGroup(groupClientDto);
+
+            LOG.info("Data created");
+
+            LOG.info("Start drawing...");
+            for (GroupMemberClientDto member : result.getMembers()) {
+                DrawRequestClientDto drawRequestClientDto = new DrawRequestClientDto();
+                drawRequestClientDto.setGroupname(result.getName());
+                drawRequestClientDto.setName(member.getName());
+                drawRequestClientDto.setKey(member.getKey());
+                groupMemberClientService.drawPartner(drawRequestClientDto);
+            }
+            LOG.info("Finished drawing");
+
+            LOG.info("Start clearing and checking partner...");
+            GroupClientDto groupResult = groupClientService.clearAllPartner(result.getName());
+            for(GroupMemberClientDto member : groupResult.getMembers()){
+                Assert.assertNull(member.getPartner());
+            }
+            LOG.info("Finished clearing and checking partner...");
+
+            LOG.info("Group deletion");
+            groupClientService.deleteGroup(result.getName());
+
+            boolean groupStillExists = groupClientService.checkGroupName(result.getName());
+            Assert.assertFalse(groupStillExists);
+            LOG.info("Group deletion finished");
+        }
+    }
 
     /**
      * Test to check that the last one to draw isn't forced to draw himself.

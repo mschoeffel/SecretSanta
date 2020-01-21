@@ -4,8 +4,11 @@ import de.mschoeffel.secretsanta.controller.BackendController;
 import de.mschoeffel.secretsanta.error.AlreadyAllDrawnException;
 import de.mschoeffel.secretsanta.error.AlreadyPartnerAcceptedException;
 import de.mschoeffel.secretsanta.error.NoMoreRerollsException;
+import de.mschoeffel.secretsanta.mapper.GroupMemberResultMapper;
+import de.mschoeffel.secretsanta.model.GroupMember;
 import de.mschoeffel.secretsanta.model.v1.DrawRequestClientDto;
 import de.mschoeffel.secretsanta.model.v1.GroupMemberClientDto;
+import de.mschoeffel.secretsanta.results.GroupMemberResult;
 import de.mschoeffel.secretsanta.service.v1.GroupMemberClientService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,9 +30,11 @@ public class GroupMemberRestController {
     private GroupMemberClientService groupMemberClientService;
 
     @RequestMapping("/groupmember/draw")
-    public GroupMemberClientDto drawPartner(@RequestBody DrawRequestClientDto drawRequestClientDto){
+    public GroupMemberResult drawPartner(@RequestBody DrawRequestClientDto drawRequestClientDto){
+        GroupMemberResultMapper mapper = new GroupMemberResultMapper();
+
         try {
-            return groupMemberClientService.drawPartner(drawRequestClientDto);
+            return mapper.clientDtoToResult(groupMemberClientService.drawPartner(drawRequestClientDto));
         } catch(EntityNotFoundException e){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Invalid credentials");
         } catch(NoMoreRerollsException e){
@@ -42,27 +47,33 @@ public class GroupMemberRestController {
     }
 
     @RequestMapping("/groupmember/accept")
-    public GroupMemberClientDto acceptPartner(@RequestBody DrawRequestClientDto drawRequestClientDto){
+    public GroupMemberResult acceptPartner(@RequestBody DrawRequestClientDto drawRequestClientDto){
+        GroupMemberResultMapper mapper = new GroupMemberResultMapper();
+
         try {
-            return groupMemberClientService.acceptPartner(drawRequestClientDto);
+            return mapper.clientDtoToResult(groupMemberClientService.acceptPartner(drawRequestClientDto));
         } catch(EntityNotFoundException e){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Invalid credentials");
         }
     }
 
     @RequestMapping("/groupmember/partner")
-    public GroupMemberClientDto getPartner(@RequestBody DrawRequestClientDto drawRequestClientDto){
+    public GroupMemberResult getPartner(@RequestBody DrawRequestClientDto drawRequestClientDto){
+        GroupMemberResultMapper mapper = new GroupMemberResultMapper();
+
         try{
-            return groupMemberClientService.getPartner(drawRequestClientDto);
+            return mapper.clientDtoToResult(groupMemberClientService.getPartner(drawRequestClientDto));
         } catch(EntityNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Invalid credentials");
         }
     }
 
     @RequestMapping("/groupmember/member")
-    public GroupMemberClientDto getMember(@RequestBody DrawRequestClientDto drawRequestClientDto){
+    public GroupMemberResult getMember(@RequestBody DrawRequestClientDto drawRequestClientDto){
+        GroupMemberResultMapper mapper = new GroupMemberResultMapper();
+
         try{
-            return groupMemberClientService.getMember(drawRequestClientDto);
+            return mapper.clientDtoToResult(groupMemberClientService.getMember(drawRequestClientDto));
         } catch(EntityNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Invalid credentials");
         }
