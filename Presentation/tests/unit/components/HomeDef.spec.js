@@ -1,20 +1,65 @@
-import { shallowMount } from '@vue/test-utils';
-import Hello from '@/components/Hello'
+import Vue from 'vue'
+import Vuetify from 'vuetify'
+import VueI18n from 'vue-i18n'
 
-describe('Hello.vue', () => {
-  it('should render correct hello message', () => {
-    // Given
-    const hellowrapped = shallowMount(Hello, {
-      // see https://stackoverflow.com/a/37940045/4964553
-      propsData: { hellomsg: 'Welcome to your Jest powered Vue.js App' },
-      // see https://vue-test-utils.vuejs.org/guides/using-with-vue-router.html#testing-components-that-use-router-link-or-router-view
-      stubs: ['router-link', 'router-view']
-    });
+import HomeDef from '@/components/HomeDef'
 
-    // When
-    const contentH1 = hellowrapped.find('h1');
+import { mount, createLocalVue } from '@vue/test-utils';
 
-    // Then
-    expect(contentH1.text()).toEqual('Welcome to your Jest powered Vue.js App');
+const localVue = createLocalVue()
+
+Vue.use(VueI18n)
+const i18n = new VueI18n({});
+
+describe('HomeDef.vue', () => {
+  let vuetify
+
+  beforeEach(() => {
+    vuetify = new Vuetify()
   })
+
+  const mountFunction = options => {
+    return mount(HomeDef, {
+      localVue,
+      vuetify,
+      i18n,
+      ...options,
+    })
+  }
+
+  it('should render correct home form', () => {
+    const wrapper = mountFunction()
+
+    expect(wrapper.html()).toMatchSnapshot()
+  })
+
+  it('should give invalid input to empty form', () =>{
+    const wrapper = mountFunction()
+
+    wrapper.find('v-btn[id=next]').trigger('click')
+
+    expect(wrapper.vm.step).toBe(1)
+    expect(wrapper.vm.groupnameerror).toBe("home.validation-groupnamerequired")
+    expect(wrapper.vm.membernameerror).toBe("home.validation-membernamerequired")
+    expect(wrapper.vm.keyerror).toBe("home.validation-keyrequired")
+    expect(wrapper.vm.displayerror).toBe("home.validationerror")
+  })
+  
+  it('should give invalid input to empty groupname', () =>{
+    const wrapper = mountFunction()
+
+    wrapper.setData({
+        groupname: "",
+        name: "abcdef",
+        key: "123456"
+    })
+    wrapper.find('v-btn[id=next]').trigger('click')
+
+    expect(wrapper.vm.step).toBe(1)
+    expect(wrapper.vm.groupnameerror).toBe("home.validation-groupnamerequired")
+    expect(wrapper.vm.membernameerror).toBe("")
+    expect(wrapper.vm.keyerror).toBe("")
+    expect(wrapper.vm.displayerror).toBe("home.validationerror")
+  })
+
 })

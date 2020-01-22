@@ -20,16 +20,12 @@ exports[`NewGroupDef.vue should render correct group creation form 1`] = `
             </v-stepper-header>
             <v-stepper-items>
               <v-stepper-content step="1">
-                <v-form>
-                  <!---->
-                  <v-text-field label="new-group.name" error-messages="" name="groupname" counter="15" prepend-icon="mdi-account-group" type="text" required=""></v-text-field>
-                  <v-text-field label="new-group.membercount" error-messages="" name="name" prepend-icon="mdi-numeric" type="number" min="2" max="50" required=""></v-text-field>
-                  <v-divider></v-divider>
-                  <v-checkbox disabled="true" name="email" color="primary" label="new-group.email" prepend-icon="mdi-email-lock"></v-checkbox>
-                  <v-divider></v-divider>
-                  <v-checkbox color="primary" name="enableRerolls" label="new-group.rerolls" data-test="rerollCheckbox" prepend-icon="mdi-sync"></v-checkbox>
-                  <v-text-field label="new-group.rerolls-slider" error-messages="" min="0" max="100" name="rerolls" prepend-icon="mdi-sync" data-test="rerollInput" disabled="true" type="number"></v-text-field>
-                </v-form>
+                <!---->
+                <v-text-field label="new-group.name" name="groupname" id="groupname" type="text" prepend-icon="mdi-account-group" counter="15" error-messages=""></v-text-field>
+                <v-text-field label="new-group.membercount" name="name" id="name" type="number" prepend-icon="mdi-numeric" min="2" max="50" error-messages=""></v-text-field>
+                <v-divider></v-divider>
+                <v-checkbox label="new-group.rerolls" name="enableRerolls" id="enableRerolls" prepend-icon="mdi-sync" color="primary"></v-checkbox>
+                <v-text-field label="new-group.rerolls-slider" name="rerolls" id="rerolls" type="number" prepend-icon="mdi-sync" min="0" max="100" error-messages="" disabled="true"></v-text-field>
               </v-stepper-content>
               <v-stepper-content step="2">
                 <!---->
@@ -50,9 +46,9 @@ exports[`NewGroupDef.vue should render correct group creation form 1`] = `
           </v-stepper>
         </v-card-text>
         <v-card-actions>
-          <v-btn color="secondary" name="back">new-group.back</v-btn>
+          <v-btn color="secondary" name="back" id="back">new-group.back</v-btn>
           <v-spacer></v-spacer>
-          <v-btn color="primary" name="next">new-group.next</v-btn>
+          <v-btn color="primary" name="next" id="next">new-group.next</v-btn>
         </v-card-actions>
       </v-card>
     </v-col>

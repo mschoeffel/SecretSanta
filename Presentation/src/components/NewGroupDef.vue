@@ -18,66 +18,57 @@
               </v-stepper-header>
               <v-stepper-items>
                 <v-stepper-content key="group" step="1">
-                  <v-form>
                     <v-alert
-                       v-if="validationerror.length > 0"
+                       v-if="validationerror"
+                       name="erroralert"
+                       id="erroralert"
                        type="error"
                     >{{ $t(validationerror) }}</v-alert>
                     <v-text-field
                       :label="$t('new-group.name')"
-                      :error-messages="$t(groupnameerror, {max: maxchargroupname})"
-                      name="groupname"
-                      :counter="maxchargroupname"
                       v-model="groupname"
-                      v-on:change="checkGroupName"
-                      prepend-icon="mdi-account-group"
+                      name="groupname"
+                      id="groupname"
                       type="text"
-                      required
+                      prepend-icon="mdi-account-group"
+                      :counter="maxchargroupname"
+                      :error-messages="$t(groupnameerror, {max: maxchargroupname})"
+                      v-on:change="checkGroupName"
                     />
                     <v-text-field
                       :label="$t('new-group.membercount')"
-                      :error-messages="$t(membercounterror, {min: minNumberMember, max: maxNumberMember})"
                       v-model.number="membercount"
                       name="name"
-                      prepend-icon="mdi-numeric"
+                      id="name"
                       type="number"
+                      prepend-icon="mdi-numeric"
                       :min="minNumberMember"
                       :max="maxNumberMember"
+                      :error-messages="$t(membercounterror, {min: minNumberMember, max: maxNumberMember})"
                       v-on:change="checkMemberNumber"
-                      required
                     />
                     <v-divider></v-divider>
                     <v-checkbox
-                      :disabled="!allowEmail"
-                      v-model="checkbox"
-                      name="email"
-                      color="primary"
-                      :label="$t('new-group.email')"
-                      prepend-icon="mdi-email-lock"
-                    ></v-checkbox>
-                    <v-divider></v-divider>
-                    <v-checkbox
+                    :label="$t('new-group.rerolls')"
                       v-model="checkboxRerolls"
-                      color="primary"
                       name="enableRerolls"
-                      :label="$t('new-group.rerolls')"
-                      data-test="rerollCheckbox"
+                      id="enableRerolls"
                       prepend-icon="mdi-sync"
+                      color="primary"
                     ></v-checkbox>
                     <v-text-field
                       :label="$t('new-group.rerolls-slider')"
-                      :error-messages="$t(rerollserror, {max: maxrerolls, min: minrerolls})"
-                      v-on:change="checkRerollsNumber"
+                      v-model="rerolls"
+                      name="rerolls"
+                      id="rerolls"
+                      type="number"
+                      prepend-icon="mdi-sync"
                       :min="minrerolls"
                       :max="maxrerolls"
-                      name="rerolls"
-                      v-model="rerolls"
-                      prepend-icon="mdi-sync"
-                      data-test="rerollInput"
+                      :error-messages="$t(rerollserror, {max: maxrerolls, min: minrerolls})"
                       :disabled="!checkboxRerolls"
-                      type="number"
+                      v-on:change="checkRerollsNumber"
                     />
-                  </v-form>
                 </v-stepper-content>
                 <v-stepper-content key="member" step="2">
                     <v-alert
@@ -92,17 +83,19 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr v-for="member, index in members">
+                      <tr v-for="(member, index) in members" v-bind:key="index">
                         <td>{{ index + 1 }}</td>
-                        <td><v-text-field
+                        <td>
+                          <v-text-field
+                          :label="$t('new-group.member-name')"
                             v-model="member.name"
-                            :label="$t('new-group.member-name')"
+                            :name="name + index"
+                            :id="name + index"
+                            type="text"
+                            prepend-icon="mdi-account"
+                            :counter="maxcharmember"
                             :error-messages="$t(member.error, {max: maxcharmember})"
                             v-on:change="checkmember(member)"
-                            :counter="maxcharmember"
-                            name="name"
-                            prepend-icon="mdi-account"
-                            type="text"
                           /></td>
                       </tr>
                     </tbody>
@@ -119,15 +112,17 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr v-for="member, index in group.members" :key="index">
+                      <tr v-for="(member, index) in group.members" v-bind:key="index">
                         <td>{{ index + 1 }}</td>
                         <td>{{ member.name }}</td>
                         <td v-if="showEmail">{{ member.email }}</td>
                         <td>
                           <v-text-field
                             :value="member.key"
-                            :append-icon="member.showKey ? 'mdi-eye' : 'mdi-eye-off'"
+                            :name="key + index"
+                            :id="key + index"
                             :type="member.showKey ? 'text' : 'password'"
+                            :append-icon="member.showKey ? 'mdi-eye' : 'mdi-eye-off'"
                             @click:append="member.showKey = !member.showKey"
                           ></v-text-field>
                         </td>
@@ -139,9 +134,9 @@
             </v-stepper>
           </v-card-text>
           <v-card-actions>
-            <v-btn color="secondary" name="back" v-on:click="stepBack" v-if="step < 3">{{ $tc('new-group.back', step)}}</v-btn>
+            <v-btn color="secondary" name="back" id="back" v-on:click="stepBack" v-if="step < 3">{{ $tc('new-group.back', step)}}</v-btn>
             <v-spacer />
-            <v-btn color="primary" name="next" v-on:click="stepForward">{{ $tc('new-group.next', step)}}</v-btn>
+            <v-btn color="primary" name="next" id="next" v-on:click="stepForward">{{ $tc('new-group.next', step)}}</v-btn>
           </v-card-actions>
         </v-card>
       </v-col>
@@ -157,27 +152,36 @@ export default {
     source: String
   },
   data: () => ({
-    groupname: "",
-    groupnameerror: "",
-    rerolls: 0,
-    showPassword: false,
-    allowEmail: false,
-    checkbox: false,
-    checkboxRerolls: false,
     step: 1,
+
+    /* Input models*/
+    groupname: "",
     membercount: 0,
+    checkboxRerolls: false,
+    rerolls: 0,
+    
+    /* Helper */
     membercountsave: 0,
+
+    /* Result data */
     members: [],
     group: null,
+    
+    /* Validations */
+    validationerror: "",
+
+    maxchargroupname: 15,
+    groupnameerror: "",
+    
+    maxcharmember: 15,
+
     minNumberMember: 2,
     maxNumberMember: 50,
-    maxchargroupname: 15,
     membercounterror: "",
+
     minrerolls: 0,
     maxrerolls: 100,
     rerollserror: "",
-    validationerror: "",
-    maxcharmember: 15
   }),
   methods: {
     stepBack: function() {
