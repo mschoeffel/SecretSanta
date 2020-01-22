@@ -8,7 +8,6 @@ addons:
   chrome: stable
 
 script:
-  - chrome --no-sandbox
   - mvn clean install
 
 cache:

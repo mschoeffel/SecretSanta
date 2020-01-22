@@ -72,7 +72,7 @@
                 </v-stepper-content>
                 <v-stepper-content key="member" step="2">
                     <v-alert
-                       v-if="validationerror.length > 0"
+                       v-if="validationerror"
                        type="error"
                     >{{ $t(validationerror) }}</v-alert>
                   <v-simple-table fixed-header v-if="members != null">

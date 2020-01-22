@@ -1,5 +1,8 @@
 {
     "webdriver": {
+        "start_process": true,
+        "server_path": "node_modules/.bin/chromedriver",
+        "port": 9515,
         "cli_args": [
             "--no-sandbox"
         ]
@@ -10,7 +13,8 @@
                 "browserName": "chrome",
                 "chromeOptions": {
                     "args": [
-                        "--no-sandbox"
+                        "--no-sandbox",
+                        "--headless"
                     ]
                 }
             }
