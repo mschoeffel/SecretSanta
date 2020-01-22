@@ -1,0 +1,19 @@
+{
+    "webdriver": {
+        "cli_args": [
+            "--no-sandbox"
+        ]
+    },
+    "test_settings": {
+        "default": {
+            "desiredCapabilities": {
+                "browserName": "chrome",
+                "chromeOptions": {
+                    "args": [
+                        "--no-sandbox"
+                    ]
+                }
+            }
+        }
+    }
+}
