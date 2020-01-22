@@ -1,0 +1,49 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HomeDef.vue should render correct home form 1`] = `
+<v-container fluid="" class="fill-height">
+  <v-row align="center" justify="center">
+    <v-col cols="12" sm="12" md="8">
+      <v-card class="elevation-12">
+        <v-toolbar color="primary" dark="" flat="">
+          <v-toolbar-title name="title" id="title">home.formtitle</v-toolbar-title>
+        </v-toolbar>
+        <v-card-text>
+          <v-stepper alt-labels="">
+            <v-stepper-header>
+              <v-stepper-step step="1">home.input</v-stepper-step>
+              <v-divider></v-divider>
+              <v-stepper-step step="2">home.result</v-stepper-step>
+            </v-stepper-header>
+            <v-stepper-items>
+              <v-stepper-content step="1">
+                <!---->
+                <v-text-field label="home.group" name="groupname" id="groupname" type="text" prepend-icon="mdi-account-group" counter="15" error-messages=""></v-text-field>
+                <v-text-field label="home.name" name="name" id="name" type="text" prepend-icon="mdi-account" counter="15" error-messages=""></v-text-field>
+                <v-text-field label="home.key" name="key" id="key" type="password" prepend-icon="mdi-key" append-icon="mdi-eye-off" error-messages=""></v-text-field>
+              </v-stepper-content>
+              <v-stepper-content step="2">
+                <!---->
+                <p class="font-weight-medium text-center">home.message</p> <br>
+                <p class="font-weight-bold text-center"></p>
+                <div><br>
+                  <p>home.autoaccept</p>
+                </div>
+              </v-stepper-content>
+            </v-stepper-items>
+          </v-stepper>
+        </v-card-text>
+        <v-card-actions>
+          <v-btn name="routecreategroup" id="routecreategroup" color="secondary">home.create-group</v-btn>
+          <!---->
+          <v-spacer></v-spacer>
+          <v-btn name="next" id="next" color="primary">home.draw</v-btn>
+          <!---->
+          <!---->
+          <!---->
+        </v-card-actions>
+      </v-card>
+    </v-col>
+  </v-row>
+</v-container>
+`;
