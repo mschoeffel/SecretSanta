@@ -1,6 +1,6 @@
 <template>
   <v-app id="inspire">
-    <v-navigation-drawer v-model="drawer" app clipped>
+    <v-navigation-drawer name="navigation" id="navigation" v-model="drawer" app clipped>
       <v-list dense>
         <v-list-item link v-on:click="routeHome">
           <v-list-item-action>
@@ -58,13 +58,15 @@
       </v-list>
     </v-navigation-drawer>
 
-    <v-app-bar app clipped-left>
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
+    <v-app-bar name="header" id="header" app clipped-left>
+      <v-app-bar-nav-icon name="changenav" id="changenav" @click.stop="drawer = !drawer" />
       <v-toolbar-title>{{ $t('global.title')}}</v-toolbar-title>
       <v-spacer></v-spacer>
       <div class="language-width">
         <v-select
           v-model="$i18n.locale"
+          name="language"
+          id="language"
           :items="langs"
           :label="$t('global.language')"
           outlined
@@ -110,19 +112,19 @@ export default {
   }),
   methods: {
     routeLogin: function() {
-      this.$router.push({ path: "/login" });
+      this.$router.push({ path: "/login" }).catch(err => {});
     },
     routeHome: function() {
-      this.$router.push({ path: "/" });
+      this.$router.push({ path: "/" }).catch(err => {});
     },
     routeTest: function() {
-      this.$router.push({ path: "/draw" });
+      this.$router.push({ path: "/draw" }).catch(err => {});
     },
     routeRegister: function() {
-      this.$router.push({ path: "/register" });
+      this.$router.push({ path: "/register" }).catch(err => {});
     },
     routeNewGroup: function() {
-      this.$router.push({ path: "/newgroup" });
+      this.$router.push({ path: "/newgroup" }).catch(err => {});
     },
     changeTheme: function() {
       this.$vuetify.theme.dark = this.themeSwitch;

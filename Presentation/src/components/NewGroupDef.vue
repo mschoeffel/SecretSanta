@@ -26,7 +26,7 @@
                     <v-text-field
                       :label="$t('new-group.name')"
                       :error-messages="$t(groupnameerror, {max: maxchargroupname})"
-                      name="name"
+                      name="groupname"
                       :counter="maxchargroupname"
                       v-model="groupname"
                       v-on:change="checkGroupName"
@@ -59,7 +59,9 @@
                     <v-checkbox
                       v-model="checkboxRerolls"
                       color="primary"
+                      name="enableRerolls"
                       :label="$t('new-group.rerolls')"
+                      data-test="rerollCheckbox"
                       prepend-icon="mdi-sync"
                     ></v-checkbox>
                     <v-text-field
@@ -71,6 +73,7 @@
                       name="rerolls"
                       v-model="rerolls"
                       prepend-icon="mdi-sync"
+                      data-test="rerollInput"
                       :disabled="!checkboxRerolls"
                       type="number"
                     />
@@ -136,9 +139,9 @@
             </v-stepper>
           </v-card-text>
           <v-card-actions>
-            <v-btn color="secondary" v-on:click="stepBack" v-if="step < 3">{{ $tc('new-group.back', step)}}</v-btn>
+            <v-btn color="secondary" name="back" v-on:click="stepBack" v-if="step < 3">{{ $tc('new-group.back', step)}}</v-btn>
             <v-spacer />
-            <v-btn color="primary" v-on:click="stepForward">{{ $tc('new-group.next', step)}}</v-btn>
+            <v-btn color="primary" name="next" v-on:click="stepForward">{{ $tc('new-group.next', step)}}</v-btn>
           </v-card-actions>
         </v-card>
       </v-col>
@@ -224,6 +227,9 @@ export default {
     stepForward: function() {
       if (this.step === 1) {
         this.validationerror = "";
+        this.checkGroupName();
+        this.checkMemberNumber();
+        this.checkRerollsNumber();
         if(!this.membercounterror && !this.groupnameerror && !this.rerollserror){
           if (this.membercountsave >= this.membercount) {
             this.members.splice(this.membercount);
@@ -239,11 +245,13 @@ export default {
           this.step = 2;
         } else{
           this.validationerror = "new-group.validationerror";
+          this.step = 1;
         }
       } else if (this.step === 2) {
 
         let membersValid = true;
         for(let i = 0; i < this.members.length; i++){
+          this.checkmember(this.members[i]);
             if(this.members[i].error.length > 0){
                 membersValid = false;
                 break;

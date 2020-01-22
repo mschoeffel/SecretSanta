@@ -1,0 +1,61 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NewGroupDef.vue should render correct group creation form 1`] = `
+<v-container fluid="" class="fill-height">
+  <v-row align="center" justify="center">
+    <v-col cols="12" sm="12" md="8">
+      <v-card class="elevation-12">
+        <v-toolbar color="primary" dark="" flat="">
+          <v-toolbar-title>new-group.formtitle</v-toolbar-title>
+          <!---->
+        </v-toolbar>
+        <v-card-text>
+          <v-stepper alt-labels="">
+            <v-stepper-header>
+              <v-stepper-step step="1">new-group.group</v-stepper-step>
+              <v-divider></v-divider>
+              <v-stepper-step step="2">new-group.member</v-stepper-step>
+              <v-divider></v-divider>
+              <v-stepper-step step="3">new-group.result</v-stepper-step>
+            </v-stepper-header>
+            <v-stepper-items>
+              <v-stepper-content step="1">
+                <v-form>
+                  <!---->
+                  <v-text-field label="new-group.name" error-messages="" name="groupname" counter="15" prepend-icon="mdi-account-group" type="text" required=""></v-text-field>
+                  <v-text-field label="new-group.membercount" error-messages="" name="name" prepend-icon="mdi-numeric" type="number" min="2" max="50" required=""></v-text-field>
+                  <v-divider></v-divider>
+                  <v-checkbox disabled="true" name="email" color="primary" label="new-group.email" prepend-icon="mdi-email-lock"></v-checkbox>
+                  <v-divider></v-divider>
+                  <v-checkbox color="primary" name="enableRerolls" label="new-group.rerolls" data-test="rerollCheckbox" prepend-icon="mdi-sync"></v-checkbox>
+                  <v-text-field label="new-group.rerolls-slider" error-messages="" min="0" max="100" name="rerolls" prepend-icon="mdi-sync" data-test="rerollInput" disabled="true" type="number"></v-text-field>
+                </v-form>
+              </v-stepper-content>
+              <v-stepper-content step="2">
+                <!---->
+                <v-simple-table fixed-header="">
+                  <thead>
+                    <tr>
+                      <th class="text-left">new-group.member-number</th>
+                      <th class="text-left">new-group.member-name</th>
+                    </tr>
+                  </thead>
+                  <tbody></tbody>
+                </v-simple-table>
+              </v-stepper-content>
+              <v-stepper-content step="3">
+                <!---->
+              </v-stepper-content>
+            </v-stepper-items>
+          </v-stepper>
+        </v-card-text>
+        <v-card-actions>
+          <v-btn color="secondary" name="back">new-group.back</v-btn>
+          <v-spacer></v-spacer>
+          <v-btn color="primary" name="next">new-group.next</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-col>
+  </v-row>
+</v-container>
+`;
