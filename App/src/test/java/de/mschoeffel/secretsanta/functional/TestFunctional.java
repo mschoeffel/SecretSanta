@@ -43,7 +43,7 @@ public class TestFunctional {
     @Transactional
     public void testMaxRerolls(){
         int membercount = 3;
-        String groupname = "testGroupCreation";
+        String groupname = "unittestgroupfunc";
         int numberRerolls = 10;
 
         if (groupClientService.checkGroupName(groupname)) {
@@ -102,7 +102,7 @@ public class TestFunctional {
     @Transactional
     public void testNoMoreRerollsException(){
         int membercount = 3;
-        String groupname = "testGroupCreation";
+        String groupname = "unittestgroupfunc";
         int numberRerolls = 10;
 
         if (groupClientService.checkGroupName(groupname)) {
@@ -164,7 +164,7 @@ public class TestFunctional {
     @Transactional
     public void testAcceptingPartner(){
         int membercount = 3;
-        String groupname = "testGroupCreation";
+        String groupname = "unittestgroupfunc";
         int numberRerolls = 10;
 
         if (groupClientService.checkGroupName(groupname)) {
@@ -221,7 +221,7 @@ public class TestFunctional {
     @Transactional
     public void testDrawWithAcceptedPartnerException(){
         int membercount = 3;
-        String groupname = "testGroupCreation";
+        String groupname = "unittestgroupfunc";
         int numberRerolls = 10;
 
         if (groupClientService.checkGroupName(groupname)) {
@@ -281,9 +281,9 @@ public class TestFunctional {
     @Transactional
     public void testRemovingAllPartner(){
         int[] membercountArr = {2, 3, 5, 10, 50};
-        String groupname = "testGroupCreation";
+        String groupname = "unittestgroupfunc";
 
-        for(int i = 1; i <= 5; i++) {
+        for(int i = 1; i <= membercountArr.length; i++) {
             LOG.info("Run: " + i);
 
             int membercount = membercountArr[i-1];
@@ -345,7 +345,7 @@ public class TestFunctional {
     @Transactional
     public void testLastIsntForcedToPickHimself(){
         int membercount = 3;
-        String groupname = "testGroupCreation";
+        String groupname = "unittestgroupfunc";
 
         if (groupClientService.checkGroupName(groupname)) {
             LOG.info(groupname + " already existed trying to delete...");
@@ -407,9 +407,9 @@ public class TestFunctional {
     @Transactional
     public void testNoOneCanPickHimself2(){
         int[] membercountArr = {2, 3, 5, 10, 50};
-        String groupname = "testGroupCreation";
+        String groupname = "unittestgroupfunc";
 
-        for(int i = 1; i <= 5; i++) {
+        for(int i = 1; i <= membercountArr.length; i++) {
             LOG.info("Run: " + i);
 
             int membercount = membercountArr[i-1];
@@ -468,7 +468,7 @@ public class TestFunctional {
     @Transactional
     public void testNoOneGetsDrawnMultipleTimes(){
         int[] memberArr = {2, 3, 5, 10, 50};
-        String groupname = "testGroupCreation";
+        String groupname = "unittestgroupfunc";
 
         for(int i = 1; i <= memberArr.length; i++) {
             LOG.info("Run: " + i);
@@ -541,7 +541,7 @@ public class TestFunctional {
     @Transactional
     public void testEverybodyGetsDrawnOnce(){
         int[] memberArr = {2, 3, 5, 10, 50};
-        String groupname = "testGroupCreation";
+        String groupname = "unittestgroupfunc";
 
         for(int i = 1; i <= memberArr.length; i++) {
             LOG.info("Run: " + i);

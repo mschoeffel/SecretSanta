@@ -6,6 +6,10 @@
           <v-toolbar color="primary" dark flat>
             <v-toolbar-title v-if="step < 3">{{ $t('new-group.formtitle')}}</v-toolbar-title>
             <v-toolbar-title v-if="step == 3">{{ $t('new-group.final-title', {name: groupname})}}</v-toolbar-title>
+            <v-spacer></v-spacer>
+            <v-btn icon v-on:click="routeHelp">
+            <v-icon>mdi-help</v-icon>
+            </v-btn>
           </v-toolbar>
           <v-card-text>
             <v-stepper v-model="step" alt-labels>
@@ -134,9 +138,9 @@
             </v-stepper>
           </v-card-text>
           <v-card-actions>
-            <v-btn color="secondary" name="back" id="back" v-on:click="stepBack" v-if="step < 3">{{ $tc('new-group.back', step)}}</v-btn>
+            <v-btn color="secondary" name="back" id="back" v-on:click="stepBack" v-if="step < 3">{{ $tc('new-group.back', step-1)}}</v-btn>
             <v-spacer />
-            <v-btn color="primary" name="next" id="next" v-on:click="stepForward">{{ $tc('new-group.next', step)}}</v-btn>
+            <v-btn color="primary" name="next" id="next" v-on:click="stepForward">{{ $tc('new-group.next', step-1)}}</v-btn>
           </v-card-actions>
         </v-card>
       </v-col>
@@ -286,6 +290,9 @@ export default {
       } else {
         this.$router.push({ path: "/" });
       }
+    },
+    routeHelp: function(){
+        this.$router.push({ path: "/help" });
     }
   }
 };

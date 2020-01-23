@@ -5,6 +5,10 @@
         <v-card class="elevation-12">
           <v-toolbar color="primary" dark flat>
             <v-toolbar-title name="title" id="title">{{ $t('home.formtitle')}}</v-toolbar-title>
+            <v-spacer></v-spacer>
+            <v-btn icon v-on:click="routeHelp">
+            <v-icon>mdi-help</v-icon>
+            </v-btn>
           </v-toolbar>
           <v-card-text>
             <v-stepper v-model="step" alt-labels>
@@ -252,6 +256,9 @@ export default {
             this.keyerror = "";
           }
         });
+    },
+    routeHelp: function(){
+        this.$router.push({ path: "/help" });
     }
   }
 };

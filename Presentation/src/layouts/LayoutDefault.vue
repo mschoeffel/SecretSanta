@@ -34,7 +34,7 @@
             ></v-switch>
           </v-list-item>
           <v-divider></v-divider>
-          <v-list-item link v-on:click="routeTest">
+          <v-list-item link v-on:click="routeHelp">
             <v-list-item-action>
               <v-icon>mdi-help</v-icon>
             </v-list-item-action>
@@ -115,6 +115,9 @@ export default {
     },
     routeGithub: function() {
       window.location = "http://www.github.com/mschoeffel";
+    },
+    routeHelp: function() {
+      this.$router.push({ path: "/help" }).catch(err => {});
     }
   }
 };

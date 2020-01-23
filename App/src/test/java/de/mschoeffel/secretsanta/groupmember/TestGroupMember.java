@@ -17,6 +17,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.persistence.EntityNotFoundException;
+import javax.transaction.Transactional;
 import java.util.*;
 
 @RunWith(SpringRunner.class)
@@ -37,7 +38,7 @@ public class TestGroupMember {
     @Test
     public void testGroupMemberCreation(){
         int membercount = 5;
-        String groupname = "testGroupCreation";
+        String groupname = "unittestgroupmemb";
         if(groupClientService.checkGroupName(groupname)){
             LOG.info(groupname + " already existed trying to delete...");
             groupClientService.deleteGroup(groupname);
@@ -81,7 +82,7 @@ public class TestGroupMember {
 
     @Test(expected = EntityNotFoundException.class)
     public void testWrongCredentialsException(){
-        String groupname = "asjdfla";
+        String groupname = "unittestgroupmemb123";
         String name = "asdjflajsldf";
         String key = "jsojfwenm";
 
@@ -94,7 +95,7 @@ public class TestGroupMember {
 
     @Test
     public void testCredentials(){
-        String groupname = "testGroup";
+        String groupname = "unittestgroupmemb";
         String nameone = "testNameOne";
         String nametwo = "testNameTwo";
         String namethree = "testNameThree";

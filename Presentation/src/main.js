@@ -7,7 +7,7 @@ import i18n from './i18n'
 
 Vue.config.productionTip = false;
 
-// Bootstrap
+// Vuetify
 Vue.use(vuetify);
 
 new Vue({
@@ -15,6 +15,6 @@ new Vue({
     router,
     store,
     vuetify,
-    render: h => h(App)
+    render: h => h(App),
 }).$mount('#app');
 

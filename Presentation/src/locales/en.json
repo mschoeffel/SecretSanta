@@ -36,30 +36,6 @@
     "validation-keyrequired": "Key required",
     "validationerror": "Please fulfill the form correctly"
   },
-  "login": {
-    "formtitle": "Log in",
-    "account": "Account",
-    "password": "Password",
-    "submit": "Log in",
-    "back": "Back",
-    "register": "Register"
-  },
-  "draw": {
-    "title": "Result",
-    "message": "Your partner is:",
-    "accept": "Accept",
-    "autoaccept": "After {n} minutes the partner will be automatically accepted.",
-    "reroll": "Reroll",
-    "reroll-tooltip": "You are abe to reroll {n} times. Care you can roll the same partner again."
-  },
-  "register": {
-    "formtitle": "Register",
-    "email": "E-Mail",
-    "password": "Password",
-    "passwordsec": "Repeat password",
-    "cancel": "Cancel",
-    "submit": "Register"
-  },
   "new-group": {
     "formtitle": "Create new group",
     "name": "Groupname",
@@ -86,12 +62,14 @@
     "validation-memberlength": "Membername needs to be below {max} characters",
     "validationerror": "Please fulfill the form correctly"
   },
-  "group": {
-    "formtitle": "Group: {name}",
-    "number": "Number",
-    "name": "Name",
-    "email": "E-Mail",
-    "key": "Key",
-    "finished": "Finished"
+  "help": {
+    "formtitle": "Help",
+    "home": "Back",
+    "firststeps": "First steps",
+    "firststeps-content": "Welcome to the Secret Santa organizing page. The first thing you need to do is to create a new group with a name. Afterwards members are added and at the end each member is a key assigned. With the group name, the member name and the associated key, each member can then independently draw a partner from the group. That’s it",
+    "newgroup": "Create a new group",
+    "newgroup-content": "A new group can be created using the 'Create group' button. First a group name and the number of members must be entered. Optionally you can add the possibility to reroll their parter for the members if someone does not like his/her first drawn partner. This option can be activated with a klick on the 'Allow rerolls' box and entering the number of times each member can reroll in the field 'Number of possible rerolls' below. (Attention, the currently drawn partner can also be drawn again). By clicking on 'Next' you will be asked to enter the name or a pseudonym for each member. No name / pseudonym may appear more than once in a group. By clicking on 'Create' the group gets created and you get displayed all the information. On the top you get the group name and below a list with all the members and for each member the name and corresponding key (Can be shown by clicking on the eye icon). Now you only have to send each member their data (group name, name, key) and everyone can start drawing a partner for themselves. With a click on 'Finish' the data gets closed",
+    "drawmember": "Draw a member",
+    "drawmember-content": "Enter the creadentials of a member, which are assigned to each member when creating a group. If the are entered correctly, a partner from the group is assigned to the member and the name of the corresponding partner gets displayed. If the option of rerolls was given when the group was created, a member can reroll his/her partner wit a click on 'Reroll'. Attention, the same partner can be drawn again. It can be rerolled as long as it was specified when the group was created. How many dolls are left can be seen by the small number on the right top corner of the button. If a suitable partner has been drawn, you can confirm this partner by clicking on the 'Accept' button. After 5 minutes the drawn partner is automatically accepted for you. If the partner is accepted, you cannot draw again. If you have forgotten your partner, you can re-enter your credentials at any time and your assigned partner will be displayed again."
   }
 }

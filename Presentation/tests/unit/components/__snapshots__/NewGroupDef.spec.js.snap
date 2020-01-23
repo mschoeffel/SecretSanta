@@ -8,6 +8,10 @@ exports[`NewGroupDef.vue should render correct group creation form 1`] = `
         <v-toolbar color="primary" dark="" flat="">
           <v-toolbar-title>new-group.formtitle</v-toolbar-title>
           <!---->
+          <v-spacer></v-spacer>
+          <v-btn icon="">
+            <v-icon>mdi-help</v-icon>
+          </v-btn>
         </v-toolbar>
         <v-card-text>
           <v-stepper alt-labels="">

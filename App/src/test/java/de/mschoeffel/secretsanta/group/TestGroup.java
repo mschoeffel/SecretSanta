@@ -38,7 +38,7 @@ public class TestGroup {
     public void testGroupCreation(){
 
         int membercount = 5;
-        String groupname = "testGroupCreation";
+        String groupname = "unittestgroupcrea";
         if(groupClientService.checkGroupName(groupname)){
             LOG.info(groupname + " already existed trying to delete...");
             groupClientService.deleteGroup(groupname);
@@ -85,7 +85,7 @@ public class TestGroup {
 
     @Test(expected = GroupNameExistsException.class)
     public void testDuplicateGroupnameException(){
-        String groupname = "testGroup";
+        String groupname = "unittestgroupcrea";
         int membercount = 5;
 
         if(groupClientService.checkGroupName(groupname)){
@@ -128,7 +128,7 @@ public class TestGroup {
 
     @Test(expected = EntityNotFoundException.class)
     public void testGroupnameNotFoundException(){
-        String groupname = "asdkhfaksdfkh";
+        String groupname = "unittestgroupcrea123";
 
         groupClientService.findGroupByName(groupname);
     }
@@ -162,7 +162,7 @@ public class TestGroup {
 
     @Test(expected = NotEnoughMembersException.class)
     public void testOneOrLessMembersException(){
-        String groupname = "testGroup";
+        String groupname = "unittestgroupcrea";
         int membercount = 1;
 
         if(groupClientService.checkGroupName(groupname)){

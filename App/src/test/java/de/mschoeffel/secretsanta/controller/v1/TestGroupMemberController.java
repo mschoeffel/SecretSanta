@@ -255,7 +255,7 @@ public class TestGroupMemberController {
 
     private GroupClientDto getTestGroupData(){
         GroupClientDto data = new GroupClientDto();
-        data.setName("testgroup");
+        data.setName("unittestgrouprest");
         data.setRerolls(5);
 
         List<GroupMemberClientDto> members = new ArrayList<>();

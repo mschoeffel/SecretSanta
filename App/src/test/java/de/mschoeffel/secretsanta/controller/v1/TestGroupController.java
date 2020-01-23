@@ -107,7 +107,7 @@ public class TestGroupController {
 
     private Map<String, Object> getTestGroupData(){
         Map<String, Object> data = new HashMap<>();
-        String groupname = "testgrouprest";
+        String groupname = "unittestgrouprest";
         data.put("name", groupname);
         data.put("rerolls", 5);
 
@@ -136,7 +136,7 @@ public class TestGroupController {
 
     private Map<String, Object> getTestGroupDataDoubleMembername(){
         Map<String, Object> data = new HashMap<>();
-        String groupname = "testgrouprest";
+        String groupname = "unittestgrouprest";
         data.put("name", groupname);
         data.put("rerolls", 5);
 

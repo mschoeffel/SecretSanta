@@ -23,5 +23,9 @@ module.exports = {
       "localeDir": 'locales',
       "enableInSFC": true
     }
-  }
+  },
+  
+  "css": {
+    "extract": { "ignoreOrder": true },
+},
 }
