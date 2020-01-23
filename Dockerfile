@@ -21,7 +21,7 @@ MAINTAINER MSCHOEFFEL
 VOLUME /tmp
 
 # Add Spring Boot app.jar to Container
-COPY --from=0 "/secretsanta/App/target/App-0.0.1-SNAPSHOT.jar" app.jar
+COPY --from=0 "/secretsanta/App/target/App-1.0.0-SNAPSHOT.jar" app.jar
 
 ENV JAVA_OPTS=""
 
