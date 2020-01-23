@@ -114,7 +114,7 @@ export default {
       store.commit("changedarktheme", this.themeSwitch);
     },
     routeGithub: function() {
-      window.location = "http://www.github.com/mschoeffel";
+      window.location = "https://github.com/mschoeffel/SecretSanta";
     },
     routeHelp: function() {
       this.$router.push({ path: "/help" }).catch(err => {});
