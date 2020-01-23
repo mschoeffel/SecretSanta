@@ -36,7 +36,7 @@
       "quantity": 1
     }
   },
-  "name": "spring-boot-vuejs",
+  "name": "mschoeffel-secret-santa",
   "scripts": {
   },
   "stack": "heroku-18"

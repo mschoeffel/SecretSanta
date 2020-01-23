@@ -19,43 +19,39 @@
           </v-list-item-content>
         </v-list-item>
         <v-divider></v-divider>
-        <v-list-item link v-on:click="routeLogin">
-          <v-list-item-action>
-            <v-icon>mdi-login</v-icon>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title>{{ $t('navigation.login')}}</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-        <v-list-item link v-on:click="routeRegister">
-          <v-list-item-action>
-            <v-icon>mdi-account-plus</v-icon>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title>{{ $t('navigation.register')}}</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-        <v-divider></v-divider>
-        <v-list-item>
-          <v-switch v-model="themeSwitch" v-on:change="changeTheme" :label="$t('global.themeswitch')" color="primary" hide-details></v-switch>
-        </v-list-item>
-        <v-list-item link v-on:click="routeTest">
-          <v-list-item-action>
-            <v-icon>mdi-help</v-icon>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title>{{ $t('navigation.help')}}</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-        <v-list-item link>
-          <v-list-item-action>
-            <v-icon>mdi-github-circle</v-icon>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title>{{ $t('navigation.github')}}</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
       </v-list>
+      <template v-slot:append>
+        <v-list>
+          <v-divider></v-divider>
+          <v-list-item>
+            <v-switch
+              v-model="themeSwitch"
+              v-on:change="changeTheme"
+              :label="$t('global.themeswitch')"
+              color="primary"
+              class="mt-0"
+              hide-details
+            ></v-switch>
+          </v-list-item>
+          <v-divider></v-divider>
+          <v-list-item link v-on:click="routeTest">
+            <v-list-item-action>
+              <v-icon>mdi-help</v-icon>
+            </v-list-item-action>
+            <v-list-item-content>
+              <v-list-item-title>{{ $t('navigation.help')}}</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+          <v-list-item link v-on:click="routeGithub">
+            <v-list-item-action>
+              <v-icon>mdi-github-circle</v-icon>
+            </v-list-item-action>
+            <v-list-item-content>
+              <v-list-item-title>{{ $t('navigation.github')}}</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list>
+      </template>
     </v-navigation-drawer>
 
     <v-app-bar name="header" id="header" app clipped-left>
@@ -74,10 +70,6 @@
           hide-details
         ></v-select>
       </div>
-      <v-btn v-on:click="routeLogin" icon>
-        <v-icon>mdi-login</v-icon>
-      </v-btn>
-      
     </v-app-bar>
 
     <v-content>
@@ -97,8 +89,8 @@
 </style>
 
 <script>
-import store from './../store'
-import { changedarktheme } from './../store'
+import store from "./../store";
+import { changedarktheme } from "./../store";
 
 export default {
   name: "LayoutDefault",
@@ -111,24 +103,18 @@ export default {
     themeSwitch: store.getters.getdarktheme
   }),
   methods: {
-    routeLogin: function() {
-      this.$router.push({ path: "/login" }).catch(err => {});
-    },
     routeHome: function() {
       this.$router.push({ path: "/" }).catch(err => {});
-    },
-    routeTest: function() {
-      this.$router.push({ path: "/draw" }).catch(err => {});
-    },
-    routeRegister: function() {
-      this.$router.push({ path: "/register" }).catch(err => {});
     },
     routeNewGroup: function() {
       this.$router.push({ path: "/newgroup" }).catch(err => {});
     },
     changeTheme: function() {
       this.$vuetify.theme.dark = this.themeSwitch;
-      store.commit('changedarktheme', this.themeSwitch);
+      store.commit("changedarktheme", this.themeSwitch);
+    },
+    routeGithub: function() {
+      window.location = "http://www.github.com/mschoeffel";
     }
   }
 };

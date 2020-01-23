@@ -1,13 +1,10 @@
 package de.mschoeffel.secretsanta.controller.v1;
 
-import de.mschoeffel.secretsanta.controller.BackendController;
 import de.mschoeffel.secretsanta.error.GroupNameExistsException;
 import de.mschoeffel.secretsanta.error.MemberNameExistsException;
-import de.mschoeffel.secretsanta.mapper.GroupMemberResultMapper;
 import de.mschoeffel.secretsanta.mapper.GroupResultMapper;
 import de.mschoeffel.secretsanta.model.v1.GroupClientDto;
 import de.mschoeffel.secretsanta.results.GroupCreationResult;
-import de.mschoeffel.secretsanta.results.GroupResult;
 import de.mschoeffel.secretsanta.service.v1.GroupClientService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,8 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
-
-import javax.persistence.EntityExistsException;
 
 @RestController("GroupRestController_v1")
 @RequestMapping("/api/v1")
@@ -34,7 +29,7 @@ public class GroupRestController {
         try {
             return mapper.clientDtoToCreationResult(groupClientService.createGroup(group));
         } catch(GroupNameExistsException e){
-            throw new ResponseStatusException(HttpStatus.CONFLICT, "Group already exists");
+            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "Group already exists");
         } catch(MemberNameExistsException e){
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Double Name inside Group");
         }

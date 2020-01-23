@@ -1,1 +1,2 @@
 # Secret Santa
+![Travis (.org)](https://img.shields.io/travis/mschoeffel/SecretSanta)[![Deployed on Heroku](https://img.shields.io/badge/heroku-deployed-blueviolet.svg?logo=heroku)](https://mschoeffel-secret-santa.herokuapp.com/)
