@@ -24,6 +24,7 @@ exports[`NewGroupDef.vue should render correct group creation form 1`] = `
             </v-stepper-header>
             <v-stepper-items>
               <v-stepper-content step="1">
+                <v-alert name="info" id="info" type="info" outlined="" dismissible="">new-group.info1</v-alert>
                 <!---->
                 <v-text-field label="new-group.name" name="groupname" id="groupname" type="text" prepend-icon="mdi-account-group" counter="15" error-messages=""></v-text-field>
                 <v-text-field label="new-group.membercount" name="name" id="name" type="number" prepend-icon="mdi-numeric" min="2" max="50" error-messages=""></v-text-field>
@@ -32,6 +33,7 @@ exports[`NewGroupDef.vue should render correct group creation form 1`] = `
                 <v-text-field label="new-group.rerolls-slider" name="rerolls" id="rerolls" type="number" prepend-icon="mdi-sync" min="0" max="100" error-messages="" disabled="true"></v-text-field>
               </v-stepper-content>
               <v-stepper-content step="2">
+                <v-alert name="info" id="info" type="info" outlined="" dismissible="">new-group.info2</v-alert>
                 <!---->
                 <v-simple-table fixed-header="">
                   <thead>
@@ -44,6 +46,7 @@ exports[`NewGroupDef.vue should render correct group creation form 1`] = `
                 </v-simple-table>
               </v-stepper-content>
               <v-stepper-content step="3">
+                <v-alert name="info" id="info" type="info" outlined="" dismissible="">new-group.info3</v-alert>
                 <!---->
               </v-stepper-content>
             </v-stepper-items>

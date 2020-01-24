@@ -7,7 +7,7 @@
             <v-toolbar-title name="title" id="title">{{ $t('home.formtitle')}}</v-toolbar-title>
             <v-spacer></v-spacer>
             <v-btn icon v-on:click="routeHelp">
-            <v-icon>mdi-help</v-icon>
+              <v-icon>mdi-help</v-icon>
             </v-btn>
           </v-toolbar>
           <v-card-text>
@@ -19,7 +19,19 @@
               </v-stepper-header>
               <v-stepper-items>
                 <v-stepper-content key="input" step="1">
-                  <v-alert name="erroralert" id="erroralert" v-if="displayerror" type="error">{{ $t(displayerror) }}</v-alert>
+                  <v-alert
+                    name="info"
+                    id="info"
+                    type="info"
+                    outlined
+                    dismissible
+                  >{{ $t('home.info')}}</v-alert>
+                  <v-alert
+                    name="erroralert"
+                    id="erroralert"
+                    v-if="displayerror"
+                    type="error"
+                  >{{ $t(displayerror) }}</v-alert>
                   <v-text-field
                     :label="$t('home.group')"
                     v-model="groupname"
@@ -257,8 +269,8 @@ export default {
           }
         });
     },
-    routeHelp: function(){
-        this.$router.push({ path: "/help" });
+    routeHelp: function() {
+      this.$router.push({ path: "/help" });
     }
   }
 };
