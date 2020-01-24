@@ -123,12 +123,15 @@
                         <td>
                           <v-text-field
                             :value="member.key"
-                            :name="key + index"
-                            :id="key + index"
+                            :name="'key-' + index"
+                            :id="'key-' + index"
                             :type="member.showKey ? 'text' : 'password'"
-                            :append-icon="member.showKey ? 'mdi-eye' : 'mdi-eye-off'"
-                            @click:append="member.showKey = !member.showKey"
-                          ></v-text-field>
+                          >
+                            <template slot="append">
+                              <v-icon class="mr-3" v-on:click="member.showKey = !member.showKey">{{member.showKey ? 'mdi-eye' : 'mdi-eye-off'}}</v-icon>
+                              <v-icon v-on:click="copyKeyToClipboard('key-' + index, member)">mdi-content-copy</v-icon>
+                            </template>
+                          </v-text-field>
                         </td>
                       </tr>
                     </tbody>
@@ -293,6 +296,21 @@ export default {
     },
     routeHelp: function(){
         this.$router.push({ path: "/help" });
+    },
+    copyKeyToClipboard: function(id, member){
+      let changed = false;
+      let input = document.getElementById(id);
+      if(!member.showKey){
+        member.showKey = true;
+        input.setAttribute("type","text");
+        changed = true;
+      }
+      input.select();
+      document.execCommand("copy");
+      if(changed){
+        member.showKey = false;
+        input.setAttribute("type","password");
+      }
     }
   }
 };
