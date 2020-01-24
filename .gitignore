@@ -38,6 +38,7 @@ Presentation/tests/e2e/reports
 Presentation/tests/unit/coverage
 Presentation/yarn-error.log
 Presentation/yarn.lock
+Presentation/coverage
 security/target/
 selenium-debug.log
 
