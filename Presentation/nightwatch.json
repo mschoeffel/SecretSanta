@@ -14,7 +14,8 @@
                 "chromeOptions": {
                     "args": [
                         "--no-sandbox",
-                        "--headless"
+                        "--headless",
+                        "window-size=1280,800"
                     ]
                 }
             }
