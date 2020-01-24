@@ -3,7 +3,7 @@
     "title": "Wichteln",
     "language": "Sprache",
     "themeswitch": "Dunkle Ansicht",
-    "versionnumber": "v1.0.1"
+    "versionnumber": "v1.0.2"
   },
   "navigation": {
     "home": "Start",
@@ -34,7 +34,8 @@
     "validation-membernamerequired": "Mitgliedname muss befüllt sein",
     "validation-membernamelength": "Mitgliedname darf maximal {max} Zeichen lang sein",
     "validation-keyrequired": "Schlüssel muss befüllt sein",
-    "validationerror": "Bitte Angaben richtig befüllen"
+    "validationerror": "Bitte Angaben richtig befüllen",
+    "info": "Geben Sie hier Ihre Zugangsdaten ein um einen Partner zu ziehen oder erneut anzuzeigen. Haben Sie noch keine Zugangsdaten? Fragen Sie die Person welche Ihre Gruppe erstellt hat oder erstellen Sie eine Gruppe."
   },
   "new-group": {
     "formtitle": "Neue Gruppe erstellen",
@@ -60,7 +61,10 @@
     "validation-rerollsbounds": "Anzahl an Neuwahlen muss zwischen {min} und {max} liegen",
     "validation-memberrequired": "Mitgliedername muss angegeben werden",
     "validation-memberlength": "Mitgliedername darf maximal {max} Zeichen lang sein",
-    "validationerror": "Bitte Angaben richtig befüllen"
+    "validationerror": "Bitte Angaben richtig befüllen",
+    "info1": "Erstellen Sie hier eine Gruppe mit Gruppennamen, Anzahl der Mitgliedern und optional der Möglichkeit und Anzahl an Neuwahlen für die Mitglieder.",
+    "info2": "Geben Sie hier die Namen/Pseudonyme der Mitgleider an.",
+    "info3": "Lassen Sie jedem Mitglied Seine/Ihre Zugangsdaten zukommen und Sie sind fertig. (Über das Augensymbol kann der Schlüssel angezeigt und über das Icon daneben der Schlüssel in die Zwischenablage kopiert werden.)"
   },
   "help": {
     "formtitle": "Hilfe",

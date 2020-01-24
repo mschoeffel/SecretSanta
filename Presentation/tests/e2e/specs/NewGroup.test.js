@@ -27,6 +27,18 @@ module.exports = {
             .assert.visible('header[id=header]')
             .end()
     },
+    'no credentials group e2e test': browser => {
+        browser.init()
+            .waitForElementVisible('#app')
+            .assert.elementPresent('button[id=next]')
+            .assert.visible('button[id=next]')
+            .assert.not.elementPresent('div[id="erroralert"]')
+            .click('button[id=next]')
+            .waitForElementPresent('div[id="erroralert"]')
+            .assert.elementPresent('div[id="erroralert"]')
+            .assert.visible('div[id="erroralert"]')
+            .end()
+    },
     'navigation drawer new group e2e test': browser => {
         browser
             .init(browser.launchUrl+'newgroup/')

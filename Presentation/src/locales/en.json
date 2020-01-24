@@ -3,7 +3,7 @@
     "title": "Secret Santa",
     "language": "Language",
     "themeswitch": "Darkmode",
-    "versionnumber": "v1.0.1"
+    "versionnumber": "v1.0.2"
   },
   "navigation": {
     "home": "Home",
@@ -34,7 +34,8 @@
     "validation-membernamerequired": "Membername required",
     "validation-membernamelength": "Membername needs to be below {max} chars",
     "validation-keyrequired": "Key required",
-    "validationerror": "Please fulfill the form correctly"
+    "validationerror": "Please fulfill the form correctly",
+    "info": "Please fill in your credentials to draw or show your partner. If you havent got any credentials ask the person who created your group or create a new group."
   },
   "new-group": {
     "formtitle": "Create new group",
@@ -60,7 +61,10 @@
     "validation-rerollsbounds": "Number of rerolls needs to be between {min} and {max}",
     "validation-memberrequired": "Membername required",
     "validation-memberlength": "Membername needs to be below {max} characters",
-    "validationerror": "Please fulfill the form correctly"
+    "validationerror": "Please fulfill the form correctly",
+    "info1": "Create a group with a name, the number of members and optional the possibility and number of rerolls each member can make.",
+    "info2": "Enter all members' names here.",
+    "info3": "Send each member his/hers credentials and your ready to draw. (With a click on the eye icon you can show the key and wit a click on the icon to the right you can copy the key to your clipboard.)"
   },
   "help": {
     "formtitle": "Help",
