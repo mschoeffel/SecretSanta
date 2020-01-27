@@ -116,7 +116,17 @@
                       <tr v-for="(member, index) in group.members" v-bind:key="index">
                         <td>{{ index + 1 }}</td>
                         <td>{{ member.name }}</td>
-                        <td>{{ member.partner }}</td>
+                        <td>
+                          <v-text-field
+                            :value="member.partner"
+                            :name="'partner-' + index"
+                            :id="'partner-' + index"
+                            :type="member.showPartner ? 'text' : 'password'"
+                            :append-icon="member.showPartner ? 'mdi-eye' : 'mdi-eye-off'"
+                            @click:append="member.showPartner = !member.showPartner"
+                            readonly
+                          />
+                        </td>
                         <td>{{ member.rerolls }}</td>
                         <td>{{ member.drawAccepted }}</td>
                         <td>
@@ -125,6 +135,7 @@
                             :name="'key-' + index"
                             :id="'key-' + index"
                             :type="member.showKey ? 'text' : 'password'"
+                            readonly
                           >
                             <template slot="append">
                               <v-icon
@@ -173,7 +184,10 @@
                 <v-card-text>{{ $t('show-group.delete-text')}}</v-card-text>
                 <v-card-actions>
                   <v-spacer></v-spacer>
-                  <v-btn color="secondary" @click="dialog = false">{{ $t('show-group.delete-cancel')}}</v-btn>
+                  <v-btn
+                    color="secondary"
+                    @click="dialog = false"
+                  >{{ $t('show-group.delete-cancel')}}</v-btn>
                   <v-btn color="error" @click="deleteGroup">{{ $t('show-group.delete-accept')}}</v-btn>
                 </v-card-actions>
               </v-card>
@@ -247,6 +261,7 @@ export default {
               let s = this.group.members.length;
               for (let i = 0; i < s; i++) {
                 this.$set(this.group.members[i], "showKey", false);
+                this.$set(this.group.members[i], "showPartner", false);
               }
               this.step = 2;
             })
@@ -285,31 +300,30 @@ export default {
     simpleCopyToClipboard: function(id) {
       let changed = false;
       let input = document.getElementById(id);
-      if(!this.showGroupKey){
+      if (!this.showGroupKey) {
         this.showGroupKey = true;
-      input.setAttribute("type", "text");
-      changed = true;
+        input.setAttribute("type", "text");
+        changed = true;
       }
       input.select();
       document.execCommand("copy");
-      if(changed){
+      if (changed) {
         this.showGroupKey = false;
         input.setAttribute("type", "password");
       }
     },
-    deleteGroup: function(){
+    deleteGroup: function() {
       api
-            .deleteGroup(this.groupname, this.grouptoken)
-            .then(response => {
-              this.deletesuccess = "show-group.delete-successfull";
-              this.step = 1;
-            })
-            .catch(error => {
-              if (error.response.status == 404) {
-                this.deleteerror =
-                  "show-group.delete-error";
-              }
-            });
+        .deleteGroup(this.groupname, this.grouptoken)
+        .then(response => {
+          this.deletesuccess = "show-group.delete-successfull";
+          this.step = 1;
+        })
+        .catch(error => {
+          if (error.response.status == 404) {
+            this.deleteerror = "show-group.delete-error";
+          }
+        });
     }
   }
 };
