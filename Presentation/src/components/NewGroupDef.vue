@@ -104,8 +104,8 @@
                           <v-text-field
                             :label="$t('new-group.member-name')"
                             v-model="member.name"
-                            :name="name + index"
-                            :id="name + index"
+                            :name="'name' + index"
+                            :id="'name' + index"
                             type="text"
                             prepend-icon="mdi-account-group"
                             :counter="maxcharmember"
@@ -170,6 +170,7 @@
                             :name="'key-' + index"
                             :id="'key-' + index"
                             :type="member.showKey ? 'text' : 'password'"
+                            readonly
                           >
                             <template slot="append">
                               <v-icon
