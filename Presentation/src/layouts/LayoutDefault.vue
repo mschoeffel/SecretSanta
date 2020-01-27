@@ -85,7 +85,7 @@
     </v-content>
 
     <v-footer app>
-      <span>&copy; 2019 {{ $t('global.versionnumber')}}</span>
+      <span>&copy; 2020 {{ $t('global.versionnumber')}}</span>
     </v-footer>
   </v-app>
 </template>

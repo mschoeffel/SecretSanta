@@ -27,6 +27,9 @@ public class GroupMemberResultMapper {
 
         groupMemberResult.setName(groupMemberClientDto.getName());
         groupMemberResult.setDrawAccepted(groupMemberClientDto.getDrawAccepted());
+        if(groupMemberClientDto.getPartner() != null) {
+            groupMemberResult.setPartner(groupMemberClientDto.getPartner().getName());
+        }
         groupMemberResult.setRerolls(groupMemberClientDto.getRerolls());
         groupMemberResult.setKey(groupMemberClientDto.getKey());
 
