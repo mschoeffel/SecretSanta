@@ -6,6 +6,7 @@ public class GroupDto extends HasIdDto{
 
     private String name;
     private Integer rerolls;
+    private String token;
     private List<GroupMemberDto> members;
 
     public GroupDto() {
@@ -25,6 +26,14 @@ public class GroupDto extends HasIdDto{
 
     public void setRerolls(Integer rerolls) {
         this.rerolls = rerolls;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 
     public List<GroupMemberDto> getMembers() {

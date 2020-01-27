@@ -7,6 +7,7 @@ import de.mschoeffel.secretsanta.model.GroupMember;
 import de.mschoeffel.secretsanta.repository.GroupMemberRepository;
 import de.mschoeffel.secretsanta.repository.GroupRepository;
 import de.mschoeffel.secretsanta.service.v1.GroupClientService;
+import net.bytebuddy.utility.RandomString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.RequestScope;
@@ -48,6 +49,8 @@ public class CreatePlainGroup {
             }
             memberNames.add(member.getName());
         }
+
+        group.setToken(RandomString.make(10));
 
         groupRepository.save(group);
 

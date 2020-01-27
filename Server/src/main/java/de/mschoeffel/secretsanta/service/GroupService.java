@@ -12,7 +12,10 @@ public interface GroupService {
      * @return Created group.
      */
     GroupDto createGroup(GroupDto groupDto);
+
     GroupDto findGroupByName(String name);
+
+    GroupDto findGroupByNameAndToken(String name, String token);
 
     /**
      * Checks if a group with the given name already exists.
@@ -25,4 +28,5 @@ public interface GroupService {
 
     GroupDto clearAllPartner(String name);
 
+    void deleteGroupByNameAndToken(String name, String token);
 }

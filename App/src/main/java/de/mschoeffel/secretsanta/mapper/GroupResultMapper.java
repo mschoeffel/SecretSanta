@@ -21,6 +21,7 @@ public class GroupResultMapper {
         GroupCreationResult groupResult = new GroupCreationResult();
 
         groupResult.setName(groupClientDto.getName());
+        groupResult.setToken(groupClientDto.getToken());
 
         GroupMemberResultMapper mapper = new GroupMemberResultMapper();
         groupResult.setMembers(mapper.clientDtoToCreationResult(groupClientDto.getMembers()));

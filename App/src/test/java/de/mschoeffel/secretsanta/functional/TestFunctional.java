@@ -597,4 +597,58 @@ public class TestFunctional {
             LOG.info("Group deletion finished");
         }
     }
+
+    @Test
+    @Transactional
+    public void testGroupCreationAndDetailsWithToken(){
+        int membercount = 3;
+        String groupname = "unittestgroupfunc";
+        int numberRerolls = 10;
+
+        if (groupClientService.checkGroupName(groupname)) {
+            LOG.info(groupname + " already existed trying to delete...");
+            groupClientService.deleteGroup(groupname);
+            LOG.info("Deletion: " + (groupClientService.checkGroupName(groupname) ? "failed" : "successful"));
+        }
+
+        LOG.info("Data creation");
+
+        GroupClientDto groupClientDto = new GroupClientDto();
+        groupClientDto.setName(groupname);
+        groupClientDto.setRerolls(numberRerolls);
+
+        List<GroupMemberClientDto> groupMemberClientDtos = new ArrayList<>();
+        for (int j = 1; j <= membercount; j++) {
+            GroupMemberClientDto member = new GroupMemberClientDto();
+            member.setName("testGroupCreationM" + j);
+            groupMemberClientDtos.add(member);
+        }
+        groupClientDto.setMembers(groupMemberClientDtos);
+
+        GroupClientDto result = groupClientService.createGroup(groupClientDto);
+
+        LOG.info("Data created");
+
+        LOG.info("Check init setting...");
+        Assert.assertNotNull(result.getToken());
+        Assert.assertTrue(result.getToken().length() > 0);
+        LOG.info("Init setting checked");
+
+        LOG.info("Check getting group with token...");
+        GroupClientDto result2 = groupClientService.findGroupByNameAndToken(groupname, result.getToken());
+        Assert.assertNotNull(result2);
+        Assert.assertEquals(result.getId(), result2.getId());
+        Assert.assertEquals(result.getName(), result2.getName());
+        Assert.assertEquals(result.getToken(), result2.getToken());
+        Assert.assertEquals(result.getRerolls(), result2.getRerolls());
+        Assert.assertEquals(result.getMembers().size(), result2.getMembers().size());
+        LOG.info("Finished check getting group with token");
+
+        LOG.info("Group deletion");
+        groupClientService.deleteGroupByNameAndToken(groupname, result.getToken());
+
+        boolean groupStillExists = groupClientService.checkGroupName(result.getName());
+        Assert.assertFalse(groupStillExists);
+        LOG.info("Group deletion finished");
+    }
 }

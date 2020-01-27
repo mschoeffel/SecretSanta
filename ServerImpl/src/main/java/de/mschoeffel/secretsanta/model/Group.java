@@ -11,6 +11,7 @@ public class Group extends HasId {
 
     private String name;
     private Integer rerolls;
+    private String token;
 
     @OneToMany(mappedBy = "group", cascade = CascadeType.ALL)
     private List<GroupMember> groupMember;
@@ -32,6 +33,14 @@ public class Group extends HasId {
 
     public void setRerolls(Integer rerolls) {
         this.rerolls = rerolls;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 
     public List<GroupMember> getGroupMember() {

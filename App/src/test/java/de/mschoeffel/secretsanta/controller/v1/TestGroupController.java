@@ -1,10 +1,13 @@
 package de.mschoeffel.secretsanta.controller.v1;
 
 import de.mschoeffel.secretsanta.SecretSantaApplication;
+import de.mschoeffel.secretsanta.results.GroupCreationResult;
+import de.mschoeffel.secretsanta.results.GroupMemberCreationResult;
 import de.mschoeffel.secretsanta.service.v1.GroupClientService;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.apache.http.HttpStatus;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,6 +18,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import javax.transaction.Transactional;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -102,6 +106,39 @@ public class TestGroupController {
         given().pathParam("name", groupname).get("/api/v1/group/check/{name}").then().statusCode(HttpStatus.SC_OK)
                 .assertThat().body(is(equalTo("true")));
         LOG.info("Done checking group created...");
+
+    }
+
+    @Test
+    public void testGroupTokenDetailAndDelete(){
+        Map<String, Object> data = getTestGroupData();
+        String groupname = String.valueOf(data.get("name"));
+
+        if(groupService.checkGroupName(groupname)){
+            groupService.deleteGroup(groupname);
+        }
+
+        LOG.info("Checking group creation...");
+        GroupCreationResult group = given().contentType(ContentType.JSON).body(data).post("/api/v1/group").then().statusCode(HttpStatus.SC_OK).extract().response().as(GroupCreationResult.class);
+        Assert.assertNotNull(group.getToken());
+        Assert.assertTrue(group.getToken().length() > 0);
+        given().pathParam("name", groupname).get("/api/v1/group/check/{name}").then().statusCode(HttpStatus.SC_OK)
+                .assertThat().body(is(equalTo("true")));
+        LOG.info("Done checking group creation");
+
+        LOG.info("Checking get group details with token...");
+        GroupCreationResult group2 = given().pathParam("name", groupname).pathParam("token", group.getToken()).get("/api/v1/group/{name}/{token}").then().statusCode(HttpStatus.SC_OK).extract().response().as(GroupCreationResult.class);
+        Assert.assertNotNull(group2);
+        Assert.assertEquals(group.getName(), group2.getName());
+        Assert.assertEquals(group.getToken(), group2.getToken());
+        Assert.assertEquals(group.getMembers().size(), group2.getMembers().size());
+        LOG.info("Done checking get group details with token...");
+
+        LOG.info("Checking delete group with token...");
+        given().pathParam("name", groupname).pathParam("token", group.getToken()).delete("/api/v1/group/{name}/{token}").then().statusCode(HttpStatus.SC_OK);
+        given().pathParam("name", groupname).get("/api/v1/group/check/{name}").then().statusCode(HttpStatus.SC_OK)
+                .assertThat().body(is(equalTo("false")));
+        LOG.info("Done checking delete group with token...");
 
     }
 

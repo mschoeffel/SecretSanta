@@ -8,6 +8,7 @@
   "navigation": {
     "home": "Start",
     "create-group": "Gruppe erstellen",
+    "show-group": "Gruppe anzeigen",
     "github": "Github",
     "login": "Anmelden",
     "register": "Registrieren",
@@ -44,6 +45,7 @@
     "email": "Zugangsdaten per E-Mail versenden",
     "rerolls": "Neuwahl zulassen",
     "rerolls-slider": "Anzahl an Neuwahlen",
+    "token": "Gruppenschlüssel",
     "back": "Abbrechen | Zurück | Home",
     "next": "Weiter | Erstellen | Fertig",
     "member-name": "Name",
@@ -64,7 +66,38 @@
     "validationerror": "Bitte Angaben richtig befüllen",
     "info1": "Erstellen Sie hier eine Gruppe mit Gruppennamen, Anzahl der Mitgliedern und optional der Möglichkeit und Anzahl an Neuwahlen für die Mitglieder.",
     "info2": "Geben Sie hier die Namen/Pseudonyme der Mitgleider an.",
-    "info3": "Lassen Sie jedem Mitglied Seine/Ihre Zugangsdaten zukommen und Sie sind fertig. (Über das Augensymbol kann der Schlüssel angezeigt und über das Icon daneben der Schlüssel in die Zwischenablage kopiert werden.)"
+    "info3": "Notieren Sie sich diesen Schlüssen um später noch einmal die Gruppe und Informationen anzusehen unter dem Menüpunkt 'Gruppe ansehen'",
+    "info4": "Lassen Sie jedem Mitglied Seine/Ihre Zugangsdaten zukommen und Sie sind fertig. (Über das Augensymbol kann der Schlüssel angezeigt und über das Icon daneben der Schlüssel in die Zwischenablage kopiert werden.)"
+  },
+  "show-group": {
+    "formtitle": "Gruppe anzeigen",
+    "final-title": "Gruppe: {name}",
+    "input": "Eingabe",
+    "result": "Ergebnis",
+    "info": "Bitte geben Sie hier den Gruppennamen und dazugehörigen Gruppenschlüssel ein",
+    "info2": "Das hier ist Ihr Gruppenschlüssel",
+    "info3": "Das sind alle Mitglieder der Gruppe mit dazugehörigen Informationen",
+    "name": "Gruppenname",
+    "key": "Gruppenschlüssel",
+    "token": "Gruppenschlüssel",
+    "member-number": "Mitgliedsnummer",
+    "member-name": "Mitgliedsname",
+    "rerolls": "Anzahl an übrigen Neuwahlen",
+    "draw-accepted": "Partner angenommen",
+    "member-key": "Mitgliedsschlüssel",
+    "back": "Abbrechen | Zurück",
+    "next": "Weiter",
+    "delete": "Gruppe löschen",
+    "delete-title": "Gruppe löschen",
+    "delete-text": "Wollen sie wirklich die Gruppe löschen? Damit gehen jegliche Daten verloren. Aktion kann nicht rückgängig gemacht werden.",
+    "delete-cancel": "Abbrechen",
+    "delete-accept": "Ja Gruppe löschen",
+    "delete-successfull": "Gruppe erfolgreich gelöscht",
+    "delete-error": "Fehler beim Löschen der Gruppe",
+    "validation-groupnamerequired": "Gruppenname muss angegeben werden",
+    "validation-groupnamelength": "Gruppenname darf maximal {max} Zeichen lang sein",
+    "validation-invalid-credentials": "Ungültige Eingabe",
+    "validation-invalid-input": "Bitte Angaben richtig befüllen"
   },
   "help": {
     "formtitle": "Hilfe",
@@ -72,8 +105,10 @@
     "firststeps": "Erste Schritte",
     "firststeps-content": "Herzlich Willkommen auf der Seite zum organisieren einer Wichtelziehung. Das Erstellen und Durchführen ist ganz einfach. Als erstes muss eine neue Gruppe mit einem Namen erstellt werden. In dieser werden dann die Mitglieder hinzugefügt und am Ende wird jedem Mitglied einen Schlüssel zugewiesen. Mit dem Gruppennamen, dem Mitgliedsnamen und dazugehörigen Schlüssel kann jedes Mitglied dann selbstständig einen Partner aus der Gruppe ziehen. Das wars.",
     "newgroup": "Gruppe erstellen",
-    "newgroup-content": "Über die Schaltfläche 'Gruppe erstellen' kann eine neue Gruppe erstellt werden. Bei dieser muss dann zuerst ein Gruppenname und die Anzahl der Mitglieder eingegeben werden. Optional kann noch den Mitgliedern die Möglichkeit gegeben werden, dass diese nach einer Partnerzuweisung einen neuen Partner ziehen können, wenn der erstgezogene Partner nicht gefällt. Diese Option kann per Aktivierung der 'Neuwahl zulassen' Box aktiviert werden. Mit der Zahl in 'Anzahl an Neuwahlen' kann die Anzahl festgelegt werden wie oft ein Mitglied erneut ziehen kann. (Achtung es kann auch der aktuell gezogene Partner erneut gezogen werden). Durch einen Klick auf 'Weiter' wird man dann gebeten den Namen oder ein Pseudonym für jedes Mitglied anzugeben. Es darf kein Name/Pseudonym mehrmals auftreten in einer Gruppe. Durch einen Klick auf 'Erstellen' wird die Gruppe dann erstellt und man erhält alle Zugangsdaten. Oben ist dann den Gruppenname zu finden und darunter eine Liste der Mitglieder und zu jedem Miglied den Namen und den Schlüssel (Ansehbar einzeln über das Augensymbol). Jetzt muss man nur noch jedem Miglied seine Daten (Gruppenname, Name, Schlüssel) zukommen lassen und jeder kann starten für sich einen Partner zu ziehen. Mit einem Klick auf 'Fertig' werden die Daten dann geschlossen.",
+    "newgroup-content": "Über die Schaltfläche 'Gruppe erstellen' kann eine neue Gruppe erstellt werden. Bei dieser muss dann zuerst ein Gruppenname und die Anzahl der Mitglieder eingegeben werden. Optional kann noch den Mitgliedern die Möglichkeit gegeben werden, dass diese nach einer Partnerzuweisung einen neuen Partner ziehen können, wenn der erstgezogene Partner nicht gefällt. Diese Option kann per Aktivierung der 'Neuwahl zulassen' Box aktiviert werden. Mit der Zahl in 'Anzahl an Neuwahlen' kann die Anzahl festgelegt werden wie oft ein Mitglied erneut ziehen kann. (Achtung es kann auch der aktuell gezogene Partner erneut gezogen werden). Durch einen Klick auf 'Weiter' wird man dann gebeten den Namen oder ein Pseudonym für jedes Mitglied anzugeben. Es darf kein Name/Pseudonym mehrmals auftreten in einer Gruppe. Durch einen Klick auf 'Erstellen' wird die Gruppe dann erstellt und man erhält alle Zugangsdaten. Oben ist dann den Gruppenname zu finden und darunter eine Liste der Mitglieder und zu jedem Miglied den Namen und den Schlüssel (Ansehbar einzeln über das Augensymbol). Achtung: Notieren Sie sich auch den Gruppenschlüssel! Dieser wird benötigt wenn Sie später noch einmal die Informationen zu der Gruppe unter dem Menüpunkt 'Gruppe anzeigen' ansehen möchten. Jetzt muss man nur noch jedem Miglied seine Daten (Gruppenname, Name, Schlüssel) zukommen lassen und jeder kann starten für sich einen Partner zu ziehen. Mit einem Klick auf 'Fertig' werden die Daten dann geschlossen.",
     "drawmember": "Partner ziehen",
-    "drawmember-content": "Beim Partner ziehen sind die Zugangsdaten einzugeben, welche jedes Mitglied beim Erstellen einer Gruppe zugewiesen wurden. Sind die Zugangsdaten korrekt eingegeben wird mit einem Klick auf 'Weiter' dem Miglied ein Partner aus der Gruppe zugewiesen und dessen Name angezeigt. Wurde beim Erstellen der Gruppe die Option von Neuwahlen gegeben, kann mit einem Klick auf 'Erneut ziehen' erneut ein Partner gezogen und zugewiesen werden. Achtung hier kann auch der selbe Partner erneut gezogen werden. Es kann so lange neu gezogen werden wie es bei der Erstellung der Gruppe angegeben wurde. Wie viele Züge noch übrig sind kann der kleinen Zahl rechts über der Schaltfläche entnommen werden. Wurde ein passender Partner gezogen, so kann man diesen Partner durch einen Klick auf 'Akzeptieren' bestätigen. Nach 5 Minuten wird der gezogene Partner automatisch für einen akzeptiert. Ist der Partner akzeptiert kann nicht neu gezogen werden. Hat man seinen Partner vergessen kann man jederzeit seine Zugangsdaten erneut eingeben und bekommt seinen zugewiesenen Partner erneut angezeigt."
+    "drawmember-content": "Beim Partner ziehen sind die Zugangsdaten einzugeben, welche jedes Mitglied beim Erstellen einer Gruppe zugewiesen wurden. Sind die Zugangsdaten korrekt eingegeben wird mit einem Klick auf 'Weiter' dem Miglied ein Partner aus der Gruppe zugewiesen und dessen Name angezeigt. Wurde beim Erstellen der Gruppe die Option von Neuwahlen gegeben, kann mit einem Klick auf 'Erneut ziehen' erneut ein Partner gezogen und zugewiesen werden. Achtung hier kann auch der selbe Partner erneut gezogen werden. Es kann so lange neu gezogen werden wie es bei der Erstellung der Gruppe angegeben wurde. Wie viele Züge noch übrig sind kann der kleinen Zahl rechts über der Schaltfläche entnommen werden. Wurde ein passender Partner gezogen, so kann man diesen Partner durch einen Klick auf 'Akzeptieren' bestätigen. Nach 5 Minuten wird der gezogene Partner automatisch für einen akzeptiert. Ist der Partner akzeptiert kann nicht neu gezogen werden. Hat man seinen Partner vergessen kann man jederzeit seine Zugangsdaten erneut eingeben und bekommt seinen zugewiesenen Partner erneut angezeigt.",
+    "showgroup": "Gruppe anzeigen",
+    "showgroup-content": "Hier kann mittels Gruppennamen und Gruppenschlüssels die Informationen der Gruppe erneut angezeigt werden und die Gruppe ggf. gelöscht werden."
   }
 }

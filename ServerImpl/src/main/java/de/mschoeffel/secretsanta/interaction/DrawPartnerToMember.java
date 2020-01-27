@@ -6,10 +6,8 @@ import de.mschoeffel.secretsanta.error.NoMoreRerollsException;
 import de.mschoeffel.secretsanta.model.Group;
 import de.mschoeffel.secretsanta.model.GroupMember;
 import de.mschoeffel.secretsanta.repository.GroupMemberRepository;
-import de.mschoeffel.secretsanta.repository.GroupRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.web.context.annotation.RequestScope;
 
 import java.security.SecureRandom;
 import java.time.LocalDateTime;

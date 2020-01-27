@@ -15,6 +15,7 @@ public class GroupMapper {
             groupDto.setId(group.getId());
             groupDto.setName(group.getName());
             groupDto.setRerolls(group.getRerolls());
+            groupDto.setToken(group.getToken());
 
             GroupMemberMapper mapper = new GroupMemberMapper();
             groupDto.setMembers(mapper.entityToDto(group.getGroupMember()));
@@ -31,6 +32,7 @@ public class GroupMapper {
             group.setId(groupDto.getId());
             group.setName(groupDto.getName());
             group.setRerolls(groupDto.getRerolls());
+            group.setToken(groupDto.getToken());
 
             GroupMemberMapper mapper = new GroupMemberMapper();
             group.setGroupMember(mapper.dtoToEntity(groupDto.getMembers()));

@@ -17,6 +17,10 @@
                 <v-expansion-panel-content>{{$t('help.newgroup-content')}}</v-expansion-panel-content>
               </v-expansion-panel>
               <v-expansion-panel>
+                <v-expansion-panel-header>{{$t('help.showgroup')}}</v-expansion-panel-header>
+                <v-expansion-panel-content>{{$t('help.showgroup-content')}}</v-expansion-panel-content>
+              </v-expansion-panel>
+              <v-expansion-panel>
                 <v-expansion-panel-header>{{$t('help.drawmember')}}</v-expansion-panel-header>
                 <v-expansion-panel-content>{{$t('help.drawmember-content')}}</v-expansion-panel-content>
               </v-expansion-panel>
