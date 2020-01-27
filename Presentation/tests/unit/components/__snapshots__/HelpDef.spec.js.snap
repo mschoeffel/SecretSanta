@@ -19,6 +19,10 @@ exports[`HelpDef.vue should render correct home form 1`] = `
               <v-expansion-panel-content>help.newgroup-content</v-expansion-panel-content>
             </v-expansion-panel>
             <v-expansion-panel>
+              <v-expansion-panel-header>help.showgroup</v-expansion-panel-header>
+              <v-expansion-panel-content>help.showgroup-content</v-expansion-panel-content>
+            </v-expansion-panel>
+            <v-expansion-panel>
               <v-expansion-panel-header>help.drawmember</v-expansion-panel-header>
               <v-expansion-panel-content>help.drawmember-content</v-expansion-panel-content>
             </v-expansion-panel>

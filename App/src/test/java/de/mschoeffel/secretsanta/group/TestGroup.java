@@ -17,6 +17,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.persistence.EntityNotFoundException;
+import javax.validation.constraints.AssertTrue;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -64,6 +65,8 @@ public class TestGroup {
         Assert.assertEquals(groupClientDto.getRerolls(), result.getRerolls());
         Assert.assertEquals(membercount, result.getMembers().size());
         Assert.assertNotNull(result.getId());
+        Assert.assertNotNull(result.getToken());
+        Assert.assertTrue(result.getToken().length() > 0);
 
         Set<String> nameSet = new HashSet<>();
         for(GroupMemberClientDto member : result.getMembers()){
@@ -131,6 +134,14 @@ public class TestGroup {
         String groupname = "unittestgroupcrea123";
 
         groupClientService.findGroupByName(groupname);
+    }
+
+    @Test(expected = EntityNotFoundException.class)
+    public void testGroupnameAndTokenNotFoundException(){
+        String groupname = "unittestgroupcrea123";
+        String token = "12345678901";
+
+        groupClientService.findGroupByNameAndToken(groupname, token);
     }
 
     @Test(expected = GroupNameValidationException.class)

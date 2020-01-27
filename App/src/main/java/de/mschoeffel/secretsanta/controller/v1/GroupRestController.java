@@ -13,6 +13,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.persistence.EntityNotFoundException;
+
 @RestController("GroupRestController_v1")
 @RequestMapping("/api/v1")
 public class GroupRestController {
@@ -36,22 +38,29 @@ public class GroupRestController {
     }
 
     /**
-     * Just for testing later delete!!!
+     *
      * @param name
      * @return
      */
-    /*
-    @RequestMapping(value = "/group/{name}", method = RequestMethod.GET)
-    public GroupResult getGroup(@PathVariable(name = "name") String name){
-        GroupResultMapper mapper = new GroupResultMapper();
-
-        if(name != null && !name.isEmpty()) {
-            return mapper.clientDtoToResult(groupClientService.findGroupByName(name));
-        } else {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Empty groupname");
+    @RequestMapping(value = "/group/{name}/{token}", method = RequestMethod.DELETE)
+    public void deleteGroup(@PathVariable(name = "name") String name, @PathVariable(name = "token") String token){
+        try{
+            groupClientService.deleteGroupByNameAndToken(name, token);
+        } catch(EntityNotFoundException e){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Group not found.");
         }
     }
-    */
+
+    @RequestMapping(value = "/group/{name}/{token}", method = RequestMethod.GET)
+    public GroupCreationResult getGroup(@PathVariable(name = "name") String name, @PathVariable(name = "token") String token){
+        GroupResultMapper mapper = new GroupResultMapper();
+
+        try{
+            return mapper.clientDtoToCreationResult(groupClientService.findGroupByNameAndToken(name, token));
+        } catch(EntityNotFoundException e){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Group not found.");
+        }
+    }
 
     @RequestMapping(value = "/group/check/{name}", method = RequestMethod.GET)
     public boolean checkGroupName(@PathVariable(name = "name") String name){

@@ -48,6 +48,8 @@ exports[`NewGroupDef.vue should render correct group creation form 1`] = `
               <v-stepper-content step="3">
                 <v-alert name="info" id="info" type="info" outlined="" dismissible="">new-group.info3</v-alert>
                 <!---->
+                <v-alert name="info" id="info" type="info" outlined="" dismissible="">new-group.info4</v-alert>
+                <!---->
               </v-stepper-content>
             </v-stepper-items>
           </v-stepper>

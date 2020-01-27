@@ -12,10 +12,18 @@
         </v-list-item>
         <v-list-item link v-on:click="routeNewGroup">
           <v-list-item-action>
-            <v-icon>mdi-account-group</v-icon>
+            <v-icon>mdi-account-multiple-plus</v-icon>
           </v-list-item-action>
           <v-list-item-content>
             <v-list-item-title>{{ $t('navigation.create-group')}}</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+        <v-list-item link v-on:click="routeShowGroup">
+          <v-list-item-action>
+            <v-icon>mdi-account-group</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>{{ $t('navigation.show-group')}}</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
         <v-divider></v-divider>
@@ -108,6 +116,9 @@ export default {
     },
     routeNewGroup: function() {
       this.$router.push({ path: "/newgroup" }).catch(err => {});
+    },
+    routeShowGroup: function(){
+      this.$router.push({ path: "/group" }).catch(err => {});
     },
     changeTheme: function() {
       this.$vuetify.theme.dark = this.themeSwitch;

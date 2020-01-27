@@ -5,9 +5,6 @@ import de.mschoeffel.secretsanta.model.Group;
 import de.mschoeffel.secretsanta.model.GroupMember;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.web.context.annotation.RequestScope;
-
-import javax.persistence.EntityNotFoundException;
 
 @Component
 public class GetPartnerToMember {

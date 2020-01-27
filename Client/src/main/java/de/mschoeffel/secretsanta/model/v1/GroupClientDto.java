@@ -7,6 +7,7 @@ public class GroupClientDto {
     private Long id;
     private String name;
     private Integer rerolls;
+    private String token;
     private List<GroupMemberClientDto> members;
 
     public GroupClientDto() {
@@ -34,6 +35,14 @@ public class GroupClientDto {
 
     public void setRerolls(Integer rerolls) {
         this.rerolls = rerolls;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 
     public List<GroupMemberClientDto> getMembers() {

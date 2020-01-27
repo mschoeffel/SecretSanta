@@ -11,8 +11,9 @@ public interface GroupClientService {
      */
     GroupClientDto createGroup(GroupClientDto group);
 
-
     GroupClientDto findGroupByName(String name);
+
+    GroupClientDto findGroupByNameAndToken(String name, String Token);
 
     /**
      * Checks if a group with the given name already exists.
@@ -24,4 +25,7 @@ public interface GroupClientService {
     void deleteGroup(String name);
 
     GroupClientDto clearAllPartner(String name);
+
+    void deleteGroupByNameAndToken(String name, String token);
+
 }

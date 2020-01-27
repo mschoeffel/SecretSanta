@@ -104,10 +104,10 @@
                           <v-text-field
                             :label="$t('new-group.member-name')"
                             v-model="member.name"
-                            :name="name + index"
-                            :id="name + index"
+                            :name="'name' + index"
+                            :id="'name' + index"
                             type="text"
-                            prepend-icon="mdi-account"
+                            prepend-icon="mdi-account-group"
                             :counter="maxcharmember"
                             :error-messages="$t(member.error, {max: maxcharmember})"
                             v-on:change="checkmember(member)"
@@ -125,6 +125,31 @@
                     outlined
                     dismissible
                   >{{ $t('new-group.info3')}}</v-alert>
+                  <v-text-field
+                    v-if="group != null"
+                    :label="$t('new-group.token')"
+                    :value="group.token"
+                    name="token"
+                    id="token"
+                    :type="showGroupKey ? 'text' : 'password'"
+                    prepend-icon="mdi-key"
+                    readonly
+                  >
+                    <template slot="append">
+                      <v-icon
+                        class="mr-3"
+                        v-on:click="showGroupKey = !showGroupKey"
+                      >{{showGroupKey ? 'mdi-eye' : 'mdi-eye-off'}}</v-icon>
+                      <v-icon v-on:click="simpleCopyToClipboard('token')">mdi-content-copy</v-icon>
+                    </template>
+                  </v-text-field>
+                  <v-alert
+                    name="info"
+                    id="info"
+                    type="info"
+                    outlined
+                    dismissible
+                  >{{ $t('new-group.info4')}}</v-alert>
                   <v-simple-table fixed-header v-if="group != null">
                     <thead>
                       <tr>
@@ -145,6 +170,7 @@
                             :name="'key-' + index"
                             :id="'key-' + index"
                             :type="member.showKey ? 'text' : 'password'"
+                            readonly
                           >
                             <template slot="append">
                               <v-icon
@@ -223,7 +249,10 @@ export default {
 
     minrerolls: 0,
     maxrerolls: 100,
-    rerollserror: ""
+    rerollserror: "",
+
+    /* Result */
+    showGroupKey: false
   }),
   methods: {
     stepBack: function() {
@@ -318,7 +347,6 @@ export default {
               for (let i = 0; i < s; i++) {
                 this.$set(this.group.members[i], "showKey", false);
               }
-              console.log(this.group);
               this.step = 3;
             })
             .catch(error => {
@@ -349,6 +377,21 @@ export default {
       document.execCommand("copy");
       if (changed) {
         member.showKey = false;
+        input.setAttribute("type", "password");
+      }
+    },
+    simpleCopyToClipboard: function(id) {
+      let changed = false;
+      let input = document.getElementById(id);
+      if(!this.showGroupKey){
+        this.showGroupKey = true;
+        input.setAttribute("type", "text");
+        changed = true;
+      }
+      input.select();
+      document.execCommand("copy");
+      if(changed){
+        this.showGroupKey = false;
         input.setAttribute("type", "password");
       }
     }

@@ -3,11 +3,12 @@
     "title": "Secret Santa",
     "language": "Language",
     "themeswitch": "Darkmode",
-    "versionnumber": "v1.0.2"
+    "versionnumber": "v1.1.0"
   },
   "navigation": {
     "home": "Home",
     "create-group": "Create group",
+    "show-group": "Show group",
     "github": "Github",
     "login": "Log in",
     "register": "Register",
@@ -44,6 +45,7 @@
     "email": "Send credentials via E-Mail",
     "rerolls": "Allow rerolls",
     "rerolls-slider": "Number of possible rerolls",
+    "token": "Groupkey",
     "back": "Home | Back | Home",
     "next": "Next | Create | Finish",
     "member-name": "Name",
@@ -64,7 +66,38 @@
     "validationerror": "Please fulfill the form correctly",
     "info1": "Create a group with a name, the number of members and optional the possibility and number of rerolls each member can make.",
     "info2": "Enter all members' names here.",
-    "info3": "Send each member his/hers credentials and your ready to draw. (With a click on the eye icon you can show the key and wit a click on the icon to the right you can copy the key to your clipboard.)"
+    "info3": "Please write down this groupkey if you want to visit the group information later again with the 'Show group' menu item",
+    "info4": "Send each member his/hers credentials and your ready to draw. (With a click on the eye icon you can show the key and wit a click on the icon to the right you can copy the key to your clipboard.)"
+  },
+  "show-group": {
+    "formtitle": "Show group",
+    "final-title": "Group: {name}",
+    "input": "Input",
+    "result": "Result",
+    "info": "Please enter the groupname and the groupkey",
+    "info2": "This is your groupkey",
+    "info3": "This are all member with their information",
+    "name": "Groupname",
+    "key": "Groupkey",
+    "token": "Groupkey",
+    "member-number": "Member number",
+    "member-name": "Member name",
+    "rerolls": "Number of rerolls",
+    "draw-accepted": "Partner accepted",
+    "member-key": "Member key",
+    "back": "Home | Back",
+    "next": "Next",
+    "delete": "Delete group",
+    "delete-title": "Delete group",
+    "delete-text": "Do you really want to delete the group? All data will get lost. Action cant be undone.",
+    "delete-cancel": "Cancel",
+    "delete-accept": "Yes delete group",
+    "delete-successfull": "Group succesfully deleted",
+    "delete-error": "Error deleting the group",
+    "validation-groupnamerequired": "Groupname required",
+    "validation-groupnamelength": "Groupname needs to be below {max} characters",
+    "validation-invalid-credentials": "Invalid credentials",
+    "validation-invalid-input": "Please fulfill the form correctly"
   },
   "help": {
     "formtitle": "Help",
@@ -72,8 +105,10 @@
     "firststeps": "First steps",
     "firststeps-content": "Welcome to the Secret Santa organizing page. The first thing you need to do is to create a new group with a name. Afterwards members are added and at the end each member is a key assigned. With the group name, the member name and the associated key, each member can then independently draw a partner from the group. That’s it",
     "newgroup": "Create a new group",
-    "newgroup-content": "A new group can be created using the 'Create group' button. First a group name and the number of members must be entered. Optionally you can add the possibility to reroll their parter for the members if someone does not like his/her first drawn partner. This option can be activated with a klick on the 'Allow rerolls' box and entering the number of times each member can reroll in the field 'Number of possible rerolls' below. (Attention, the currently drawn partner can also be drawn again). By clicking on 'Next' you will be asked to enter the name or a pseudonym for each member. No name / pseudonym may appear more than once in a group. By clicking on 'Create' the group gets created and you get displayed all the information. On the top you get the group name and below a list with all the members and for each member the name and corresponding key (Can be shown by clicking on the eye icon). Now you only have to send each member their data (group name, name, key) and everyone can start drawing a partner for themselves. With a click on 'Finish' the data gets closed",
+    "newgroup-content": "A new group can be created using the 'Create group' button. First a group name and the number of members must be entered. Optionally you can add the possibility to reroll their parter for the members if someone does not like his/her first drawn partner. This option can be activated with a klick on the 'Allow rerolls' box and entering the number of times each member can reroll in the field 'Number of possible rerolls' below. (Attention, the currently drawn partner can also be drawn again). By clicking on 'Next' you will be asked to enter the name or a pseudonym for each member. No name / pseudonym may appear more than once in a group. By clicking on 'Create' the group gets created and you get displayed all the information. On the top you get the group name and below a list with all the members and for each member the name and corresponding key (Can be shown by clicking on the eye icon). Now you only have to send each member their data (group name, name, key) and everyone can start drawing a partner for themselves. Caution: Also write down your groupkey! You will need this key if you want to visit all the detailed information of your group again with the 'Show group' menu point. With a click on 'Finish' the data gets closed",
     "drawmember": "Draw a member",
-    "drawmember-content": "Enter the creadentials of a member, which are assigned to each member when creating a group. If the are entered correctly, a partner from the group is assigned to the member and the name of the corresponding partner gets displayed. If the option of rerolls was given when the group was created, a member can reroll his/her partner wit a click on 'Reroll'. Attention, the same partner can be drawn again. It can be rerolled as long as it was specified when the group was created. How many dolls are left can be seen by the small number on the right top corner of the button. If a suitable partner has been drawn, you can confirm this partner by clicking on the 'Accept' button. After 5 minutes the drawn partner is automatically accepted for you. If the partner is accepted, you cannot draw again. If you have forgotten your partner, you can re-enter your credentials at any time and your assigned partner will be displayed again."
+    "drawmember-content": "Enter the creadentials of a member, which are assigned to each member when creating a group. If the are entered correctly, a partner from the group is assigned to the member and the name of the corresponding partner gets displayed. If the option of rerolls was given when the group was created, a member can reroll his/her partner wit a click on 'Reroll'. Attention, the same partner can be drawn again. It can be rerolled as long as it was specified when the group was created. How many dolls are left can be seen by the small number on the right top corner of the button. If a suitable partner has been drawn, you can confirm this partner by clicking on the 'Accept' button. After 5 minutes the drawn partner is automatically accepted for you. If the partner is accepted, you cannot draw again. If you have forgotten your partner, you can re-enter your credentials at any time and your assigned partner will be displayed again.",
+    "showgroup": "Show group",
+    "showgroup-content": "With the groupname and the groupkey entered you can see all the information to a created group. And if you wish you can delete the group there."
   }
 }

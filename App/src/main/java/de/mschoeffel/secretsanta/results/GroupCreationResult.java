@@ -5,6 +5,7 @@ import java.util.List;
 public class GroupCreationResult {
 
     private String name;
+    private String token;
     private List<GroupMemberCreationResult> members;
 
     public GroupCreationResult() {
@@ -16,6 +17,14 @@ public class GroupCreationResult {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 
     public List<GroupMemberCreationResult> getMembers() {

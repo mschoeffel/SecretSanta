@@ -15,6 +15,7 @@ public class GroupClientMapper {
             groupClientDto.setId(groupDto.getId());
             groupClientDto.setName(groupDto.getName());
             groupClientDto.setRerolls(groupDto.getRerolls());
+            groupClientDto.setToken(groupDto.getToken());
 
             GroupMemberClientMapper mapper = new GroupMemberClientMapper();
             groupClientDto.setMembers(mapper.dtoToClientDto(groupDto.getMembers()));
@@ -31,6 +32,7 @@ public class GroupClientMapper {
             groupDto.setId(groupClientDto.getId());
             groupDto.setName(groupClientDto.getName());
             groupDto.setRerolls(groupClientDto.getRerolls());
+            groupDto.setToken(groupClientDto.getToken());
 
             GroupMemberClientMapper mapper = new GroupMemberClientMapper();
             groupDto.setMembers(mapper.clientDtoToDto(groupClientDto.getMembers()));

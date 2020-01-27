@@ -24,9 +24,15 @@ public class GroupServiceEmb implements GroupClientService{
     }
 
     @Override
-    public GroupClientDto findGroupByName(String name) {
+    public GroupClientDto findGroupByName(String name){
         GroupClientMapper mapper = new GroupClientMapper();
         return mapper.dtoToClientDto(groupService.findGroupByName(name));
+    }
+
+    @Override
+    public GroupClientDto findGroupByNameAndToken(String name, String token) {
+        GroupClientMapper mapper = new GroupClientMapper();
+        return mapper.dtoToClientDto(groupService.findGroupByNameAndToken(name, token));
     }
 
     /**
@@ -48,5 +54,10 @@ public class GroupServiceEmb implements GroupClientService{
     public GroupClientDto clearAllPartner(String name) {
         GroupClientMapper mapper = new GroupClientMapper();
         return mapper.dtoToClientDto(groupService.clearAllPartner(name));
+    }
+
+    @Override
+    public void deleteGroupByNameAndToken(String name, String token){
+        groupService.deleteGroupByNameAndToken(name, token);
     }
 }
