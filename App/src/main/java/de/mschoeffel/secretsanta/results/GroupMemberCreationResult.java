@@ -4,6 +4,7 @@ public class GroupMemberCreationResult {
 
     private String name;
     private String key;
+    private String partner;
     private Integer rerolls;
     private Boolean drawAccepted;
 
@@ -24,6 +25,14 @@ public class GroupMemberCreationResult {
 
     public void setKey(String key) {
         this.key = key;
+    }
+
+    public String getPartner() {
+        return partner;
+    }
+
+    public void setPartner(String partner) {
+        this.partner = partner;
     }
 
     public Integer getRerolls() {

@@ -106,6 +106,7 @@
                       <tr>
                         <th class="text-left">{{ $t('show-group.member-number')}}</th>
                         <th class="text-left">{{ $t('show-group.member-name')}}</th>
+                        <th class="text-left">{{ $t('show-group.member-partner')}}</th>
                         <th class="text-left">{{ $t('show-group.rerolls')}}</th>
                         <th class="text-left">{{ $t('show-group.draw-accepted')}}</th>
                         <th class="text-left">{{ $t('show-group.member-key')}}</th>
@@ -115,6 +116,7 @@
                       <tr v-for="(member, index) in group.members" v-bind:key="index">
                         <td>{{ index + 1 }}</td>
                         <td>{{ member.name }}</td>
+                        <td>{{ member.partner }}</td>
                         <td>{{ member.rerolls }}</td>
                         <td>{{ member.drawAccepted }}</td>
                         <td>
